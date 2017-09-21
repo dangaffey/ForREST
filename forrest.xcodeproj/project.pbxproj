@@ -10,6 +10,18 @@
 		5DF5CA021F734C6A00E5C0DE /* forrest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF5C9F81F734C6A00E5C0DE /* forrest.framework */; };
 		5DF5CA071F734C6A00E5C0DE /* forrestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA061F734C6A00E5C0DE /* forrestTests.swift */; };
 		5DF5CA091F734C6A00E5C0DE /* forrest.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DF5C9FB1F734C6A00E5C0DE /* forrest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5DF5CA131F734FB300E5C0DE /* OAuthHttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA121F734FB300E5C0DE /* OAuthHttpClient.swift */; };
+		5DF5CA161F7352C800E5C0DE /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF5CA151F7352C800E5C0DE /* Alamofire.framework */; };
+		5DF5CA181F7353ED00E5C0DE /* HttpRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA171F7353ED00E5C0DE /* HttpRequestProtocol.swift */; };
+		5DF5CA1A1F73544400E5C0DE /* RequestPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA191F73544400E5C0DE /* RequestPrototype.swift */; };
+		5DF5CA1D1F73556200E5C0DE /* OAuthStateProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA1C1F73556200E5C0DE /* OAuthStateProviderProtocol.swift */; };
+		5DF5CA1F1F73564C00E5C0DE /* OAuthConfigProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA1E1F73564C00E5C0DE /* OAuthConfigProviderProtocol.swift */; };
+		5DF5CA211F73568000E5C0DE /* ClientCredentialsProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA201F73568000E5C0DE /* ClientCredentialsProviderProtocol.swift */; };
+		5DF5CA241F73571800E5C0DE /* RefreshParserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA231F73571800E5C0DE /* RefreshParserProtocol.swift */; };
+		5DF5CA261F73574900E5C0DE /* AppAuthParserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA251F73574900E5C0DE /* AppAuthParserProtocol.swift */; };
+		5DF5CA281F73577100E5C0DE /* UserAuthParserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA271F73577100E5C0DE /* UserAuthParserProtocol.swift */; };
+		5DF5CA2A1F73582900E5C0DE /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA291F73582900E5C0DE /* AccessToken.swift */; };
+		5DF5CA2C1F735A0900E5C0DE /* NetworkConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA2B1F735A0900E5C0DE /* NetworkConfig.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +41,18 @@
 		5DF5CA011F734C6A00E5C0DE /* forrestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = forrestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DF5CA061F734C6A00E5C0DE /* forrestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = forrestTests.swift; sourceTree = "<group>"; };
 		5DF5CA081F734C6A00E5C0DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5DF5CA121F734FB300E5C0DE /* OAuthHttpClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthHttpClient.swift; sourceTree = "<group>"; };
+		5DF5CA151F7352C800E5C0DE /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		5DF5CA171F7353ED00E5C0DE /* HttpRequestProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpRequestProtocol.swift; sourceTree = "<group>"; };
+		5DF5CA191F73544400E5C0DE /* RequestPrototype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPrototype.swift; sourceTree = "<group>"; };
+		5DF5CA1C1F73556200E5C0DE /* OAuthStateProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthStateProviderProtocol.swift; sourceTree = "<group>"; };
+		5DF5CA1E1F73564C00E5C0DE /* OAuthConfigProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthConfigProviderProtocol.swift; sourceTree = "<group>"; };
+		5DF5CA201F73568000E5C0DE /* ClientCredentialsProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientCredentialsProviderProtocol.swift; sourceTree = "<group>"; };
+		5DF5CA231F73571800E5C0DE /* RefreshParserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshParserProtocol.swift; sourceTree = "<group>"; };
+		5DF5CA251F73574900E5C0DE /* AppAuthParserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuthParserProtocol.swift; sourceTree = "<group>"; };
+		5DF5CA271F73577100E5C0DE /* UserAuthParserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthParserProtocol.swift; sourceTree = "<group>"; };
+		5DF5CA291F73582900E5C0DE /* AccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessToken.swift; sourceTree = "<group>"; };
+		5DF5CA2B1F735A0900E5C0DE /* NetworkConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConfig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DF5CA161F7352C800E5C0DE /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +81,7 @@
 				5DF5C9FA1F734C6A00E5C0DE /* forrest */,
 				5DF5CA051F734C6A00E5C0DE /* forrestTests */,
 				5DF5C9F91F734C6A00E5C0DE /* Products */,
+				5DF5CA141F7352C800E5C0DE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,8 +97,15 @@
 		5DF5C9FA1F734C6A00E5C0DE /* forrest */ = {
 			isa = PBXGroup;
 			children = (
+				5DF5CA221F73570200E5C0DE /* parser */,
+				5DF5CA1B1F73554000E5C0DE /* provider */,
 				5DF5C9FB1F734C6A00E5C0DE /* forrest.h */,
 				5DF5C9FC1F734C6A00E5C0DE /* Info.plist */,
+				5DF5CA121F734FB300E5C0DE /* OAuthHttpClient.swift */,
+				5DF5CA171F7353ED00E5C0DE /* HttpRequestProtocol.swift */,
+				5DF5CA191F73544400E5C0DE /* RequestPrototype.swift */,
+				5DF5CA291F73582900E5C0DE /* AccessToken.swift */,
+				5DF5CA2B1F735A0900E5C0DE /* NetworkConfig.swift */,
 			);
 			path = forrest;
 			sourceTree = "<group>";
@@ -84,6 +117,34 @@
 				5DF5CA081F734C6A00E5C0DE /* Info.plist */,
 			);
 			path = forrestTests;
+			sourceTree = "<group>";
+		};
+		5DF5CA141F7352C800E5C0DE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5DF5CA151F7352C800E5C0DE /* Alamofire.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5DF5CA1B1F73554000E5C0DE /* provider */ = {
+			isa = PBXGroup;
+			children = (
+				5DF5CA1C1F73556200E5C0DE /* OAuthStateProviderProtocol.swift */,
+				5DF5CA1E1F73564C00E5C0DE /* OAuthConfigProviderProtocol.swift */,
+				5DF5CA201F73568000E5C0DE /* ClientCredentialsProviderProtocol.swift */,
+			);
+			path = provider;
+			sourceTree = "<group>";
+		};
+		5DF5CA221F73570200E5C0DE /* parser */ = {
+			isa = PBXGroup;
+			children = (
+				5DF5CA231F73571800E5C0DE /* RefreshParserProtocol.swift */,
+				5DF5CA251F73574900E5C0DE /* AppAuthParserProtocol.swift */,
+				5DF5CA271F73577100E5C0DE /* UserAuthParserProtocol.swift */,
+			);
+			path = parser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +209,7 @@
 				TargetAttributes = {
 					5DF5C9F71F734C6A00E5C0DE = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					5DF5CA001F734C6A00E5C0DE = {
@@ -196,6 +258,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DF5CA261F73574900E5C0DE /* AppAuthParserProtocol.swift in Sources */,
+				5DF5CA2C1F735A0900E5C0DE /* NetworkConfig.swift in Sources */,
+				5DF5CA241F73571800E5C0DE /* RefreshParserProtocol.swift in Sources */,
+				5DF5CA211F73568000E5C0DE /* ClientCredentialsProviderProtocol.swift in Sources */,
+				5DF5CA281F73577100E5C0DE /* UserAuthParserProtocol.swift in Sources */,
+				5DF5CA1F1F73564C00E5C0DE /* OAuthConfigProviderProtocol.swift in Sources */,
+				5DF5CA1D1F73556200E5C0DE /* OAuthStateProviderProtocol.swift in Sources */,
+				5DF5CA1A1F73544400E5C0DE /* RequestPrototype.swift in Sources */,
+				5DF5CA131F734FB300E5C0DE /* OAuthHttpClient.swift in Sources */,
+				5DF5CA181F7353ED00E5C0DE /* HttpRequestProtocol.swift in Sources */,
+				5DF5CA2A1F73582900E5C0DE /* AccessToken.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +407,7 @@
 		5DF5CA0D1F734C6A00E5C0DE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -341,12 +415,18 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = forrest/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.unchartedrealms.forrest;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -355,6 +435,7 @@
 		5DF5CA0E1F734C6A00E5C0DE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -362,8 +443,13 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = forrest/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.unchartedrealms.forrest;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -376,6 +462,7 @@
 		5DF5CA101F734C6A00E5C0DE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q88G84ZPPX;
 				INFOPLIST_FILE = forrestTests/Info.plist;
@@ -390,6 +477,7 @@
 		5DF5CA111F734C6A00E5C0DE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q88G84ZPPX;
 				INFOPLIST_FILE = forrestTests/Info.plist;
