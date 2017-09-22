@@ -28,6 +28,8 @@
 		1F82ED4D1F7419260084D9E2 /* MockUserAuthParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED4C1F7419260084D9E2 /* MockUserAuthParser.swift */; };
 		1F82ED4E1F741ABB0084D9E2 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF5CA151F7352C800E5C0DE /* Alamofire.framework */; };
 		1F82ED511F744AA50084D9E2 /* AppAuthRequiredTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED501F744AA50084D9E2 /* AppAuthRequiredTests.swift */; };
+		1F82ED561F756D1B0084D9E2 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED551F756D1B0084D9E2 /* DateExtensions.swift */; };
+		1F82ED581F756DDA0084D9E2 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F82ED571F756DDA0084D9E2 /* SwiftyJSON.framework */; };
 		5DF5CA071F734C6A00E5C0DE /* NoAuthRequiredTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA061F734C6A00E5C0DE /* NoAuthRequiredTests.swift */; };
 		5DF5CA091F734C6A00E5C0DE /* forrest.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DF5C9FB1F734C6A00E5C0DE /* forrest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5DF5CA131F734FB300E5C0DE /* OAuthHttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA121F734FB300E5C0DE /* OAuthHttpClient.swift */; };
@@ -64,6 +66,8 @@
 		1F82ED4A1F7418E10084D9E2 /* MockAppAuthParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAppAuthParser.swift; sourceTree = "<group>"; };
 		1F82ED4C1F7419260084D9E2 /* MockUserAuthParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserAuthParser.swift; sourceTree = "<group>"; };
 		1F82ED501F744AA50084D9E2 /* AppAuthRequiredTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuthRequiredTests.swift; sourceTree = "<group>"; };
+		1F82ED551F756D1B0084D9E2 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
+		1F82ED571F756DDA0084D9E2 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		5DF5C9F81F734C6A00E5C0DE /* forrest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = forrest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DF5C9FB1F734C6A00E5C0DE /* forrest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = forrest.h; sourceTree = "<group>"; };
 		5DF5C9FC1F734C6A00E5C0DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -97,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F82ED581F756DDA0084D9E2 /* SwiftyJSON.framework in Frameworks */,
 				1F82ED4E1F741ABB0084D9E2 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -141,6 +146,14 @@
 			path = test;
 			sourceTree = "<group>";
 		};
+		1F82ED541F756CDF0084D9E2 /* extension */ = {
+			isa = PBXGroup;
+			children = (
+				1F82ED551F756D1B0084D9E2 /* DateExtensions.swift */,
+			);
+			path = extension;
+			sourceTree = "<group>";
+		};
 		5DF5C9EE1F734C6A00E5C0DE = {
 			isa = PBXGroup;
 			children = (
@@ -179,6 +192,7 @@
 		5DF5CA051F734C6A00E5C0DE /* forrestTests */ = {
 			isa = PBXGroup;
 			children = (
+				1F82ED541F756CDF0084D9E2 /* extension */,
 				1F82ED521F744AB60084D9E2 /* test */,
 				1F82ED471F7418660084D9E2 /* parser */,
 				1F82ED381F740CCF0084D9E2 /* provider */,
@@ -192,6 +206,7 @@
 		5DF5CA141F7352C800E5C0DE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1F82ED571F756DDA0084D9E2 /* SwiftyJSON.framework */,
 				5DF5CA151F7352C800E5C0DE /* Alamofire.framework */,
 			);
 			name = Frameworks;
@@ -332,6 +347,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 			);
 			outputPaths = (
 			);
@@ -369,6 +385,7 @@
 				1F82ED3B1F740DF00084D9E2 /* OAuthStateProviderProtocol.swift in Sources */,
 				1F82ED511F744AA50084D9E2 /* AppAuthRequiredTests.swift in Sources */,
 				1F82ED3E1F740E590084D9E2 /* OAuthConfigProviderProtocol.swift in Sources */,
+				1F82ED561F756D1B0084D9E2 /* DateExtensions.swift in Sources */,
 				1F82ED491F74188B0084D9E2 /* MockRefreshParser.swift in Sources */,
 				1F82ED3D1F740E4C0084D9E2 /* MockConfigProvider.swift in Sources */,
 				1F82ED401F740EA80084D9E2 /* MockClientCredentialsProvider.swift in Sources */,

@@ -14,18 +14,21 @@ class AppAuthRequiredTests: XCTestCase
     var networkConfig: NetworkConfig?
     var httpClient: OAuthHttpClient?
     var mockService: MockService?
+    var mockStateProvider: MockStateProvider?
     var data: Any?
     
     override func setUp()
     {
         super.setUp()
         self.networkConfig = NetworkConfig.sharedInstance
-        self.networkConfig!.setConfigProvider(configProvider: MockConfigProvider())
-        self.networkConfig!.setStateProvider(stateProvider: MockStateProvider())
+        self.mockStateProvider = MockStateProvider()
         
+        self.networkConfig!.setConfigProvider(configProvider: MockConfigProvider())
+        self.networkConfig!.setStateProvider(stateProvider: self.mockStateProvider!)
         self.httpClient = OAuthHttpClient.sharedInstance
         self.mockService = MockService.sharedInstance
-        self.data = nil
+        try! self.mockStateProvider!.setAppAccessData(token: "", expiration: "")
+        
     }
     
     override func tearDown()
@@ -40,18 +43,16 @@ class AppAuthRequiredTests: XCTestCase
         
         self.httpClient!.attemptAppAuthentication(
             successHandler: { () in
-                debugPrint("Persisted")
                 asyncExpectation.fulfill()
             },
             failureHandler: { (error: Error) in
-                debugPrint(error)
                 asyncExpectation.fulfill()
             }
         )
         
         self.waitForExpectations(timeout: 10) { (error) in
             XCTAssert(error == nil)
-            XCTAssert(self.data != nil)
+            XCTAssert(self.mockStateProvider!.appAccessTokenValid() == true)
         }
     }
     

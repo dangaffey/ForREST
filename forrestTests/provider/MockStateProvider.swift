@@ -8,8 +8,11 @@
 
 import Foundation
 
-struct MockStateProvider: OAuthStateProviderProtocol
+class MockStateProvider: OAuthStateProviderProtocol
 {
+    private var appToken: AccessToken?
+    
+    
     func userAccessIntended() -> Bool
     {
         return false
@@ -22,7 +25,11 @@ struct MockStateProvider: OAuthStateProviderProtocol
     
     func appAccessTokenValid() -> Bool
     {
-        return false
+        guard let _ = appToken else {
+            return false
+        }
+        
+        return true
     }
     
     func setUserAccessData(token: String, expiration: String) throws
@@ -37,7 +44,7 @@ struct MockStateProvider: OAuthStateProviderProtocol
     
     func setAppAccessData(token: String, expiration: String) throws
     {
-        
+        self.appToken = AccessToken(id: token, expiration: expiration)
     }
     
     func getUserAccessData() -> (token: String, expiration: String)?

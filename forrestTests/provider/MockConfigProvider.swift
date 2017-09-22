@@ -22,7 +22,7 @@ struct MockConfigProvider: OAuthConfigProviderProtocol
     
     func getAppAuthEndpoint() -> String
     {
-        return "http://dgaffey.api.giftyadev.com/application/login"
+        return "http://localhost:8000/oauth/v2/token"
     }
     
     func getClientCredentials() -> ClientCredentialsProviderProtocol
