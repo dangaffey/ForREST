@@ -1,1 +1,5 @@
 Carthage/
+.DS_Store
+forrest.xcodeproj/project.xcworkspace/
+forrest.xcodeproj/xcuserdata/
+node_modules/

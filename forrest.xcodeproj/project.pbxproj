@@ -7,8 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5DF5CA021F734C6A00E5C0DE /* forrest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF5C9F81F734C6A00E5C0DE /* forrest.framework */; };
-		5DF5CA071F734C6A00E5C0DE /* forrestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA061F734C6A00E5C0DE /* forrestTests.swift */; };
+		1F82ED311F74007C0084D9E2 /* MockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED301F74007C0084D9E2 /* MockService.swift */; };
+		1F82ED321F7400B60084D9E2 /* OAuthHttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA121F734FB300E5C0DE /* OAuthHttpClient.swift */; };
+		1F82ED331F7400FC0084D9E2 /* NetworkConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA2B1F735A0900E5C0DE /* NetworkConfig.swift */; };
+		1F82ED341F7407C70084D9E2 /* RequestPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA191F73544400E5C0DE /* RequestPrototype.swift */; };
+		1F82ED351F7409180084D9E2 /* HttpRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA171F7353ED00E5C0DE /* HttpRequestProtocol.swift */; };
+		1F82ED371F7409C10084D9E2 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED361F7409C10084D9E2 /* Endpoints.swift */; };
+		1F82ED3A1F740DE00084D9E2 /* MockStateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED391F740DE00084D9E2 /* MockStateProvider.swift */; };
+		1F82ED3B1F740DF00084D9E2 /* OAuthStateProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA1C1F73556200E5C0DE /* OAuthStateProviderProtocol.swift */; };
+		1F82ED3D1F740E4C0084D9E2 /* MockConfigProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED3C1F740E4C0084D9E2 /* MockConfigProvider.swift */; };
+		1F82ED3E1F740E590084D9E2 /* OAuthConfigProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA1E1F73564C00E5C0DE /* OAuthConfigProviderProtocol.swift */; };
+		1F82ED401F740EA80084D9E2 /* MockClientCredentialsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED3F1F740EA80084D9E2 /* MockClientCredentialsProvider.swift */; };
+		1F82ED411F740EAC0084D9E2 /* ClientCredentialsProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA201F73568000E5C0DE /* ClientCredentialsProviderProtocol.swift */; };
+		1F82ED431F7418330084D9E2 /* RefreshParserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA231F73571800E5C0DE /* RefreshParserProtocol.swift */; };
+		1F82ED441F7418350084D9E2 /* AppAuthParserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA251F73574900E5C0DE /* AppAuthParserProtocol.swift */; };
+		1F82ED451F7418380084D9E2 /* UserAuthParserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA271F73577100E5C0DE /* UserAuthParserProtocol.swift */; };
+		1F82ED461F7418450084D9E2 /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA291F73582900E5C0DE /* AccessToken.swift */; };
+		1F82ED491F74188B0084D9E2 /* MockRefreshParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED481F74188B0084D9E2 /* MockRefreshParser.swift */; };
+		1F82ED4B1F7418E10084D9E2 /* MockAppAuthParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED4A1F7418E10084D9E2 /* MockAppAuthParser.swift */; };
+		1F82ED4D1F7419260084D9E2 /* MockUserAuthParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED4C1F7419260084D9E2 /* MockUserAuthParser.swift */; };
+		1F82ED4E1F741ABB0084D9E2 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF5CA151F7352C800E5C0DE /* Alamofire.framework */; };
+		1F82ED511F744AA50084D9E2 /* AppAuthRequiredTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED501F744AA50084D9E2 /* AppAuthRequiredTests.swift */; };
+		5DF5CA071F734C6A00E5C0DE /* NoAuthRequiredTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA061F734C6A00E5C0DE /* NoAuthRequiredTests.swift */; };
 		5DF5CA091F734C6A00E5C0DE /* forrest.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DF5C9FB1F734C6A00E5C0DE /* forrest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5DF5CA131F734FB300E5C0DE /* OAuthHttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA121F734FB300E5C0DE /* OAuthHttpClient.swift */; };
 		5DF5CA161F7352C800E5C0DE /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF5CA151F7352C800E5C0DE /* Alamofire.framework */; };
@@ -35,11 +55,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F82ED301F74007C0084D9E2 /* MockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockService.swift; sourceTree = "<group>"; };
+		1F82ED361F7409C10084D9E2 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
+		1F82ED391F740DE00084D9E2 /* MockStateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStateProvider.swift; sourceTree = "<group>"; };
+		1F82ED3C1F740E4C0084D9E2 /* MockConfigProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockConfigProvider.swift; sourceTree = "<group>"; };
+		1F82ED3F1F740EA80084D9E2 /* MockClientCredentialsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockClientCredentialsProvider.swift; sourceTree = "<group>"; };
+		1F82ED481F74188B0084D9E2 /* MockRefreshParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRefreshParser.swift; sourceTree = "<group>"; };
+		1F82ED4A1F7418E10084D9E2 /* MockAppAuthParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAppAuthParser.swift; sourceTree = "<group>"; };
+		1F82ED4C1F7419260084D9E2 /* MockUserAuthParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserAuthParser.swift; sourceTree = "<group>"; };
+		1F82ED501F744AA50084D9E2 /* AppAuthRequiredTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuthRequiredTests.swift; sourceTree = "<group>"; };
 		5DF5C9F81F734C6A00E5C0DE /* forrest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = forrest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DF5C9FB1F734C6A00E5C0DE /* forrest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = forrest.h; sourceTree = "<group>"; };
 		5DF5C9FC1F734C6A00E5C0DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5DF5CA011F734C6A00E5C0DE /* forrestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = forrestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5DF5CA061F734C6A00E5C0DE /* forrestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = forrestTests.swift; sourceTree = "<group>"; };
+		5DF5CA061F734C6A00E5C0DE /* NoAuthRequiredTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoAuthRequiredTests.swift; sourceTree = "<group>"; };
 		5DF5CA081F734C6A00E5C0DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5DF5CA121F734FB300E5C0DE /* OAuthHttpClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthHttpClient.swift; sourceTree = "<group>"; };
 		5DF5CA151F7352C800E5C0DE /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
@@ -68,13 +97,50 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5DF5CA021F734C6A00E5C0DE /* forrest.framework in Frameworks */,
+				1F82ED4E1F741ABB0084D9E2 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F82ED2F1F73FEFD0084D9E2 /* service */ = {
+			isa = PBXGroup;
+			children = (
+				1F82ED301F74007C0084D9E2 /* MockService.swift */,
+			);
+			path = service;
+			sourceTree = "<group>";
+		};
+		1F82ED381F740CCF0084D9E2 /* provider */ = {
+			isa = PBXGroup;
+			children = (
+				1F82ED391F740DE00084D9E2 /* MockStateProvider.swift */,
+				1F82ED3C1F740E4C0084D9E2 /* MockConfigProvider.swift */,
+				1F82ED3F1F740EA80084D9E2 /* MockClientCredentialsProvider.swift */,
+			);
+			path = provider;
+			sourceTree = "<group>";
+		};
+		1F82ED471F7418660084D9E2 /* parser */ = {
+			isa = PBXGroup;
+			children = (
+				1F82ED481F74188B0084D9E2 /* MockRefreshParser.swift */,
+				1F82ED4A1F7418E10084D9E2 /* MockAppAuthParser.swift */,
+				1F82ED4C1F7419260084D9E2 /* MockUserAuthParser.swift */,
+			);
+			path = parser;
+			sourceTree = "<group>";
+		};
+		1F82ED521F744AB60084D9E2 /* test */ = {
+			isa = PBXGroup;
+			children = (
+				5DF5CA061F734C6A00E5C0DE /* NoAuthRequiredTests.swift */,
+				1F82ED501F744AA50084D9E2 /* AppAuthRequiredTests.swift */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
 		5DF5C9EE1F734C6A00E5C0DE = {
 			isa = PBXGroup;
 			children = (
@@ -113,8 +179,12 @@
 		5DF5CA051F734C6A00E5C0DE /* forrestTests */ = {
 			isa = PBXGroup;
 			children = (
-				5DF5CA061F734C6A00E5C0DE /* forrestTests.swift */,
+				1F82ED521F744AB60084D9E2 /* test */,
+				1F82ED471F7418660084D9E2 /* parser */,
+				1F82ED381F740CCF0084D9E2 /* provider */,
+				1F82ED2F1F73FEFD0084D9E2 /* service */,
 				5DF5CA081F734C6A00E5C0DE /* Info.plist */,
+				1F82ED361F7409C10084D9E2 /* Endpoints.swift */,
 			);
 			path = forrestTests;
 			sourceTree = "<group>";
@@ -186,6 +256,7 @@
 				5DF5C9FD1F734C6A00E5C0DE /* Sources */,
 				5DF5C9FE1F734C6A00E5C0DE /* Frameworks */,
 				5DF5C9FF1F734C6A00E5C0DE /* Resources */,
+				1F82ED4F1F741B740084D9E2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -253,6 +324,23 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1F82ED4F1F741B740084D9E2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		5DF5C9F31F734C6A00E5C0DE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -276,7 +364,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5DF5CA071F734C6A00E5C0DE /* forrestTests.swift in Sources */,
+				1F82ED431F7418330084D9E2 /* RefreshParserProtocol.swift in Sources */,
+				1F82ED3A1F740DE00084D9E2 /* MockStateProvider.swift in Sources */,
+				1F82ED3B1F740DF00084D9E2 /* OAuthStateProviderProtocol.swift in Sources */,
+				1F82ED511F744AA50084D9E2 /* AppAuthRequiredTests.swift in Sources */,
+				1F82ED3E1F740E590084D9E2 /* OAuthConfigProviderProtocol.swift in Sources */,
+				1F82ED491F74188B0084D9E2 /* MockRefreshParser.swift in Sources */,
+				1F82ED3D1F740E4C0084D9E2 /* MockConfigProvider.swift in Sources */,
+				1F82ED401F740EA80084D9E2 /* MockClientCredentialsProvider.swift in Sources */,
+				1F82ED321F7400B60084D9E2 /* OAuthHttpClient.swift in Sources */,
+				1F82ED451F7418380084D9E2 /* UserAuthParserProtocol.swift in Sources */,
+				1F82ED351F7409180084D9E2 /* HttpRequestProtocol.swift in Sources */,
+				5DF5CA071F734C6A00E5C0DE /* NoAuthRequiredTests.swift in Sources */,
+				1F82ED4D1F7419260084D9E2 /* MockUserAuthParser.swift in Sources */,
+				1F82ED441F7418350084D9E2 /* AppAuthParserProtocol.swift in Sources */,
+				1F82ED461F7418450084D9E2 /* AccessToken.swift in Sources */,
+				1F82ED4B1F7418E10084D9E2 /* MockAppAuthParser.swift in Sources */,
+				1F82ED371F7409C10084D9E2 /* Endpoints.swift in Sources */,
+				1F82ED331F7400FC0084D9E2 /* NetworkConfig.swift in Sources */,
+				1F82ED311F74007C0084D9E2 /* MockService.swift in Sources */,
+				1F82ED411F740EAC0084D9E2 /* ClientCredentialsProviderProtocol.swift in Sources */,
+				1F82ED341F7407C70084D9E2 /* RequestPrototype.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,6 +573,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q88G84ZPPX;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = forrestTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.unchartedrealms.forrestTests;
@@ -480,6 +592,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q88G84ZPPX;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = forrestTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.unchartedrealms.forrestTests;

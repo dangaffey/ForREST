@@ -12,11 +12,18 @@ import Alamofire
 
 public enum OAuthError: Error {
     case expiredCredentials
+    case parseError
+    case persistError
 }
 
 
 class OAuthHttpClient
 {
+    static let sharedInstance = OAuthHttpClient(
+        oauthStateProvider: NetworkConfig.sharedInstance.getStateProvider()!,
+        oauthConfigProvider: NetworkConfig.sharedInstance.getConfigProvider()!
+    )
+    
     let oauthStateProvider: OAuthStateProviderProtocol
     let oauthConfigProvider: OAuthConfigProviderProtocol
     
@@ -25,10 +32,10 @@ class OAuthHttpClient
     
     let AUTH_HEADER = "Authorization"
     
-    public init(
+    private init(
         oauthStateProvider: OAuthStateProviderProtocol,
-        oauthConfigProvider: OAuthConfigProviderProtocol)
-    {
+        oauthConfigProvider: OAuthConfigProviderProtocol
+    ) {
         self.oauthStateProvider = oauthStateProvider
         self.oauthConfigProvider = oauthConfigProvider
     }
@@ -42,7 +49,7 @@ class OAuthHttpClient
             try attemptUserAccessRequest(request: request)
             break
             
-        case .AnyAuthRequired:
+        case .AppAuthRequired:
             try attemptAnyAccessRequest(request: request)
             break
             
@@ -95,8 +102,10 @@ class OAuthHttpClient
     /**
      Attempts to authenticate the application
      */
-    public func attemptAppAuthentication()
-    {
+    public func attemptAppAuthentication(
+        successHandler: @escaping () -> (),
+        failureHandler: @escaping (Error) -> ()
+    ) {
         let authRequest = RequestPrototype(
             type: .NoAuthRequired,
             method: .post,
@@ -105,37 +114,34 @@ class OAuthHttpClient
                 clientId: oauthConfigProvider.getClientCredentials().getClientId(),
                 clientSecret: oauthConfigProvider.getClientCredentials().getClientSecret()),
             parameterEncoding: JSONEncoding.default,
-            responseCallback: { [unowned self] response in
+            responseCallback: { [weak self] response in
                 
                 switch response.result {
                     
-                case .success(let data):
-                    //track time using response.timeline object
-                    guard let appToken = self.oauthConfigProvider
-                        .getAppAuthParser()
-                        .fromJson(jsonData: data) else {
+                    case .success(let data):
+                        //track time using response.timeline object
+                        guard let appToken = self?.oauthConfigProvider
+                            .getAppAuthParser()
+                            .fromJson(jsonData: data) else {
+                                failureHandler(OAuthError.parseError)
+                                return
+                        }
+                        
+                        do {
+                            try self?.oauthStateProvider.setAppAccessData(
+                                token: appToken.getId(),
+                                expiration: appToken.getExpiration())
+                            successHandler()
                             
-                            //TODO refresh parse failed
-                            return
-                    }
-                    
-                    do {
-                        try self.oauthStateProvider.setAppAccessData(
-                            token: appToken.getId(),
-                            expiration: appToken.getExpiration())
+                        } catch (let error) {
+                            failureHandler(error)
+                        }
                         
-                        //CALL A SUCCESS THAT WAS PASSED
-                        
-                    } catch (let error) {
-                        //TODO logout and log, could not persist important data
-                        //TODO throw an exception
-                    }
+                        break
                     
-                    break
-                    
-                case .failure(let error):
-                    //CALL A FAILURE THAT WAS PASSED
-                    break
+                    case .failure(let error):
+                        failureHandler(error)
+                        break
                 }
             }
         )
@@ -388,7 +394,7 @@ class OAuthHttpClient
             
             return header
             
-        case .AnyAuthRequired:
+        case .AppAuthRequired:
             guard oauthStateProvider.userAccessIntended() else {
                 guard let header = oauthStateProvider.getAppAccessData()?.token else {
                     return nil

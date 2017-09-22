@@ -14,7 +14,7 @@ import Alamofire
 
 public enum RequestType {
     case UserAuthRequired
-    case AnyAuthRequired
+    case AppAuthRequired
     case NoAuthRequired
 }
 

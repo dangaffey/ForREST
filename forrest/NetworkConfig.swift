@@ -7,63 +7,69 @@
 //
 
 import Foundation
-
-
-protocol NetworkConfigProtocol
-{
-    var OAuthConfig
-}
+import Alamofire
 
 class NetworkConfig
 {
+    static let sharedInstance = NetworkConfig()
     
-    public static class Builder
+    private var configProvider: OAuthConfigProviderProtocol?
+    private var stateProvider: OAuthStateProviderProtocol?
+    private var transportOverrideDomains: [String]?
+    
+    /**
+         Hide constructor to force static singleton usage
+     */
+    private init(){}
+    
+    
+    /**
+         Provides an optional policy to trust domains, for
+         instance, self-signed SSL certs in development env
+     */
+    var sslOverridePolicy: [String: ServerTrustPolicy]
     {
-        private Context context;
-        private OAuthConfigProvider configProvider;
-        private OAuthStateProvider stateProvider;
-        private LatencyTrackingProvider trackingProvider;
-        private boolean sslOverride = false;
-        
-        public Builder setContext(Context context)
-    {
-        this.context = context.getApplicationContext();
-        return this;
+        var policy = [String: ServerTrustPolicy]()
+        guard let overrides = transportOverrideDomains else {
+            return policy
         }
         
-        
-        public Builder setOAuthConfigProvider(OAuthConfigProvider configProvider)
-    {
-        this.configProvider = configProvider;
-        return this;
+        for domain in overrides {
+            policy[domain] = .disableEvaluation
         }
-        
-        
-        public Builder setOAuthStateProvider(OAuthStateProvider stateProvider)
+        return policy
+    }
+    
+    /**
+         Sets the config provider object
+     */
+    public func setConfigProvider(configProvider: OAuthConfigProviderProtocol)
     {
-        this.stateProvider = stateProvider;
-        return this;
-        }
-        
-        
-        public Builder setLatencyTrackerProvider(LatencyTrackingProvider trackingProvider)
+        self.configProvider = configProvider
+    }
+    
+    /**
+         Provides the oauth configuration object
+     */
+    public func getConfigProvider() -> OAuthConfigProviderProtocol?
     {
-        this.trackingProvider = trackingProvider;
-        return this;
-        }
-        
-        
-        public Builder setSSLOverride(boolean sslOverride)
+        return self.configProvider
+    }
+    
+    /**
+         Sets the state provider object
+     */
+    public func setStateProvider(stateProvider: OAuthStateProviderProtocol)
     {
-        this.sslOverride = sslOverride;
-        return this;
-        }
-        
-        
-        public NetworkConfig build()
+        self.stateProvider = stateProvider
+    }
+    
+    /**
+         Provides the oauth state object
+     */
+    public func getStateProvider() -> OAuthStateProviderProtocol?
     {
-        return new NetworkConfig(this);
-        }
+        return self.stateProvider
     }
 }
 
