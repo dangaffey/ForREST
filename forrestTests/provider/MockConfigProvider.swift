@@ -22,7 +22,8 @@ struct MockConfigProvider: OAuthConfigProviderProtocol
     
     func getAppAuthEndpoint() -> String
     {
-        return "http://localhost:8000/oauth/v2/token"
+        //return "http://localhost:8000/oauth/v2/token"
+        return "http://dgaffey.www.whitewhaler.com/oauth/v2/token"
     }
     
     func getClientCredentials() -> ClientCredentialsProviderProtocol

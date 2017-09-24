@@ -17,7 +17,10 @@ struct MockUserAuthParser: UserAuthParserProtocol
         return [:]
     }
     
-    func fromJson(jsonData: Data) -> (userToken: AccessToken, refreshToken: AccessToken)?
+    func fromJson(jsonData: Data) -> (
+        userToken: AccessToken,
+        refreshToken: AccessToken,
+        additionalData: [String : AnyObject]?)?
     {
         return nil
     }
