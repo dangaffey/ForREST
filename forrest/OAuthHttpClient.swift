@@ -11,6 +11,7 @@ import Alamofire
 
 
 public enum OAuthError: Error {
+    case applicationAuthFailed
     case expiredCredentials
     case parseError
     case persistError
@@ -87,7 +88,7 @@ class OAuthHttpClient
     /**
      Attempts to make a request preferring user-level, but trying application-level if unavailable
      */
-    private func attemptAnyAccessRequest(request: HttpRequestProtocol) throws -> Void
+    private func attemptAnyAccessRequest(request: HttpRequestProtocol) -> Void
     {
         if (oauthStateProvider.userAccessIntended()) {
             try attemptUserAccessRequest(request: request)
@@ -106,6 +107,9 @@ class OAuthHttpClient
         successHandler: @escaping () -> (),
         failureHandler: @escaping (Error) -> ()
     ) {
+        //Create handlre class 
+        let responseHandler = DefaultResponseHandler()
+        
         let authRequest = RequestPrototype(
             type: .NoAuthRequired,
             method: .post,
@@ -114,36 +118,7 @@ class OAuthHttpClient
                 clientId: oauthConfigProvider.getClientCredentials().getClientId(),
                 clientSecret: oauthConfigProvider.getClientCredentials().getClientSecret()),
             parameterEncoding: JSONEncoding.default,
-            responseCallback: { [weak self] response in
-                
-                switch response.result {
-                    
-                    case .success(let data):
-                        //track time using response.timeline object
-                        guard let appToken = self?.oauthConfigProvider
-                            .getAppAuthParser()
-                            .fromJson(jsonData: data) else {
-                                failureHandler(OAuthError.parseError)
-                                return
-                        }
-                        
-                        do {
-                            try self?.oauthStateProvider.setAppAccessData(
-                                token: appToken.getId(),
-                                expiration: appToken.getExpiration())
-                            successHandler()
-                            
-                        } catch (let error) {
-                            failureHandler(error)
-                        }
-                        
-                        break
-                    
-                    case .failure(let error):
-                        failureHandler(error)
-                        break
-                }
-            }
+            responseCallback: responseHandler.handleResponse as! DataResponseProtocol
         )
         
         makeRequest(requestObject: authRequest)
@@ -180,8 +155,6 @@ class OAuthHttpClient
             parameterEncoding: JSONEncoding.default,
             responseCallback: { [unowned self] response in
                 
-                debugPrint(response.response?.statusCode)
-                
                 switch response.result {
                     
                 case .success:
@@ -203,8 +176,8 @@ class OAuthHttpClient
                         self.makeRequest(requestObject: request)
                         
                     } catch (let error) {
-                        //TODO logout and log, could not persist important data
-                        //TODO throw an exception
+                        //TODO must relay error onto incoming request error
+                        
                     }
                     
                     break

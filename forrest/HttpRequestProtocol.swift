@@ -30,5 +30,5 @@ protocol HttpRequestProtocol {
     
     func getEncoding() -> ParameterEncoding
     
-    func getResponseCallback() -> ((DataResponse<Data>) -> Void)
+    func getResponseCallback() -> DataResponseProtocol
 }

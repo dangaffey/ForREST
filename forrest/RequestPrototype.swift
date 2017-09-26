@@ -16,7 +16,7 @@ class RequestPrototype: HttpRequestProtocol
     var url: URLConvertible = ""
     var params: Parameters?
     var parameterEncoding: ParameterEncoding = JSONEncoding.default
-    var responseCallback: ((DataResponse<Data>) -> Void)
+    var responseCallback: DataResponseProtocol
     
     init(
         type: RequestType,
@@ -24,7 +24,7 @@ class RequestPrototype: HttpRequestProtocol
         url: URLConvertible,
         params: Parameters?,
         parameterEncoding: ParameterEncoding,
-        responseCallback: @escaping ((DataResponse<Data>) -> Void))
+        responseCallback: DataResponseProtocol)
     {
         self.type = type
         self.method = method
@@ -54,7 +54,7 @@ class RequestPrototype: HttpRequestProtocol
         return parameterEncoding
     }
     
-    func getResponseCallback() -> ((DataResponse<Data>) -> Void) {
+    func getResponseCallback() -> DataResponseProtocol {
         return responseCallback
     }
 }
