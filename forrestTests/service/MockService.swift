@@ -38,22 +38,7 @@ struct MockService
             url: Endpoints.GET_NO_AUTH_DATA,
             params: nil,
             parameterEncoding: URLEncoding.default,
-            responseCallback: { response in
-                
-                switch response.result {
-                    
-                    case .success(let data):
-                        debugPrint(String(data: data, encoding: String.Encoding.utf8)!)
-                        successHandler(data)
-                        break
-                    
-                    case .failure(let error):
-                        debugPrint(error)
-                        failureHandler(error)
-                        break
-                }
-            }
-        )
+            responseCallback: //
         
         do {
             try httpClient.addRequestToQueue(request: request)

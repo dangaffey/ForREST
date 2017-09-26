@@ -9,52 +9,60 @@
 import Foundation
 import Alamofire
 
-class RequestPrototype: HttpRequestProtocol
-{    
+class RequestPrototype<T>: HttpRequestableProtocol
+{
+    typealias ResponseEntity = ResponseHandler<T>
+    
     var type: RequestType = RequestType.NoAuthRequired
     var method: HTTPMethod = .get
     var url: URLConvertible = ""
     var params: Parameters?
     var parameterEncoding: ParameterEncoding = JSONEncoding.default
-    var responseCallback: DataResponseProtocol
+    var responseHandler: ResponseHandler<T>
     
-    init(
+    init<U: HttpRequestableProtocol>(
         type: RequestType,
         method: HTTPMethod,
         url: URLConvertible,
         params: Parameters?,
         parameterEncoding: ParameterEncoding,
-        responseCallback: DataResponseProtocol)
+        responseHandler: U) where U.ResponseEntity == T
     {
         self.type = type
         self.method = method
         self.url = url
         self.params = params
         self.parameterEncoding = parameterEncoding
-        self.responseCallback = responseCallback
+        self.responseHandler = responseHandler.getResponseHandler()
     }
     
-    func getType() -> RequestType {
+    func getType() -> RequestType
+    {
         return type
     }
     
-    func getMethod() -> HTTPMethod {
+    func getMethod() -> HTTPMethod
+    {
         return method
     }
     
-    func getUrl() -> URLConvertible {
+    func getUrl() -> URLConvertible
+    {
         return url
     }
     
-    func getParams() -> Parameters? {
+    func getParams() -> Parameters?
+    {
         return params
     }
     
-    func getEncoding() -> ParameterEncoding {
+    func getEncoding() -> ParameterEncoding
+    {
         return parameterEncoding
     }
     
-    func getResponseCallback() -> DataResponseProtocol {
-        return responseCallback
+    func getResponseHandler() -> ResponseHandler<T>
+    {
+        return responseHandler
     }
 }

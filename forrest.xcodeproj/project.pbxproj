@@ -11,7 +11,7 @@
 		1F82ED321F7400B60084D9E2 /* OAuthHttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA121F734FB300E5C0DE /* OAuthHttpClient.swift */; };
 		1F82ED331F7400FC0084D9E2 /* NetworkConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA2B1F735A0900E5C0DE /* NetworkConfig.swift */; };
 		1F82ED341F7407C70084D9E2 /* RequestPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA191F73544400E5C0DE /* RequestPrototype.swift */; };
-		1F82ED351F7409180084D9E2 /* HttpRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA171F7353ED00E5C0DE /* HttpRequestProtocol.swift */; };
+		1F82ED351F7409180084D9E2 /* HttpRequestableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA171F7353ED00E5C0DE /* HttpRequestableProtocol.swift */; };
 		1F82ED371F7409C10084D9E2 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED361F7409C10084D9E2 /* Endpoints.swift */; };
 		1F82ED3A1F740DE00084D9E2 /* MockStateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED391F740DE00084D9E2 /* MockStateProvider.swift */; };
 		1F82ED3B1F740DF00084D9E2 /* OAuthStateProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA1C1F73556200E5C0DE /* OAuthStateProviderProtocol.swift */; };
@@ -31,12 +31,12 @@
 		1F82ED561F756D1B0084D9E2 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED551F756D1B0084D9E2 /* DateExtensions.swift */; };
 		1F82ED581F756DDA0084D9E2 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F82ED571F756DDA0084D9E2 /* SwiftyJSON.framework */; };
 		5DAFF43C1F783891000690C8 /* DataResponseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFF43B1F783891000690C8 /* DataResponseProtocol.swift */; };
-		5DAFF43F1F783A30000690C8 /* DefaultResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFF43E1F783A30000690C8 /* DefaultResponseHandler.swift */; };
+		5DAFF43F1F783A30000690C8 /* ResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFF43E1F783A30000690C8 /* ResponseHandler.swift */; };
 		5DF5CA071F734C6A00E5C0DE /* NoAuthRequiredTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA061F734C6A00E5C0DE /* NoAuthRequiredTests.swift */; };
 		5DF5CA091F734C6A00E5C0DE /* forrest.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DF5C9FB1F734C6A00E5C0DE /* forrest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5DF5CA131F734FB300E5C0DE /* OAuthHttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA121F734FB300E5C0DE /* OAuthHttpClient.swift */; };
 		5DF5CA161F7352C800E5C0DE /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF5CA151F7352C800E5C0DE /* Alamofire.framework */; };
-		5DF5CA181F7353ED00E5C0DE /* HttpRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA171F7353ED00E5C0DE /* HttpRequestProtocol.swift */; };
+		5DF5CA181F7353ED00E5C0DE /* HttpRequestableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA171F7353ED00E5C0DE /* HttpRequestableProtocol.swift */; };
 		5DF5CA1A1F73544400E5C0DE /* RequestPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA191F73544400E5C0DE /* RequestPrototype.swift */; };
 		5DF5CA1D1F73556200E5C0DE /* OAuthStateProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA1C1F73556200E5C0DE /* OAuthStateProviderProtocol.swift */; };
 		5DF5CA1F1F73564C00E5C0DE /* OAuthConfigProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA1E1F73564C00E5C0DE /* OAuthConfigProviderProtocol.swift */; };
@@ -71,7 +71,7 @@
 		1F82ED551F756D1B0084D9E2 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		1F82ED571F756DDA0084D9E2 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		5DAFF43B1F783891000690C8 /* DataResponseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataResponseProtocol.swift; sourceTree = "<group>"; };
-		5DAFF43E1F783A30000690C8 /* DefaultResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultResponseHandler.swift; sourceTree = "<group>"; };
+		5DAFF43E1F783A30000690C8 /* ResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseHandler.swift; sourceTree = "<group>"; };
 		5DF5C9F81F734C6A00E5C0DE /* forrest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = forrest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DF5C9FB1F734C6A00E5C0DE /* forrest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = forrest.h; sourceTree = "<group>"; };
 		5DF5C9FC1F734C6A00E5C0DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -80,7 +80,7 @@
 		5DF5CA081F734C6A00E5C0DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5DF5CA121F734FB300E5C0DE /* OAuthHttpClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthHttpClient.swift; sourceTree = "<group>"; };
 		5DF5CA151F7352C800E5C0DE /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
-		5DF5CA171F7353ED00E5C0DE /* HttpRequestProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpRequestProtocol.swift; sourceTree = "<group>"; };
+		5DF5CA171F7353ED00E5C0DE /* HttpRequestableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpRequestableProtocol.swift; sourceTree = "<group>"; };
 		5DF5CA191F73544400E5C0DE /* RequestPrototype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPrototype.swift; sourceTree = "<group>"; };
 		5DF5CA1C1F73556200E5C0DE /* OAuthStateProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthStateProviderProtocol.swift; sourceTree = "<group>"; };
 		5DF5CA1E1F73564C00E5C0DE /* OAuthConfigProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthConfigProviderProtocol.swift; sourceTree = "<group>"; };
@@ -161,7 +161,7 @@
 		5DAFF43D1F783A20000690C8 /* handler */ = {
 			isa = PBXGroup;
 			children = (
-				5DAFF43E1F783A30000690C8 /* DefaultResponseHandler.swift */,
+				5DAFF43E1F783A30000690C8 /* ResponseHandler.swift */,
 			);
 			path = handler;
 			sourceTree = "<group>";
@@ -194,7 +194,7 @@
 				5DF5C9FB1F734C6A00E5C0DE /* forrest.h */,
 				5DF5C9FC1F734C6A00E5C0DE /* Info.plist */,
 				5DF5CA121F734FB300E5C0DE /* OAuthHttpClient.swift */,
-				5DF5CA171F7353ED00E5C0DE /* HttpRequestProtocol.swift */,
+				5DF5CA171F7353ED00E5C0DE /* HttpRequestableProtocol.swift */,
 				5DF5CA191F73544400E5C0DE /* RequestPrototype.swift */,
 				5DF5CA291F73582900E5C0DE /* AccessToken.swift */,
 				5DF5CA2B1F735A0900E5C0DE /* NetworkConfig.swift */,
@@ -386,9 +386,9 @@
 				5DF5CA1D1F73556200E5C0DE /* OAuthStateProviderProtocol.swift in Sources */,
 				5DF5CA1A1F73544400E5C0DE /* RequestPrototype.swift in Sources */,
 				5DF5CA131F734FB300E5C0DE /* OAuthHttpClient.swift in Sources */,
-				5DF5CA181F7353ED00E5C0DE /* HttpRequestProtocol.swift in Sources */,
+				5DF5CA181F7353ED00E5C0DE /* HttpRequestableProtocol.swift in Sources */,
 				5DF5CA2A1F73582900E5C0DE /* AccessToken.swift in Sources */,
-				5DAFF43F1F783A30000690C8 /* DefaultResponseHandler.swift in Sources */,
+				5DAFF43F1F783A30000690C8 /* ResponseHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,7 +407,7 @@
 				1F82ED401F740EA80084D9E2 /* MockClientCredentialsProvider.swift in Sources */,
 				1F82ED321F7400B60084D9E2 /* OAuthHttpClient.swift in Sources */,
 				1F82ED451F7418380084D9E2 /* UserAuthParserProtocol.swift in Sources */,
-				1F82ED351F7409180084D9E2 /* HttpRequestProtocol.swift in Sources */,
+				1F82ED351F7409180084D9E2 /* HttpRequestableProtocol.swift in Sources */,
 				5DF5CA071F734C6A00E5C0DE /* NoAuthRequiredTests.swift in Sources */,
 				1F82ED4D1F7419260084D9E2 /* MockUserAuthParser.swift in Sources */,
 				1F82ED441F7418350084D9E2 /* AppAuthParserProtocol.swift in Sources */,

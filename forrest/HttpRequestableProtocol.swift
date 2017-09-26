@@ -18,7 +18,9 @@ public enum RequestType {
     case NoAuthRequired
 }
 
-protocol HttpRequestProtocol {
+protocol HttpRequestableProtocol {
+    
+    associatedtype ResponseEntity
     
     func getType() -> RequestType
     
@@ -30,5 +32,5 @@ protocol HttpRequestProtocol {
     
     func getEncoding() -> ParameterEncoding
     
-    func getResponseCallback() -> DataResponseProtocol
+    func getResponseHandler() -> ResponseEntity
 }

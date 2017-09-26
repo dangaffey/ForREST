@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 
-public enum OAuthError: Error {
+public enum ForrestError: Error {
     case applicationAuthFailed
     case expiredCredentials
     case parseError
@@ -20,6 +20,17 @@ public enum OAuthError: Error {
 
 class OAuthHttpClient
 {
+    typealias UserResponse = (
+        userToken: AccessToken,
+        refreshToken: AccessToken,
+        additionalData: [String : AnyObject]?
+    )
+    
+    typealias RefreshResponse = (
+        userToken: AccessToken,
+        refreshToken: AccessToken
+    )
+    
     static let sharedInstance = OAuthHttpClient(
         oauthStateProvider: NetworkConfig.sharedInstance.getStateProvider()!,
         oauthConfigProvider: NetworkConfig.sharedInstance.getConfigProvider()!
@@ -28,7 +39,7 @@ class OAuthHttpClient
     let oauthStateProvider: OAuthStateProviderProtocol
     let oauthConfigProvider: OAuthConfigProviderProtocol
     
-    var pendingRefreshQueue = [HttpRequestProtocol]()
+    var pendingRefreshQueue = [RequestPrototype<AnyObject>]()
     var isRefreshing: Bool = false
     
     let AUTH_HEADER = "Authorization"
@@ -42,7 +53,7 @@ class OAuthHttpClient
     }
     
     
-    public func addRequestToQueue(request: RequestPrototype) throws
+    public func addRequestToQueue(request: RequestPrototype<AnyObject>) throws
     {
         switch request.getType() {
             
@@ -65,7 +76,7 @@ class OAuthHttpClient
     /**
      Attempts to execute a request that requires a user-level access
      */
-    private func attemptUserAccessRequest(request: HttpRequestProtocol) throws -> Void
+    private func attemptUserAccessRequest(request: RequestPrototype<AnyObject>) throws -> Void
     {
         if (oauthStateProvider.userAccessIntended()) {
             makeRequest(requestObject: request)
@@ -80,7 +91,7 @@ class OAuthHttpClient
         }
         
         
-        throw OAuthError.expiredCredentials
+        throw ForrestError.expiredCredentials
     }
     
     
@@ -107,18 +118,33 @@ class OAuthHttpClient
         successHandler: @escaping () -> (),
         failureHandler: @escaping (Error) -> ()
     ) {
-        //Create handlre class 
-        let responseHandler = DefaultResponseHandler()
+        let parser = oauthConfigProvider.getAppAuthParser()
+        let persistSuccessHandler = { [weak self] (token: AccessToken) in
+            do {
+                try self?.oauthStateProvider.setAppAccessData(
+                    token: token.getId(),
+                    expiration: token.getExpiration())
+                successHandler()
+            } catch (let error) {
+                failureHandler(error)
+            }
+        }
+        
+        let responseHandler = ResponseHandler<AccessToken>(
+            parserClosure: parser.fromJson,
+            successCallback: persistSuccessHandler,
+            failureCallback: failureHandler
+        )
         
         let authRequest = RequestPrototype(
             type: .NoAuthRequired,
             method: .post,
             url: oauthConfigProvider.getAppAuthEndpoint(),
-            params: oauthConfigProvider.getAppAuthParser().toJson(
+            params: parser.toJson(
                 clientId: oauthConfigProvider.getClientCredentials().getClientId(),
                 clientSecret: oauthConfigProvider.getClientCredentials().getClientSecret()),
             parameterEncoding: JSONEncoding.default,
-            responseCallback: responseHandler.handleResponse as! DataResponseProtocol
+            responseHandler: responseHandler
         )
         
         makeRequest(requestObject: authRequest)
@@ -128,7 +154,7 @@ class OAuthHttpClient
     /**
      Attempts to execute an application level request
      */
-    private func attemptAppAccessRequest(request: HttpRequestProtocol)
+    private func attemptAppAccessRequest(request: RequestPrototype<AnyObject>)
     {
         if (oauthStateProvider.appAccessTokenValid()) {
             makeRequest(requestObject: request)
@@ -143,52 +169,37 @@ class OAuthHttpClient
     /**
      Attempts to broker a new application access token under a request
      */
-    private func attemptAppAuthentication(request: HttpRequestProtocol)
+    private func attemptAppAuthentication(request: RequestPrototype<AnyObject>)
     {
+        let parser = oauthConfigProvider.getAppAuthParser()
+        let persistSuccessHandler = { [weak self] (token: AccessToken) in
+            do {
+                try self?.oauthStateProvider.setAppAccessData(
+                    token: token.getId(),
+                    expiration: token.getExpiration())
+                
+                self?.makeRequest(requestObject: request)
+                
+            } catch (let error) {
+                request.getResponseHandler().getFailureCallback()(error)
+            }
+        }
+        
+        let responseHandler = ResponseHandler<AccessToken>(
+            parserClosure: parser.fromJson,
+            successCallback: persistSuccessHandler,
+            failureCallback: request.getResponseHandler().getFailureCallback()
+        )
+        
         let authRequest = RequestPrototype(
             type: .NoAuthRequired,
             method: .post,
             url: oauthConfigProvider.getAppAuthEndpoint(),
-            params: oauthConfigProvider.getAppAuthParser().toJson(
+            params: parser.toJson(
                 clientId: oauthConfigProvider.getClientCredentials().getClientId(),
                 clientSecret: oauthConfigProvider.getClientCredentials().getClientSecret()),
             parameterEncoding: JSONEncoding.default,
-            responseCallback: { [unowned self] response in
-                
-                switch response.result {
-                    
-                case .success:
-                    //track time using response.timeline object
-                    
-                    guard let data = response.result.value,
-                        let appToken = self.oauthConfigProvider
-                            .getAppAuthParser()
-                            .fromJson(jsonData: data) else {
-                                debugPrint("COULD NOT GET STRING RESPONSE FROM SERVER")
-                                return
-                    }
-                    
-                    do {
-                        try self.oauthStateProvider.setAppAccessData(
-                            token: appToken.getId(),
-                            expiration: appToken.getExpiration())
-                        
-                        self.makeRequest(requestObject: request)
-                        
-                    } catch (let error) {
-                        //TODO must relay error onto incoming request error
-                        
-                    }
-                    
-                    break
-                    
-                case .failure(let error):
-                    //error
-                    break
-                    
-                    
-                }
-            }
+            responseHandler: responseHandler
         )
         
         makeRequest(requestObject: authRequest)
@@ -199,52 +210,45 @@ class OAuthHttpClient
     /**
      Attempts to authenticate a user with the password_grant type
      */
-    public func attemptUserAuthentication(username: String, password: String)
-    {
-        let userRequest = RequestPrototype(
+    public func attemptUserAuthentication(
+        username: String,
+        password: String,
+        successHandler: @escaping () -> (),
+        failureHandler: @escaping (Error) -> ()
+    ) {
+        
+        
+        let parser = oauthConfigProvider.getUserAuthParser()
+        let persistSuccessHandler = { [weak self] (response: UserResponse) in
+            do {
+                try self?.oauthStateProvider.setUserAccessData(
+                    token: response.userToken.id,
+                    expiration: response.userToken.expiration)
+                
+                try self?.oauthStateProvider.setUserRefreshData(
+                    token: response.refreshToken.id,
+                    expiration: response.refreshToken.expiration)
+                
+                successHandler()
+                
+            } catch (let error) {
+                failureHandler(error)
+            }
+        }
+        
+        let responseHandler = ResponseHandler<UserResponse>(
+            parserClosure: parser.fromJson,
+            successCallback: persistSuccessHandler,
+            failureCallback: failureHandler
+        )
+        
+        let userRequest = RequestPrototype<UserResponse>(
             type: .NoAuthRequired,
             method: .post,
             url: oauthConfigProvider.getUserAuthEndpoint(),
-            params: oauthConfigProvider.getUserAuthParser().toJson(username: username, password: password),
+            params: parser.toJson(username: username, password: password),
             parameterEncoding: JSONEncoding.default,
-            responseCallback: { [unowned self] response in
-                
-                switch response.result {
-                    
-                case .success(let data):
-                    
-                    //track time using response.timeline object
-                    
-                    guard let tokenSet = self.oauthConfigProvider
-                        .getRefreshParser()
-                        .fromJson(jsonData: data) else {
-                            //TODO refresh parse failed
-                            return
-                    }
-                    
-                    do {
-                        try self.oauthStateProvider.setUserAccessData(
-                            token: tokenSet.userToken.id,
-                            expiration: tokenSet.userToken.expiration)
-                        
-                        try self.oauthStateProvider.setUserRefreshData(
-                            token: tokenSet.refreshToken.id,
-                            expiration: tokenSet.refreshToken.expiration)
-                        
-                        //RETURN THROUGH CALLBACK
-                        
-                    } catch (let error) {
-                        //TODO logout and log, could not persist important data
-                    }
-                    
-                    break
-                    
-                case .failure(let error):
-                    //TODO logout and log, could not persist important data
-                    break
-                    
-                }
-            }
+            responseHandler: responseHandler
         )
         
         makeRequest(requestObject: userRequest)
@@ -255,7 +259,7 @@ class OAuthHttpClient
     /**
      Attempts to refresh the access token for user-level access
      */
-    private func attemptUserAccessRefresh(request: HttpRequestProtocol)
+    private func attemptUserAccessRefresh(request: RequestPrototype<AnyObject>)
     {
         if (isRefreshing) {
             return
@@ -263,55 +267,37 @@ class OAuthHttpClient
         
         isRefreshing = true
         
-        guard let refreshData = oauthStateProvider.getUserRefreshData() else {
-            //TODO logout? a seemingly valid refresh has failed
-            return
+        let parser = oauthConfigProvider.getRefreshParser()
+        let persistSuccessHandler = { [weak self] (response: RefreshResponse) in
+            do {
+                try self?.oauthStateProvider.setUserAccessData(
+                    token: response.userToken.id,
+                    expiration: response.userToken.expiration)
+                
+                try self?.oauthStateProvider.setUserRefreshData(
+                    token: response.refreshToken.id,
+                    expiration: response.refreshToken.expiration)
+                
+                self?.makeRequest(requestObject: request)
+                
+            } catch (let error) {
+                request.getResponseHandler().getFailureCallback()(error)
+            }
         }
         
+        let responseHandler = ResponseHandler<RefreshResponse>(
+            parserClosure: parser.fromJson,
+            successCallback: persistSuccessHandler,
+            failureCallback: request.getResponseHandler().getFailureCallback()
+        )
+
         let refreshRequest = RequestPrototype(
             type: .NoAuthRequired,
             method: .post,
             url: oauthConfigProvider.getRefreshEndpoint(),
-            params: oauthConfigProvider.getRefreshParser().toJson(token: refreshData.token),
+            params: parser.toJson(token: oauthStateProvider.getUserRefreshData()?.token ?? ""),
             parameterEncoding: JSONEncoding.default,
-            responseCallback: { [unowned self] response in
-                
-                switch response.result {
-                    
-                case .success(let data):
-                    
-                    //track time using response.timeline object
-                    guard let tokenSet = self.oauthConfigProvider
-                        .getRefreshParser()
-                        .fromJson(jsonData: data) else {
-                            //TODO refresh parse failed
-                            return
-                    }
-                    
-                    do {
-                        try self.oauthStateProvider.setUserAccessData(
-                            token: tokenSet.userToken.id,
-                            expiration: tokenSet.userToken.expiration)
-                        
-                        try self.oauthStateProvider.setUserRefreshData(
-                            token: tokenSet.refreshToken.id,
-                            expiration: tokenSet.refreshToken.expiration)
-                        
-                        self.isRefreshing = false
-                        self.sendPendingRequests()
-                        
-                    } catch (let error) {
-                        //TODO logout and log, could not persist important data
-                    }
-                    
-                    break
-                    
-                case .failure(let error):
-                    //TODO logout and log, could not persist important data
-                    break
-                    
-                }
-            }
+            responseHandler: responseHandler
         )
         
         makeRequest(requestObject: refreshRequest)
@@ -335,7 +321,7 @@ class OAuthHttpClient
     /**
      Executes requests through the Alamofire stack
      */
-    func makeRequest(requestObject: HttpRequestProtocol) -> Void
+    func makeRequest(requestObject: RequestPrototype<AnyObject>) -> Void
     {
         var headers = HTTPHeaders()
         let requestType = requestObject.getType()
@@ -343,13 +329,13 @@ class OAuthHttpClient
         if let authorizationHeader = getAuthorizationHeader(type: requestType) {
             headers["Authorization"] = String(format: "Bearer %@", authorizationHeader)
         }
-        
+       
         Alamofire.request(requestObject.getUrl(),
                           method: requestObject.getMethod(),
                           parameters: requestObject.getParams(),
                           encoding: requestObject.getEncoding(),
-                          headers: headers
-            ).responseData(completionHandler: requestObject.getResponseCallback())
+                          headers: headers)
+            .responseData(completionHandler: requestObject.getResponseHandler().handleResponse)
     }
     
     
