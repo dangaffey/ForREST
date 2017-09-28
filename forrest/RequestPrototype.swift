@@ -11,29 +11,29 @@ import Alamofire
 
 class RequestPrototype<T>: HttpRequestableProtocol
 {
-    typealias ResponseEntity = ResponseHandler<T>
+    typealias EntityHandler = T
     
     var type: RequestType = RequestType.NoAuthRequired
     var method: HTTPMethod = .get
     var url: URLConvertible = ""
     var params: Parameters?
     var parameterEncoding: ParameterEncoding = JSONEncoding.default
-    var responseHandler: ResponseHandler<T>
+    var responseHandler: EntityHandler
     
-    init<U: HttpRequestableProtocol>(
+    init(
         type: RequestType,
         method: HTTPMethod,
         url: URLConvertible,
         params: Parameters?,
         parameterEncoding: ParameterEncoding,
-        responseHandler: U) where U.ResponseEntity == T
+        responseHandler: EntityHandler)
     {
         self.type = type
         self.method = method
         self.url = url
         self.params = params
         self.parameterEncoding = parameterEncoding
-        self.responseHandler = responseHandler.getResponseHandler()
+        self.responseHandler = responseHandler
     }
     
     func getType() -> RequestType
@@ -61,7 +61,7 @@ class RequestPrototype<T>: HttpRequestableProtocol
         return parameterEncoding
     }
     
-    func getResponseHandler() -> ResponseHandler<T>
+    func getResponseHandler() -> EntityHandler
     {
         return responseHandler
     }

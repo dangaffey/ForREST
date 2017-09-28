@@ -59,6 +59,10 @@ class MockStateProvider: OAuthStateProviderProtocol
     
     func getAppAccessData() -> (token: String, expiration: String)?
     {
-        return nil
+        guard let token = appToken else {
+                return nil
+        }
+        
+        return (token.getId(), token.getExpiration())
     }
 }

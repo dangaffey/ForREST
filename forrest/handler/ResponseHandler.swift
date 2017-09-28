@@ -9,15 +9,17 @@
 import Foundation
 import Alamofire
 
-class ResponseHandler<T>: DataResponseProtocol
+class ResponseHandler<T>: ResponseHandleableProtocol
 {
-    var parserClosure: (Data) -> (T?)
-    var successCallback: (T) -> ()
+    typealias EntityType = T
+    
+    var parserClosure: (Data) -> (EntityType?)
+    var successCallback: (EntityType) -> ()
     var failureCallback: (Error) -> ()
     
     init(
-        parserClosure: @escaping (Data) -> (T?),
-        successCallback: @escaping (T) -> (),
+        parserClosure: @escaping (Data) -> (EntityType?),
+        successCallback: @escaping (EntityType) -> (),
         failureCallback: @escaping (Error) -> ())
     {
         self.parserClosure = parserClosure
@@ -47,7 +49,7 @@ class ResponseHandler<T>: DataResponseProtocol
     }
     
     
-    func getSuccessCallback() -> (T) -> ()
+    func getSuccessCallback() -> (EntityType) -> ()
     {
         return successCallback
     }

@@ -20,7 +20,7 @@ public enum RequestType {
 
 protocol HttpRequestableProtocol {
     
-    associatedtype ResponseEntity
+    associatedtype EntityHandler
     
     func getType() -> RequestType
     
@@ -32,5 +32,5 @@ protocol HttpRequestableProtocol {
     
     func getEncoding() -> ParameterEncoding
     
-    func getResponseHandler() -> ResponseEntity
+    func getResponseHandler() -> EntityHandler
 }

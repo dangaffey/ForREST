@@ -39,7 +39,7 @@ class OAuthHttpClient
     let oauthStateProvider: OAuthStateProviderProtocol
     let oauthConfigProvider: OAuthConfigProviderProtocol
     
-    var pendingRefreshQueue = [RequestPrototype<AnyObject>]()
+    //var pendingRefreshQueue = []
     var isRefreshing: Bool = false
     
     let AUTH_HEADER = "Authorization"
@@ -53,16 +53,16 @@ class OAuthHttpClient
     }
     
     
-    public func addRequestToQueue(request: RequestPrototype<AnyObject>) throws
+    public func addRequestToQueue<T: ResponseHandleableProtocol>(request: RequestPrototype<T>)
     {
         switch request.getType() {
             
         case .UserAuthRequired:
-            try attemptUserAccessRequest(request: request)
+            attemptUserAccessRequest(request: request)
             break
             
         case .AppAuthRequired:
-            try attemptAnyAccessRequest(request: request)
+            attemptAnyAccessRequest(request: request)
             break
             
         case .NoAuthRequired:
@@ -76,7 +76,7 @@ class OAuthHttpClient
     /**
      Attempts to execute a request that requires a user-level access
      */
-    private func attemptUserAccessRequest(request: RequestPrototype<AnyObject>) throws -> Void
+    private func attemptUserAccessRequest<T: ResponseHandleableProtocol>(request: RequestPrototype<T>) -> Void
     {
         if (oauthStateProvider.userAccessIntended()) {
             makeRequest(requestObject: request)
@@ -85,13 +85,12 @@ class OAuthHttpClient
         
         
         if (oauthStateProvider.userRefreshPossible()) {
-            pendingRefreshQueue.append(request)
+            //pendingRefreshQueue.append(request)
             attemptUserAccessRefresh(request: request)
             return
         }
         
-        
-        throw ForrestError.expiredCredentials
+        request.getResponseHandler().getFailureCallback()(ForrestError.expiredCredentials)
     }
     
     
@@ -99,10 +98,10 @@ class OAuthHttpClient
     /**
      Attempts to make a request preferring user-level, but trying application-level if unavailable
      */
-    private func attemptAnyAccessRequest(request: HttpRequestProtocol) -> Void
+    private func attemptAnyAccessRequest<T: ResponseHandleableProtocol>(request: RequestPrototype<T>) -> Void
     {
         if (oauthStateProvider.userAccessIntended()) {
-            try attemptUserAccessRequest(request: request)
+            attemptUserAccessRequest(request: request)
             return
         }
         
@@ -136,7 +135,7 @@ class OAuthHttpClient
             failureCallback: failureHandler
         )
         
-        let authRequest = RequestPrototype(
+        let authRequest = RequestPrototype<ResponseHandler<AccessToken>>(
             type: .NoAuthRequired,
             method: .post,
             url: oauthConfigProvider.getAppAuthEndpoint(),
@@ -154,7 +153,7 @@ class OAuthHttpClient
     /**
      Attempts to execute an application level request
      */
-    private func attemptAppAccessRequest(request: RequestPrototype<AnyObject>)
+    private func attemptAppAccessRequest<T: ResponseHandleableProtocol>(request: RequestPrototype<T>)
     {
         if (oauthStateProvider.appAccessTokenValid()) {
             makeRequest(requestObject: request)
@@ -169,7 +168,7 @@ class OAuthHttpClient
     /**
      Attempts to broker a new application access token under a request
      */
-    private func attemptAppAuthentication(request: RequestPrototype<AnyObject>)
+    private func attemptAppAuthentication<T: ResponseHandleableProtocol>(request: RequestPrototype<T>)
     {
         let parser = oauthConfigProvider.getAppAuthParser()
         let persistSuccessHandler = { [weak self] (token: AccessToken) in
@@ -191,7 +190,7 @@ class OAuthHttpClient
             failureCallback: request.getResponseHandler().getFailureCallback()
         )
         
-        let authRequest = RequestPrototype(
+        let authRequest = RequestPrototype<ResponseHandler<AccessToken>>(
             type: .NoAuthRequired,
             method: .post,
             url: oauthConfigProvider.getAppAuthEndpoint(),
@@ -242,7 +241,7 @@ class OAuthHttpClient
             failureCallback: failureHandler
         )
         
-        let userRequest = RequestPrototype<UserResponse>(
+        let userRequest = RequestPrototype<ResponseHandler<UserResponse>>(
             type: .NoAuthRequired,
             method: .post,
             url: oauthConfigProvider.getUserAuthEndpoint(),
@@ -259,7 +258,7 @@ class OAuthHttpClient
     /**
      Attempts to refresh the access token for user-level access
      */
-    private func attemptUserAccessRefresh(request: RequestPrototype<AnyObject>)
+    private func attemptUserAccessRefresh<T: ResponseHandleableProtocol>(request: RequestPrototype<T>)
     {
         if (isRefreshing) {
             return
@@ -291,7 +290,7 @@ class OAuthHttpClient
             failureCallback: request.getResponseHandler().getFailureCallback()
         )
 
-        let refreshRequest = RequestPrototype(
+        let refreshRequest = RequestPrototype<ResponseHandler<RefreshResponse>>(
             type: .NoAuthRequired,
             method: .post,
             url: oauthConfigProvider.getRefreshEndpoint(),
@@ -311,9 +310,9 @@ class OAuthHttpClient
      */
     func sendPendingRequests()
     {
-        while (pendingRefreshQueue.count > 0) {
-            makeRequest(requestObject: pendingRefreshQueue.remove(at: 0))
-        }
+        //while (pendingRefreshQueue.count > 0) {
+           // makeRequest(requestObject: pendingRefreshQueue.remove(at: 0))
+        //}
     }
     
     
@@ -321,7 +320,7 @@ class OAuthHttpClient
     /**
      Executes requests through the Alamofire stack
      */
-    func makeRequest(requestObject: RequestPrototype<AnyObject>) -> Void
+    func makeRequest<T: ResponseHandleableProtocol>(requestObject: RequestPrototype<T>) -> Void
     {
         var headers = HTTPHeaders()
         let requestType = requestObject.getType()

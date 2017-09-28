@@ -32,18 +32,28 @@ struct MockService
         successHandler: @escaping (Any) -> (),
         failureHandler: @escaping (Any) -> ()
     ) {
-        let request = RequestPrototype(
+        let responseHandler = ResponseHandler<Any>(
+            parserClosure: { (data: Data) -> (Any?) in
+                debugPrint(data)
+                return Int()
+            },
+            successCallback: { (object: Any) in
+                successHandler(object)
+            },
+            failureCallback: { (error: Error) in
+                failureHandler(error)
+            }
+        )
+        
+        let request = RequestPrototype<ResponseHandler<Any>>(
             type: RequestType.NoAuthRequired,
             method: .get,
             url: Endpoints.GET_NO_AUTH_DATA,
             params: nil,
             parameterEncoding: URLEncoding.default,
-            responseCallback: //
+            responseHandler: responseHandler
+        )
         
-        do {
-            try httpClient.addRequestToQueue(request: request)
-        } catch (let error) {
-            debugPrint(error)
-        }
+        httpClient.addRequestToQueue(request: request)
     }
 }
