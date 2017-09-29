@@ -47,6 +47,7 @@ class NoAuthRequiredTests: XCTestCase
         self.waitForExpectations(timeout: 10) { (error) in
             XCTAssert(error == nil)
             XCTAssert(self.data != nil)
+            debugPrint(self.data)
         }
     }
   

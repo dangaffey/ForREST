@@ -39,7 +39,7 @@ class OAuthHttpClient
     let oauthStateProvider: OAuthStateProviderProtocol
     let oauthConfigProvider: OAuthConfigProviderProtocol
     
-    //var pendingRefreshQueue = []
+   // var pendingRefreshQueue = [HttpRequestableProtocol]()
     var isRefreshing: Bool = false
     
     let AUTH_HEADER = "Authorization"
@@ -85,7 +85,7 @@ class OAuthHttpClient
         
         
         if (oauthStateProvider.userRefreshPossible()) {
-            //pendingRefreshQueue.append(request)
+           // pendingRefreshQueue.append(request)
             attemptUserAccessRefresh(request: request)
             return
         }
@@ -277,7 +277,9 @@ class OAuthHttpClient
                     token: response.refreshToken.id,
                     expiration: response.refreshToken.expiration)
                 
-                self?.makeRequest(requestObject: request)
+                self?.isRefreshing = false
+                self?.sendPendingRequests()
+                
                 
             } catch (let error) {
                 request.getResponseHandler().getFailureCallback()(error)
@@ -310,9 +312,10 @@ class OAuthHttpClient
      */
     func sendPendingRequests()
     {
-        //while (pendingRefreshQueue.count > 0) {
-           // makeRequest(requestObject: pendingRefreshQueue.remove(at: 0))
-        //}
+//        while (pendingRefreshQueue.count > 0) {
+//            let requestable = pendingRefreshQueue.remove(at: 0)
+//            makeRequest(requestObject: requestable)
+//        }
     }
     
     
