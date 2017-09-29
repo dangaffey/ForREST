@@ -13,6 +13,7 @@ import Alamofire
 public enum ForrestError: Error {
     case applicationAuthFailed
     case expiredCredentials
+    case refreshFailed
     case parseError
     case persistError
 }
@@ -20,6 +21,9 @@ public enum ForrestError: Error {
 
 class OAuthHttpClient
 {
+    let semaphore = DispatchSemaphore(value: 1)
+    let lowerPriority = DispatchQueue.global(qos: .utility)
+    
     typealias UserResponse = (
         userToken: AccessToken,
         refreshToken: AccessToken,
@@ -39,7 +43,6 @@ class OAuthHttpClient
     let oauthStateProvider: OAuthStateProviderProtocol
     let oauthConfigProvider: OAuthConfigProviderProtocol
     
-   // var pendingRefreshQueue = [HttpRequestableProtocol]()
     var isRefreshing: Bool = false
     
     let AUTH_HEADER = "Authorization"
@@ -76,7 +79,7 @@ class OAuthHttpClient
     /**
      Attempts to execute a request that requires a user-level access
      */
-    private func attemptUserAccessRequest<T: ResponseHandleableProtocol>(request: RequestPrototype<T>) -> Void
+    private func attemptUserAccessRequest<T: ResponseHandleableProtocol>(request: RequestPrototype<T>)
     {
         if (oauthStateProvider.userAccessIntended()) {
             makeRequest(requestObject: request)
@@ -85,7 +88,6 @@ class OAuthHttpClient
         
         
         if (oauthStateProvider.userRefreshPossible()) {
-           // pendingRefreshQueue.append(request)
             attemptUserAccessRefresh(request: request)
             return
         }
@@ -98,7 +100,7 @@ class OAuthHttpClient
     /**
      Attempts to make a request preferring user-level, but trying application-level if unavailable
      */
-    private func attemptAnyAccessRequest<T: ResponseHandleableProtocol>(request: RequestPrototype<T>) -> Void
+    private func attemptAnyAccessRequest<T: ResponseHandleableProtocol>(request: RequestPrototype<T>)
     {
         if (oauthStateProvider.userAccessIntended()) {
             attemptUserAccessRequest(request: request)
@@ -260,70 +262,74 @@ class OAuthHttpClient
      */
     private func attemptUserAccessRefresh<T: ResponseHandleableProtocol>(request: RequestPrototype<T>)
     {
-        if (isRefreshing) {
-            return
-        }
-        
-        isRefreshing = true
-        
-        let parser = oauthConfigProvider.getRefreshParser()
-        let persistSuccessHandler = { [weak self] (response: RefreshResponse) in
-            do {
-                try self?.oauthStateProvider.setUserAccessData(
-                    token: response.userToken.id,
-                    expiration: response.userToken.expiration)
-                
-                try self?.oauthStateProvider.setUserRefreshData(
-                    token: response.refreshToken.id,
-                    expiration: response.refreshToken.expiration)
-                
-                self?.isRefreshing = false
-                self?.sendPendingRequests()
-                
-                
-            } catch (let error) {
-                request.getResponseHandler().getFailureCallback()(error)
+        lowerPriority.async { [weak self] in
+            
+            guard let `self` = self else {
+                request.getResponseHandler().getFailureCallback()(ForrestError.refreshFailed)
+                return
             }
+            
+            if (self.isRefreshing) {
+                self.semaphore.wait()
+                self.makeRequest(requestObject: request)
+                return
+            }
+            
+            self.isRefreshing = true
+            
+            debugPrint("Initial Refresh Request Waiting")
+            self.semaphore.wait()
+            
+            let parser = self.oauthConfigProvider.getRefreshParser()
+            let persistSuccessHandler = { [weak self] (response: RefreshResponse) in
+                
+                guard let `self` = self else {
+                    request.getResponseHandler().getFailureCallback()(ForrestError.refreshFailed)
+                    return
+                }
+                
+                do {
+                    try self.oauthStateProvider.setUserAccessData(
+                        token: response.userToken.id,
+                        expiration: response.userToken.expiration)
+                    
+                    try self.oauthStateProvider.setUserRefreshData(
+                        token: response.refreshToken.id,
+                        expiration: response.refreshToken.expiration)
+                    
+                } catch (let error) {
+                    request.getResponseHandler().getFailureCallback()(error)
+                }
+                
+                self.isRefreshing = false
+                self.semaphore.signal()
+            }
+            
+            let responseHandler = ResponseHandler<RefreshResponse>(
+                parserClosure: parser.fromJson,
+                successCallback: persistSuccessHandler,
+                failureCallback: request.getResponseHandler().getFailureCallback()
+            )
+            
+            let refreshRequest = RequestPrototype<ResponseHandler<RefreshResponse>>(
+                type: .NoAuthRequired,
+                method: .post,
+                url: self.oauthConfigProvider.getRefreshEndpoint(),
+                params: parser.toJson(token: self.oauthStateProvider.getUserRefreshData()?.token ?? ""),
+                parameterEncoding: JSONEncoding.default,
+                responseHandler: responseHandler
+            )
+            
+            self.makeRequest(requestObject: refreshRequest)
         }
         
-        let responseHandler = ResponseHandler<RefreshResponse>(
-            parserClosure: parser.fromJson,
-            successCallback: persistSuccessHandler,
-            failureCallback: request.getResponseHandler().getFailureCallback()
-        )
+    }
 
-        let refreshRequest = RequestPrototype<ResponseHandler<RefreshResponse>>(
-            type: .NoAuthRequired,
-            method: .post,
-            url: oauthConfigProvider.getRefreshEndpoint(),
-            params: parser.toJson(token: oauthStateProvider.getUserRefreshData()?.token ?? ""),
-            parameterEncoding: JSONEncoding.default,
-            responseHandler: responseHandler
-        )
-        
-        makeRequest(requestObject: refreshRequest)
-    }
-    
-    
-    
-    
-    /**
-     Attempts to dispatch the pending requests
-     */
-    func sendPendingRequests()
-    {
-//        while (pendingRefreshQueue.count > 0) {
-//            let requestable = pendingRefreshQueue.remove(at: 0)
-//            makeRequest(requestObject: requestable)
-//        }
-    }
-    
-    
     
     /**
      Executes requests through the Alamofire stack
      */
-    func makeRequest<T: ResponseHandleableProtocol>(requestObject: RequestPrototype<T>) -> Void
+    func makeRequest<T: ResponseHandleableProtocol>(requestObject: RequestPrototype<T>)
     {
         var headers = HTTPHeaders()
         let requestType = requestObject.getType()
