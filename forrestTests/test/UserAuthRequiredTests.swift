@@ -1,21 +1,22 @@
 //
-//  AnyAuthRequiredTests.swift
+//  UserAuthRequiredTests.swift
 //  forrestTests
 //
-//  Created by Dan Gaffey on 9/21/17.
+//  Created by Dan Gaffey on 9/29/17.
 //  Copyright © 2017 UnchartedRealms. All rights reserved.
 //
 
 import XCTest
 @testable import forrest
 
-class AppAuthRequiredTests: XCTestCase
+class UserAuthRequiredTests: XCTestCase
 {
     var networkConfig: NetworkConfig?
     var httpClient: OAuthHttpClient?
     var mockService: MockService?
     var mockStateProvider: MockStateProvider?
     var data: Any?
+    
     
     override func setUp()
     {
@@ -28,8 +29,11 @@ class AppAuthRequiredTests: XCTestCase
         self.httpClient = OAuthHttpClient.sharedInstance
         self.mockService = MockService.sharedInstance
         try! self.mockStateProvider!.setAppAccessData(token: "", expiration: "")
+        try! self.mockStateProvider!.setUserAccessData(token: "", expiration: "")
+        try! self.mockStateProvider!.setUserRefreshData(token: "", expiration: "")
         
     }
+    
     
     override func tearDown()
     {
@@ -37,12 +41,16 @@ class AppAuthRequiredTests: XCTestCase
         super.tearDown()
     }
     
-    func testApplicationAuthentication()
+    
+    
+    func testUserAuth()
     {
-        let asyncExpectation = expectation(description: "applicationAuth")
+        let asyncExpectation = expectation(description: "userAuth")
         
-        self.httpClient!.attemptAppAuthentication(
-            successHandler: { () in
+        self.httpClient!.attemptUserAuthentication(
+            username: "testuser",
+            password: "Testing1!",
+            successHandler: {
                 asyncExpectation.fulfill()
             },
             failureHandler: { (error: Error) in
@@ -52,13 +60,9 @@ class AppAuthRequiredTests: XCTestCase
         
         self.waitForExpectations(timeout: 10) { (error) in
             XCTAssert(error == nil)
-            XCTAssert(self.mockStateProvider!.appAccessTokenValid() == true)
-            debugPrint(self.mockStateProvider!.getAppAccessData())
+            XCTAssert(self.mockStateProvider!.userAccessIntended() == true)
+            debugPrint(self.mockStateProvider!.getUserAccessData())
         }
     }
     
-    
-    
-    
 }
-

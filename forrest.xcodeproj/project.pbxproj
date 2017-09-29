@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F0457A01F7E999A00ECC686 /* UserAuthRequiredTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F04579F1F7E999A00ECC686 /* UserAuthRequiredTests.swift */; };
 		1F58845B1F7D805700C333E0 /* ResponseHandleableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFF43B1F783891000690C8 /* ResponseHandleableProtocol.swift */; };
 		1F58845C1F7D805A00C333E0 /* ResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFF43E1F783A30000690C8 /* ResponseHandler.swift */; };
 		1F82ED311F74007C0084D9E2 /* MockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED301F74007C0084D9E2 /* MockService.swift */; };
@@ -61,6 +62,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F04579F1F7E999A00ECC686 /* UserAuthRequiredTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthRequiredTests.swift; sourceTree = "<group>"; };
 		1F82ED301F74007C0084D9E2 /* MockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockService.swift; sourceTree = "<group>"; };
 		1F82ED361F7409C10084D9E2 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		1F82ED391F740DE00084D9E2 /* MockStateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStateProvider.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 			children = (
 				5DF5CA061F734C6A00E5C0DE /* NoAuthRequiredTests.swift */,
 				1F82ED501F744AA50084D9E2 /* AppAuthRequiredTests.swift */,
+				1F04579F1F7E999A00ECC686 /* UserAuthRequiredTests.swift */,
 			);
 			path = test;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 				1F82ED561F756D1B0084D9E2 /* DateExtensions.swift in Sources */,
 				1F82ED491F74188B0084D9E2 /* MockRefreshParser.swift in Sources */,
 				1F82ED3D1F740E4C0084D9E2 /* MockConfigProvider.swift in Sources */,
+				1F0457A01F7E999A00ECC686 /* UserAuthRequiredTests.swift in Sources */,
 				1F82ED401F740EA80084D9E2 /* MockClientCredentialsProvider.swift in Sources */,
 				1F82ED321F7400B60084D9E2 /* OAuthHttpClient.swift in Sources */,
 				1F82ED451F7418380084D9E2 /* UserAuthParserProtocol.swift in Sources */,

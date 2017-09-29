@@ -11,16 +11,26 @@ import Foundation
 class MockStateProvider: OAuthStateProviderProtocol
 {
     private var appToken: AccessToken?
+    private var userToken: AccessToken?
+    private var refreshToken: AccessToken?
     
     
     func userAccessIntended() -> Bool
     {
-        return false
+        guard let _ = userToken else {
+            return false
+        }
+        
+        return true
     }
     
     func userRefreshPossible() -> Bool
     {
-        return false
+        guard let _ = refreshToken else {
+            return false
+        }
+        
+        return true
     }
     
     func appAccessTokenValid() -> Bool
@@ -34,12 +44,12 @@ class MockStateProvider: OAuthStateProviderProtocol
     
     func setUserAccessData(token: String, expiration: String) throws
     {
-        
+        self.userToken = AccessToken(id: token, expiration: expiration)
     }
     
     func setUserRefreshData(token: String, expiration: String) throws
     {
-        
+        self.refreshToken = AccessToken(id: token, expiration: expiration)
     }
     
     func setAppAccessData(token: String, expiration: String) throws
@@ -49,12 +59,20 @@ class MockStateProvider: OAuthStateProviderProtocol
     
     func getUserAccessData() -> (token: String, expiration: String)?
     {
-        return nil
+        guard let token = userToken else {
+            return nil
+        }
+        
+        return (token.getId(), token.getExpiration())
     }
     
     func getUserRefreshData() -> (token: String, expiration: String)?
     {
-        return nil
+        guard let token = refreshToken else {
+            return nil
+        }
+        
+        return (token.getId(), token.getExpiration())
     }
     
     func getAppAccessData() -> (token: String, expiration: String)?

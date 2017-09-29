@@ -221,6 +221,7 @@ class OAuthHttpClient
         
         let parser = oauthConfigProvider.getUserAuthParser()
         let persistSuccessHandler = { [weak self] (response: UserResponse) in
+            
             do {
                 try self?.oauthStateProvider.setUserAccessData(
                     token: response.userToken.id,
