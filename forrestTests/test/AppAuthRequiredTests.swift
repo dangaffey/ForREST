@@ -1,13 +1,13 @@
 //
 //  AnyAuthRequiredTests.swift
-//  forrestTests
+//  ForRESTTests
 //
 //  Created by Dan Gaffey on 9/21/17.
 //  Copyright © 2017 UnchartedRealms. All rights reserved.
 //
 
 import XCTest
-@testable import forrest
+@testable import ForREST
 
 class AppAuthRequiredTests: XCTestCase
 {

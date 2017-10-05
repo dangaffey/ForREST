@@ -273,6 +273,7 @@
 				5DF5C9F41F734C6A00E5C0DE /* Frameworks */,
 				5DF5C9F51F734C6A00E5C0DE /* Headers */,
 				5DF5C9F61F734C6A00E5C0DE /* Resources */,
+				1FB7A0371F86CDF800D3E1D0 /* Carthage Framework Copy */,
 			);
 			buildRules = (
 			);
@@ -323,7 +324,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 5DF5C9F21F734C6A00E5C0DE /* Build configuration list for PBXProject "forrest" */;
+			buildConfigurationList = 5DF5C9F21F734C6A00E5C0DE /* Build configuration list for PBXProject "ForREST" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -368,6 +369,21 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		1FB7A0371F86CDF800D3E1D0 /* Carthage Framework Copy */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+			);
+			name = "Carthage Framework Copy";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -649,7 +665,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5DF5C9F21F734C6A00E5C0DE /* Build configuration list for PBXProject "forrest" */ = {
+		5DF5C9F21F734C6A00E5C0DE /* Build configuration list for PBXProject "ForREST" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5DF5CA0A1F734C6A00E5C0DE /* Debug */,

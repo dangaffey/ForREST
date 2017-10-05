@@ -17,7 +17,7 @@
                BlueprintIdentifier = "5DF5C9F71F734C6A00E5C0DE"
                BuildableName = "forrest.framework"
                BlueprintName = "forrest"
-               ReferencedContainer = "container:forrest.xcodeproj">
+               ReferencedContainer = "container:ForREST.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -36,7 +36,7 @@
                BlueprintIdentifier = "5DF5CA001F734C6A00E5C0DE"
                BuildableName = "forrestTests.xctest"
                BlueprintName = "forrestTests"
-               ReferencedContainer = "container:forrest.xcodeproj">
+               ReferencedContainer = "container:ForREST.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -46,7 +46,7 @@
             BlueprintIdentifier = "5DF5C9F71F734C6A00E5C0DE"
             BuildableName = "forrest.framework"
             BlueprintName = "forrest"
-            ReferencedContainer = "container:forrest.xcodeproj">
+            ReferencedContainer = "container:ForREST.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -69,7 +69,7 @@
             BlueprintIdentifier = "5DF5C9F71F734C6A00E5C0DE"
             BuildableName = "forrest.framework"
             BlueprintName = "forrest"
-            ReferencedContainer = "container:forrest.xcodeproj">
+            ReferencedContainer = "container:ForREST.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -87,7 +87,7 @@
             BlueprintIdentifier = "5DF5C9F71F734C6A00E5C0DE"
             BuildableName = "forrest.framework"
             BlueprintName = "forrest"
-            ReferencedContainer = "container:forrest.xcodeproj">
+            ReferencedContainer = "container:ForREST.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

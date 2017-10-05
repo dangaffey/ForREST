@@ -1,6 +1,6 @@
 //
 //  ResponseHandler.swift
-//  forrest
+//  ForREST
 //
 //  Created by Daniel Gaffey on 9/24/17.
 //  Copyright © 2017 UnchartedRealms. All rights reserved.
