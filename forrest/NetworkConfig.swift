@@ -11,7 +11,7 @@ import Alamofire
 
 public class NetworkConfig
 {
-    static let sharedInstance = NetworkConfig()
+    public static let sharedInstance = NetworkConfig()
     
     private var configProvider: OAuthConfigProviderProtocol?
     private var stateProvider: OAuthStateProviderProtocol?
