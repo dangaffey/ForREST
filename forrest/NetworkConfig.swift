@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-class NetworkConfig
+public class NetworkConfig
 {
     static let sharedInstance = NetworkConfig()
     
