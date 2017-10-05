@@ -21,7 +21,7 @@ class AppAuthRequiredTests: XCTestCase
     {
         super.setUp()
         self.networkConfig = NetworkConfig.sharedInstance
-        self.mockStateProvider = MockStateProvider()
+        self.mockStateProvider = MockStateProvider.sharedInstance
         
         self.networkConfig!.setConfigProvider(configProvider: MockConfigProvider())
         self.networkConfig!.setStateProvider(stateProvider: self.mockStateProvider!)

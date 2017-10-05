@@ -22,7 +22,7 @@ class UserAuthRequiredTests: XCTestCase
     {
         super.setUp()
         self.networkConfig = NetworkConfig.sharedInstance
-        self.mockStateProvider = MockStateProvider()
+        self.mockStateProvider = MockStateProvider.sharedInstance
         
         self.networkConfig!.setConfigProvider(configProvider: MockConfigProvider())
         self.networkConfig!.setStateProvider(stateProvider: self.mockStateProvider!)
@@ -60,9 +60,36 @@ class UserAuthRequiredTests: XCTestCase
         
         self.waitForExpectations(timeout: 10) { (error) in
             XCTAssert(error == nil)
+            XCTAssert(self.mockStateProvider!.userAccessIntended())
+        }
+    }
+    
+    
+    
+    func testUserRefresh()
+    {
+        let asyncExpectation = expectation(description: "userRefresh")
+        
+        self.httpClient!.attemptUserAuthentication(
+            username: "testuser",
+            password: "Testing1!",
+            successHandler: {
+                asyncExpectation.fulfill()
+            },
+            failureHandler: { (error: Error) in
+                asyncExpectation.fulfill()
+            }
+        )
+        
+        self.waitForExpectations(timeout: 10) { (error) in
+            XCTAssert(error == nil)
             XCTAssert(self.mockStateProvider!.userAccessIntended() == true)
             debugPrint(self.mockStateProvider!.getUserAccessData())
         }
+        
+        try! self.mockStateProvider!.setUserAccessData(token: "", expiration: "")
+        XCTAssert(self.mockStateProvider!.userAccessIntended() == false)
+        
     }
     
 }

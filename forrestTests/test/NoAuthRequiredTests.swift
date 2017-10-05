@@ -20,7 +20,7 @@ class NoAuthRequiredTests: XCTestCase
         super.setUp()
         self.networkConfig = NetworkConfig.sharedInstance
         self.networkConfig!.setConfigProvider(configProvider: MockConfigProvider())
-        self.networkConfig!.setStateProvider(stateProvider: MockStateProvider())
+        self.networkConfig!.setStateProvider(stateProvider: MockStateProvider.sharedInstance)
         self.mockService = MockService.sharedInstance
         self.data = nil
     }

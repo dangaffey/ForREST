@@ -10,14 +10,23 @@ import Foundation
 
 class MockStateProvider: OAuthStateProviderProtocol
 {
-    private var appToken: AccessToken?
+    static let sharedInstance = MockStateProvider()
+    
     private var userToken: AccessToken?
     private var refreshToken: AccessToken?
+    private var appToken: AccessToken?
     
+    
+    private init()
+    {
+        
+    }
     
     func userAccessIntended() -> Bool
     {
-        guard let _ = userToken else {
+        guard let token = userToken,
+            token.getId() != "",
+            token.getExpiration() != "" else {
             return false
         }
         
@@ -59,7 +68,9 @@ class MockStateProvider: OAuthStateProviderProtocol
     
     func getUserAccessData() -> (token: String, expiration: String)?
     {
-        guard let token = userToken else {
+        guard let token = self.userToken,
+            token.getId() != "",
+            token.getExpiration() != "" else {
             return nil
         }
         
