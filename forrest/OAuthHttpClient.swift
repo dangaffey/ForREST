@@ -35,10 +35,7 @@ class OAuthHttpClient
         refreshToken: AccessToken
     )
     
-    static let sharedInstance = OAuthHttpClient(
-        oauthStateProvider: NetworkConfig.sharedInstance.getStateProvider()!,
-        oauthConfigProvider: NetworkConfig.sharedInstance.getConfigProvider()!
-    )
+    static let sharedInstance = OAuthHttpClient(config: NetworkConfig.sharedInstance)
     
     let oauthStateProvider: OAuthStateProviderProtocol
     let oauthConfigProvider: OAuthConfigProviderProtocol
@@ -47,12 +44,10 @@ class OAuthHttpClient
     
     let AUTH_HEADER = "Authorization"
     
-    private init(
-        oauthStateProvider: OAuthStateProviderProtocol,
-        oauthConfigProvider: OAuthConfigProviderProtocol
+    private init(config: NetworkConfig
     ) {
-        self.oauthStateProvider = oauthStateProvider
-        self.oauthConfigProvider = oauthConfigProvider
+        self.oauthStateProvider = config.getStateProvider()!
+        self.oauthConfigProvider = config.getConfigProvider()!
     }
     
     

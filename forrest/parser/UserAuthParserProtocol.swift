@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-protocol UserAuthParserProtocol
+public protocol UserAuthParserProtocol
 {
     func toJson(username: String, password: String) -> Parameters
     

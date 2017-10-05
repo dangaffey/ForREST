@@ -9,7 +9,7 @@
 import Foundation
 
 
-protocol OAuthStateProviderProtocol
+public protocol OAuthStateProviderProtocol
 {
     func userAccessIntended() -> Bool
     

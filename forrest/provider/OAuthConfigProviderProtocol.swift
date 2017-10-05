@@ -9,7 +9,7 @@
 import Foundation
 
 
-protocol OAuthConfigProviderProtocol
+public protocol OAuthConfigProviderProtocol
 {
     func getUserAuthEndpoint() -> String
     

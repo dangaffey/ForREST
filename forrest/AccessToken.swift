@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct AccessToken
+public struct AccessToken
 {
     var id: String
     var expiration: String

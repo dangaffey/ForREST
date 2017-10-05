@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-protocol RefreshParserProtocol
+public protocol RefreshParserProtocol
 {
     func toJson(token: String) -> Parameters
     

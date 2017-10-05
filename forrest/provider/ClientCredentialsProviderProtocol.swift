@@ -9,7 +9,7 @@
 import Foundation
 
 
-protocol ClientCredentialsProviderProtocol
+public protocol ClientCredentialsProviderProtocol
 {
     func getClientId() -> String
     
