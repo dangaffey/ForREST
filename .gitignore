@@ -1,0 +1,5 @@
+Carthage/
+.DS_Store
+ForREST.xcodeproj/project.xcworkspace/
+ForREST.xcodeproj/xcuserdata/
+node_modules/
