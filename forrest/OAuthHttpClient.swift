@@ -19,7 +19,7 @@ public enum ForrestError: Error {
 }
 
 
-class OAuthHttpClient
+public class OAuthHttpClient
 {
     let semaphore = DispatchSemaphore(value: 1)
     let lowerPriority = DispatchQueue.global(qos: .utility)

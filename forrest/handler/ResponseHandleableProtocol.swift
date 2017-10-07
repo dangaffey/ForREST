@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-protocol ResponseHandleableProtocol
+public protocol ResponseHandleableProtocol
 {
     associatedtype EntityType
     

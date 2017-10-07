@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-class RequestPrototype<T>: HttpRequestableProtocol
+public class RequestPrototype<T>: HttpRequestableProtocol
 {
     typealias EntityHandler = T
     
