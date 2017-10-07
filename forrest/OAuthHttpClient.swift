@@ -35,7 +35,7 @@ public class OAuthHttpClient
         refreshToken: AccessToken
     )
     
-    static let sharedInstance = OAuthHttpClient(config: NetworkConfig.sharedInstance)
+    public static let sharedInstance = OAuthHttpClient(config: NetworkConfig.sharedInstance)
     
     let oauthStateProvider: OAuthStateProviderProtocol
     let oauthConfigProvider: OAuthConfigProviderProtocol
