@@ -13,7 +13,7 @@ public struct AccessToken
     var id: String
     var expiration: String
     
-    init(id: String, expiration: String)
+    public init(id: String, expiration: String)
     {
         self.id = id
         self.expiration = expiration
