@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-class ResponseHandler<T>: ResponseHandleableProtocol
+public class ResponseHandler<T>: ResponseHandleableProtocol
 {
     typealias EntityType = T
     
@@ -17,7 +17,7 @@ class ResponseHandler<T>: ResponseHandleableProtocol
     var successCallback: (EntityType) -> ()
     var failureCallback: (Error) -> ()
     
-    init(
+    public init(
         parserClosure: @escaping (Data) -> (EntityType?),
         successCallback: @escaping (EntityType) -> (),
         failureCallback: @escaping (Error) -> ())
