@@ -13,9 +13,9 @@ public protocol ResponseHandleableProtocol
 {
     associatedtype EntityType
     
-    public func handleResponse(response: DataResponse<Data>) -> ()
+    func handleResponse(response: DataResponse<Data>) -> ()
     
-    public func getSuccessCallback() -> (EntityType) -> ()
+    func getSuccessCallback() -> (EntityType) -> ()
     
-    public func getFailureCallback() -> (Error) -> ()
+    func getFailureCallback() -> (Error) -> ()
 }

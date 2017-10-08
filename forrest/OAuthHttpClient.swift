@@ -325,7 +325,7 @@ public class OAuthHttpClient
     /**
      Executes requests through the Alamofire stack
      */
-    func makeRequest<T: ResponseHandleableProtocol>(requestObject: RequestPrototype<T>)
+    private func makeRequest<T: ResponseHandleableProtocol>(requestObject: RequestPrototype<T>)
     {
         var headers = HTTPHeaders()
         let requestType = requestObject.getType()
@@ -347,7 +347,7 @@ public class OAuthHttpClient
     /**
      Attempts to retrieve the correct authorization header based on the request type
      */
-    func getAuthorizationHeader(type: RequestType) -> String?
+    private func getAuthorizationHeader(type: RequestType) -> String?
     {
         switch type {
         case .UserAuthRequired:

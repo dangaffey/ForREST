@@ -11,7 +11,7 @@ import Alamofire
 
 public class ResponseHandler<T>: ResponseHandleableProtocol
 {
-    typealias EntityType = T
+    public typealias EntityType = T
     
     var parserClosure: (Data) -> (EntityType?)
     var successCallback: (EntityType) -> ()
@@ -29,7 +29,7 @@ public class ResponseHandler<T>: ResponseHandleableProtocol
     
     //track time using response.timeline object
     
-    func handleResponse(response: DataResponse<Data>)
+    public func handleResponse(response: DataResponse<Data>)
     {
         switch response.result {
                 
@@ -49,12 +49,12 @@ public class ResponseHandler<T>: ResponseHandleableProtocol
     }
     
     
-    func getSuccessCallback() -> (EntityType) -> ()
+    public func getSuccessCallback() -> (EntityType) -> ()
     {
         return successCallback
     }
     
-    func getFailureCallback() -> (Error) -> ()
+    public func getFailureCallback() -> (Error) -> ()
     {
         return failureCallback
     }
