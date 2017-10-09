@@ -19,12 +19,12 @@ public struct AccessToken
         self.expiration = expiration
     }
     
-    func getId() -> String
+    public func getId() -> String
     {
         return id
     }
     
-    func getExpiration() -> String
+    public func getExpiration() -> String
     {
         return expiration
     }
