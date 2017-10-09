@@ -11,7 +11,7 @@ import Alamofire
 
 public class RequestPrototype<T>: HttpRequestableProtocol
 {
-    typealias EntityHandler = T
+    public typealias EntityHandler = T
     
     var type: RequestType = RequestType.NoAuthRequired
     var method: HTTPMethod = .get
