@@ -20,7 +20,7 @@ public class RequestPrototype<T>: HttpRequestableProtocol
     var parameterEncoding: ParameterEncoding = JSONEncoding.default
     var responseHandler: EntityHandler
     
-    init(
+    public init(
         type: RequestType,
         method: HTTPMethod,
         url: URLConvertible,
@@ -36,32 +36,32 @@ public class RequestPrototype<T>: HttpRequestableProtocol
         self.responseHandler = responseHandler
     }
     
-    func getType() -> RequestType
+    public func getType() -> RequestType
     {
         return type
     }
     
-    func getMethod() -> HTTPMethod
+    public func getMethod() -> HTTPMethod
     {
         return method
     }
     
-    func getUrl() -> URLConvertible
+    public func getUrl() -> URLConvertible
     {
         return url
     }
     
-    func getParams() -> Parameters?
+    public func getParams() -> Parameters?
     {
         return params
     }
     
-    func getEncoding() -> ParameterEncoding
+    public func getEncoding() -> ParameterEncoding
     {
         return parameterEncoding
     }
     
-    func getResponseHandler() -> EntityHandler
+    public func getResponseHandler() -> EntityHandler
     {
         return responseHandler
     }
