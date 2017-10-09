@@ -209,7 +209,7 @@ public class OAuthHttpClient
     public func attemptUserAuthentication(
         username: String,
         password: String,
-        successHandler: @escaping () -> (),
+        successHandler: @escaping ([String: AnyObject]?) -> (),
         failureHandler: @escaping (Error) -> ()
     ) {
         
@@ -226,7 +226,7 @@ public class OAuthHttpClient
                     token: response.refreshToken.id,
                     expiration: response.refreshToken.expiration)
                 
-                successHandler()
+                successHandler(response.additionalData)
                 
             } catch (let error) {
                 failureHandler(error)
