@@ -35,6 +35,16 @@ public class OAuthHttpClient
         refreshToken: AccessToken
     )
     
+    
+    private let alamofire: Alamofire.SessionManager = {
+        let configuration = URLSessionConfiguration.default
+        let sessionManager = Alamofire.SessionManager(
+            configuration: configuration,
+            serverTrustPolicyManager: ServerTrustPolicyManager(policies: NetworkConfig.sharedInstance.sslOverridePolicy)
+        )
+        return sessionManager
+    }()
+    
     public static let sharedInstance = OAuthHttpClient(config: NetworkConfig.sharedInstance)
     
     let oauthStateProvider: OAuthStateProviderProtocol
@@ -334,7 +344,7 @@ public class OAuthHttpClient
             headers["Authorization"] = String(format: "Bearer %@", authorizationHeader)
         }
        
-        Alamofire.request(requestObject.getUrl(),
+        alamofire.request(requestObject.getUrl(),
                           method: requestObject.getMethod(),
                           parameters: requestObject.getParams(),
                           encoding: requestObject.getEncoding(),
