@@ -55,7 +55,7 @@ public class OAuthHttpClient
             configuration: configuration,
             serverTrustPolicyManager: ServerTrustPolicyManager(policies: config.sslOverridePolicy)
         )
-        
+        debugPrint("IN THE OBJECT \(config.sslOverridePolicy)")
         self.alamofire = sessionManager
     }
     

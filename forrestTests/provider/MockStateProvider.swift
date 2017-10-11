@@ -44,7 +44,8 @@ class MockStateProvider: OAuthStateProviderProtocol
     
     func appAccessTokenValid() -> Bool
     {
-        guard let _ = appToken else {
+        guard let token = appToken,
+            token.getId() != "" else {
             return false
         }
         
