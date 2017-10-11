@@ -15,7 +15,7 @@ public class NetworkConfig
     
     private var configProvider: OAuthConfigProviderProtocol?
     private var stateProvider: OAuthStateProviderProtocol?
-    private var transportOverrideDomains: [String]?
+    public var transportOverrideDomains: [String]?
     
     /**
          Hide constructor to force static singleton usage
