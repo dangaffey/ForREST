@@ -12,7 +12,7 @@ struct MockConfigProvider: OAuthConfigProviderProtocol
 {
     func getUserAuthEndpoint() -> String
     {
-        return "http://localhost:8000/oauth/v2/token"
+        return "https://localhost:8000/oauth/v2/token"
     }
     
     func getRefreshEndpoint() -> String
@@ -22,7 +22,7 @@ struct MockConfigProvider: OAuthConfigProviderProtocol
     
     func getAppAuthEndpoint() -> String
     {
-        return "http://localhost:8000/oauth/v2/token"
+        return "https://localhost:8000/oauth/v2/token"
         //return "http://dgaffey.www.whitewhaler.com/oauth/v2/token"
     }
     

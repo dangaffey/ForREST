@@ -26,6 +26,8 @@ class UserAuthRequiredTests: XCTestCase
         
         self.networkConfig!.setConfigProvider(configProvider: MockConfigProvider())
         self.networkConfig!.setStateProvider(stateProvider: self.mockStateProvider!)
+        self.networkConfig!.transportOverrideDomains = ["localhost"]
+        
         self.httpClient = OAuthHttpClient.sharedInstance
         self.mockService = MockService.sharedInstance
         try! self.mockStateProvider!.setAppAccessData(token: "", expiration: "")
@@ -50,7 +52,7 @@ class UserAuthRequiredTests: XCTestCase
         self.httpClient!.attemptUserAuthentication(
             username: "testuser",
             password: "Testing1!",
-            successHandler: {
+            successHandler: { ([String: AnyObject]?) in
                 asyncExpectation.fulfill()
             },
             failureHandler: { (error: Error) in
@@ -73,7 +75,7 @@ class UserAuthRequiredTests: XCTestCase
         self.httpClient!.attemptUserAuthentication(
             username: "testuser",
             password: "Testing1!",
-            successHandler: {
+            successHandler: { ([String: AnyObject]?) in
                 asyncExpectation.fulfill()
             },
             failureHandler: { (error: Error) in

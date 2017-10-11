@@ -10,6 +10,7 @@
 		1F0457A01F7E999A00ECC686 /* UserAuthRequiredTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F04579F1F7E999A00ECC686 /* UserAuthRequiredTests.swift */; };
 		1F58845B1F7D805700C333E0 /* ResponseHandleableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFF43B1F783891000690C8 /* ResponseHandleableProtocol.swift */; };
 		1F58845C1F7D805A00C333E0 /* ResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFF43E1F783A30000690C8 /* ResponseHandler.swift */; };
+		1F693A141F8E6E2000D01161 /* NetworkConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F693A131F8E6E2000D01161 /* NetworkConfigTests.swift */; };
 		1F82ED311F74007C0084D9E2 /* MockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED301F74007C0084D9E2 /* MockService.swift */; };
 		1F82ED321F7400B60084D9E2 /* OAuthHttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA121F734FB300E5C0DE /* OAuthHttpClient.swift */; };
 		1F82ED331F7400FC0084D9E2 /* NetworkConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA2B1F735A0900E5C0DE /* NetworkConfig.swift */; };
@@ -63,6 +64,7 @@
 
 /* Begin PBXFileReference section */
 		1F04579F1F7E999A00ECC686 /* UserAuthRequiredTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthRequiredTests.swift; sourceTree = "<group>"; };
+		1F693A131F8E6E2000D01161 /* NetworkConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkConfigTests.swift; path = forrestTests/test/NetworkConfigTests.swift; sourceTree = SOURCE_ROOT; };
 		1F82ED301F74007C0084D9E2 /* MockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockService.swift; sourceTree = "<group>"; };
 		1F82ED361F7409C10084D9E2 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		1F82ED391F740DE00084D9E2 /* MockStateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStateProvider.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				5DF5CA061F734C6A00E5C0DE /* NoAuthRequiredTests.swift */,
 				1F82ED501F744AA50084D9E2 /* AppAuthRequiredTests.swift */,
 				1F04579F1F7E999A00ECC686 /* UserAuthRequiredTests.swift */,
+				1F693A131F8E6E2000D01161 /* NetworkConfigTests.swift */,
 			);
 			path = test;
 			sourceTree = "<group>";
@@ -433,6 +436,7 @@
 				1F82ED351F7409180084D9E2 /* HttpRequestableProtocol.swift in Sources */,
 				5DF5CA071F734C6A00E5C0DE /* NoAuthRequiredTests.swift in Sources */,
 				1F82ED4D1F7419260084D9E2 /* MockUserAuthParser.swift in Sources */,
+				1F693A141F8E6E2000D01161 /* NetworkConfigTests.swift in Sources */,
 				1F82ED441F7418350084D9E2 /* AppAuthParserProtocol.swift in Sources */,
 				1F82ED461F7418450084D9E2 /* AccessToken.swift in Sources */,
 				1F82ED4B1F7418E10084D9E2 /* MockAppAuthParser.swift in Sources */,

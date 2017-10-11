@@ -35,20 +35,11 @@ public class OAuthHttpClient
         refreshToken: AccessToken
     )
     
-    
-    private let alamofire: Alamofire.SessionManager = {
-        let configuration = URLSessionConfiguration.default
-        let sessionManager = Alamofire.SessionManager(
-            configuration: configuration,
-            serverTrustPolicyManager: ServerTrustPolicyManager(policies: NetworkConfig.sharedInstance.sslOverridePolicy)
-        )
-        return sessionManager
-    }()
-    
     public static let sharedInstance = OAuthHttpClient(config: NetworkConfig.sharedInstance)
     
     let oauthStateProvider: OAuthStateProviderProtocol
     let oauthConfigProvider: OAuthConfigProviderProtocol
+    let alamofire: Alamofire.SessionManager
     
     var isRefreshing: Bool = false
     
@@ -58,6 +49,14 @@ public class OAuthHttpClient
     ) {
         self.oauthStateProvider = config.getStateProvider()!
         self.oauthConfigProvider = config.getConfigProvider()!
+        
+        let configuration = URLSessionConfiguration.default
+        let sessionManager = Alamofire.SessionManager(
+            configuration: configuration,
+            serverTrustPolicyManager: ServerTrustPolicyManager(policies: config.sslOverridePolicy)
+        )
+        
+        self.alamofire = sessionManager
     }
     
     

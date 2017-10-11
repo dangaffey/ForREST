@@ -25,6 +25,8 @@ class AppAuthRequiredTests: XCTestCase
         
         self.networkConfig!.setConfigProvider(configProvider: MockConfigProvider())
         self.networkConfig!.setStateProvider(stateProvider: self.mockStateProvider!)
+        self.networkConfig!.transportOverrideDomains = ["localhost"]
+        
         self.httpClient = OAuthHttpClient.sharedInstance
         self.mockService = MockService.sharedInstance
         try! self.mockStateProvider!.setAppAccessData(token: "", expiration: "")
