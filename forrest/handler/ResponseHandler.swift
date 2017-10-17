@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-public class ResponseHandler<T>: ResponseHandleableProtocol
+open class ResponseHandler<T>: ResponseHandleableProtocol
 {
     public typealias EntityType = T
     
