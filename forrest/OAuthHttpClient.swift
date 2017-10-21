@@ -348,6 +348,7 @@ public class OAuthHttpClient
                           parameters: requestObject.getParams(),
                           encoding: requestObject.getEncoding(),
                           headers: headers)
+            .validate(statusCode: 200..<300)
             .responseData(completionHandler: requestObject.getResponseHandler().handleResponse)
     }
     
