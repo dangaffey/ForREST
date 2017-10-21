@@ -9,13 +9,13 @@
 import Foundation
 import Alamofire
 
-public class ResponseHandler<T>: ResponseHandleableProtocol
+open class ResponseHandler<T>: ResponseHandleableProtocol
 {
     public typealias EntityType = T
     
-    var parserClosure: (Data) -> (EntityType?)
-    var successCallback: (EntityType) -> ()
-    var failureCallback: (Error) -> ()
+    public var parserClosure: (Data) -> (EntityType?)
+    public var successCallback: (EntityType) -> ()
+    public var failureCallback: (Error) -> ()
     
     public init(
         parserClosure: @escaping (Data) -> (EntityType?),
@@ -29,7 +29,7 @@ public class ResponseHandler<T>: ResponseHandleableProtocol
     
     //track time using response.timeline object
     
-    public func handleResponse(response: DataResponse<Data>)
+    open func handleResponse(response: DataResponse<Data>)
     {
         switch response.result {
                 
