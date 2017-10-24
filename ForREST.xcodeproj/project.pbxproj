@@ -39,7 +39,6 @@
 		5DF5CA071F734C6A00E5C0DE /* NoAuthRequiredTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA061F734C6A00E5C0DE /* NoAuthRequiredTests.swift */; };
 		5DF5CA091F734C6A00E5C0DE /* ForREST.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DF5C9FB1F734C6A00E5C0DE /* ForREST.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5DF5CA131F734FB300E5C0DE /* OAuthHttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA121F734FB300E5C0DE /* OAuthHttpClient.swift */; };
-		5DF5CA161F7352C800E5C0DE /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DF5CA151F7352C800E5C0DE /* Alamofire.framework */; };
 		5DF5CA181F7353ED00E5C0DE /* HttpRequestableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA171F7353ED00E5C0DE /* HttpRequestableProtocol.swift */; };
 		5DF5CA1A1F73544400E5C0DE /* RequestPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA191F73544400E5C0DE /* RequestPrototype.swift */; };
 		5DF5CA1D1F73556200E5C0DE /* OAuthStateProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA1C1F73556200E5C0DE /* OAuthStateProviderProtocol.swift */; };
@@ -99,14 +98,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		5DF5C9F41F734C6A00E5C0DE /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5DF5CA161F7352C800E5C0DE /* Alamofire.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		5DF5C9FE1F734C6A00E5C0DE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -273,10 +264,8 @@
 			buildConfigurationList = 5DF5CA0C1F734C6A00E5C0DE /* Build configuration list for PBXNativeTarget "ForREST" */;
 			buildPhases = (
 				5DF5C9F31F734C6A00E5C0DE /* Sources */,
-				5DF5C9F41F734C6A00E5C0DE /* Frameworks */,
 				5DF5C9F51F734C6A00E5C0DE /* Headers */,
 				5DF5C9F61F734C6A00E5C0DE /* Resources */,
-				1FB7A0371F86CDF800D3E1D0 /* Carthage Framework Copy */,
 			);
 			buildRules = (
 			);
@@ -372,21 +361,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
-		1FB7A0371F86CDF800D3E1D0 /* Carthage Framework Copy */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
-			);
-			name = "Carthage Framework Copy";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
