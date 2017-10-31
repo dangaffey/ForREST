@@ -53,6 +53,7 @@ class AppAuthRequiredTests: XCTestCase
         )
         
         self.waitForExpectations(timeout: 10) { (error) in
+            debugPrint(error)
             XCTAssert(error == nil)
             XCTAssert(self.mockStateProvider!.appAccessTokenValid() == true)
         }

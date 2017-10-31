@@ -33,7 +33,7 @@ class UserAuthRequiredTests: XCTestCase
         try! self.mockStateProvider!.setAppAccessData(token: "", expiration: "")
         try! self.mockStateProvider!.setUserAccessData(token: "", expiration: "")
         try! self.mockStateProvider!.setUserRefreshData(token: "", expiration: "")
-        
+        self.data = nil
     }
     
     
@@ -70,7 +70,7 @@ class UserAuthRequiredTests: XCTestCase
     
     func testUserRefresh()
     {
-        let asyncExpectation = expectation(description: "userRefresh")
+        let asyncExpectation = expectation(description: "userLogin")
         
         self.httpClient!.attemptUserAuthentication(
             username: "testuser",
@@ -91,6 +91,24 @@ class UserAuthRequiredTests: XCTestCase
         try! self.mockStateProvider!.setUserAccessData(token: "", expiration: "")
         XCTAssert(self.mockStateProvider!.userAccessIntended() == false)
         
+        
+        let refreshExpectation = expectation(description: "implicitRefresh")
+        
+        self.mockService!.getUserSecuredData(
+            successHandler: { (data) in
+                self.data = data
+                refreshExpectation.fulfill()
+            },
+            failureHandler: { (error) in
+                debugPrint(error)
+                refreshExpectation.fulfill()
+            }
+        )
+        
+        self.waitForExpectations(timeout: 10) { (error) in
+            XCTAssert(error == nil)
+            XCTAssert(self.data != nil)
+        }
     }
     
 }
