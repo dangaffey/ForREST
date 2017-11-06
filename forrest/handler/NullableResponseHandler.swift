@@ -44,7 +44,7 @@ open class NullableResponseHandler<T>: ResponseHandleableProtocol
             //now on the parser to indicate that
             
             guard let contentObject = parserClosure(data) else {
-                successCallback()
+                successCallback(nil)
                 return
             }
             
