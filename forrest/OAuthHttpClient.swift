@@ -21,9 +21,6 @@ public enum ForrestError: Error {
 
 public class OAuthHttpClient
 {
-    let semaphore = DispatchSemaphore(value: 1)
-    let lowerPriority = DispatchQueue.global(qos: .utility)
-    
     typealias UserResponse = (
         userToken: AccessToken,
         refreshToken: AccessToken,
@@ -41,7 +38,8 @@ public class OAuthHttpClient
     let oauthConfigProvider: OAuthConfigProviderProtocol
     let alamofire: Alamofire.SessionManager
     
-    var isRefreshing: Bool = false
+    var refreshQueue = [DispatchWorkItem]()
+    var isRefreshing = false
     
     let AUTH_HEADER = "Authorization"
     
@@ -267,69 +265,85 @@ public class OAuthHttpClient
      */
     private func attemptUserAccessRefresh<T: ResponseHandleableProtocol>(request: RequestPrototype<T>)
     {
-        lowerPriority.async { [weak self] in
+        refreshQueue.append(DispatchWorkItem { [weak self] in
+            guard let `self` = self else {
+                request.getResponseHandler().getFailureCallback()(ForrestError.refreshFailed)
+                return
+            }
+            self.makeRequest(requestObject: request)
+        })
+        
+        if (isRefreshing) {
+            return
+        }
+        isRefreshing = true
+            
+        let parser = self.oauthConfigProvider.getRefreshParser()
+        
+        let refreshSuccessHandler = { [weak self] (response: RefreshResponse) in
             
             guard let `self` = self else {
                 request.getResponseHandler().getFailureCallback()(ForrestError.refreshFailed)
                 return
             }
             
-            if (self.isRefreshing) {
-                self.semaphore.wait()
-                self.makeRequest(requestObject: request)
+            do {
+                try self.oauthStateProvider.setUserAccessData(
+                    token: response.userToken.id,
+                    expiration: response.userToken.expiration)
+                
+                try self.oauthStateProvider.setUserRefreshData(
+                    token: response.refreshToken.id,
+                    expiration: response.refreshToken.expiration)
+                
+            } catch (let error) {
+                request.getResponseHandler().getFailureCallback()(error)
+                self.refreshQueue.removeAll()
+            }
+            
+            self.isRefreshing = false
+            self.sendPendingRequests()
+        }
+        
+        let refreshFailureHandler = { [weak self] (error: Error) in
+            
+            guard let `self` = self else {
+                request.getResponseHandler().getFailureCallback()(ForrestError.refreshFailed)
                 return
             }
             
-            self.isRefreshing = true
-            
-            debugPrint("Initial Refresh Request Waiting")
-            self.semaphore.wait()
-            
-            let parser = self.oauthConfigProvider.getRefreshParser()
-            let persistSuccessHandler = { [weak self] (response: RefreshResponse) in
-                
-                guard let `self` = self else {
-                    request.getResponseHandler().getFailureCallback()(ForrestError.refreshFailed)
-                    return
-                }
-                
-                do {
-                    try self.oauthStateProvider.setUserAccessData(
-                        token: response.userToken.id,
-                        expiration: response.userToken.expiration)
-                    
-                    try self.oauthStateProvider.setUserRefreshData(
-                        token: response.refreshToken.id,
-                        expiration: response.refreshToken.expiration)
-                    
-                } catch (let error) {
-                    request.getResponseHandler().getFailureCallback()(error)
-                }
-                
-                self.isRefreshing = false
-                self.semaphore.signal()
-            }
-            
-            let responseHandler = ResponseHandler<RefreshResponse>(
-                parserClosure: parser.fromJson,
-                successCallback: persistSuccessHandler,
-                failureCallback: request.getResponseHandler().getFailureCallback()
-            )
-            
-            let refreshRequest = RequestPrototype<ResponseHandler<RefreshResponse>>(
-                type: .NoAuthRequired,
-                method: .post,
-                url: self.oauthConfigProvider.getRefreshEndpoint(),
-                params: parser.toJson(token: self.oauthStateProvider.getUserRefreshData()?.token ?? ""),
-                parameterEncoding: JSONEncoding.default,
-                responseHandler: responseHandler
-            )
-            
-            self.makeRequest(requestObject: refreshRequest)
+            request.getResponseHandler().getFailureCallback()(error)
+            self.refreshQueue.removeAll()
         }
+            
+        let responseHandler = ResponseHandler<RefreshResponse>(
+            parserClosure: parser.fromJson,
+            successCallback: refreshSuccessHandler,
+            failureCallback: refreshFailureHandler
+        )
         
+        let refreshRequest = RequestPrototype<ResponseHandler<RefreshResponse>>(
+            type: .NoAuthRequired,
+            method: .post,
+            url: self.oauthConfigProvider.getRefreshEndpoint(),
+            params: parser.toJson(token: self.oauthStateProvider.getUserRefreshData()?.token ?? ""),
+            parameterEncoding: JSONEncoding.default,
+            responseHandler: responseHandler
+        )
+        
+        self.makeRequest(requestObject: refreshRequest)
     }
 
+    
+    /**
+        Send the pending queued requests from the refresh process
+    */
+    private func sendPendingRequests() {
+        for workItem in refreshQueue {
+            DispatchQueue.global(qos: .utility).async(execute: workItem)
+        }
+        refreshQueue.removeAll()
+    }
     
     /**
      Executes requests through the Alamofire stack
@@ -348,6 +362,7 @@ public class OAuthHttpClient
                           parameters: requestObject.getParams(),
                           encoding: requestObject.getEncoding(),
                           headers: headers)
+            .validate(statusCode: 200..<300)
             .responseData(completionHandler: requestObject.getResponseHandler().handleResponse)
     }
     

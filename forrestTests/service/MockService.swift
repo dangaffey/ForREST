@@ -56,4 +56,37 @@ struct MockService
         
         httpClient.addRequestToQueue(request: request)
     }
+    
+    
+    
+    public func getUserSecuredData(
+        successHandler: @escaping (Any) -> (),
+        failureHandler: @escaping (Any) -> ()) {
+        
+        let responseHandler = ResponseHandler<Any>(
+            parserClosure: { (data: Data) -> (Any?) in
+                debugPrint(data)
+                return data
+            },
+            successCallback: { (object: Any) in
+                successHandler(object)
+            },
+            failureCallback: { (error: Error) in
+                failureHandler(error)
+            }
+        )
+        
+        let request = RequestPrototype<ResponseHandler<Any>>(
+            type: RequestType.UserAuthRequired,
+            method: .get,
+            url: Endpoints.GET_USER_DATA,
+            params: nil,
+            parameterEncoding: URLEncoding.default,
+            responseHandler: responseHandler
+        )
+        
+        httpClient.addRequestToQueue(request: request)
+    
+    }
+
 }
