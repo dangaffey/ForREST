@@ -53,7 +53,18 @@ public class OAuthHttpClient
             configuration: configuration,
             serverTrustPolicyManager: ServerTrustPolicyManager(policies: config.sslOverridePolicy)
         )
-        debugPrint("IN THE OBJECT \(config.sslOverridePolicy)")
+        
+        if config.followRedirectsWithAuth {
+            let delegate: Alamofire.SessionDelegate = sessionManager.delegate
+            delegate.taskWillPerformHTTPRedirection = { session, task, response, request in
+                var finalRequest = request
+                if let originalRequest = task.originalRequest {
+                    finalRequest.allHTTPHeaderFields = originalRequest.allHTTPHeaderFields
+                }
+                return finalRequest
+            }
+        }
+        
         self.alamofire = sessionManager
     }
     
