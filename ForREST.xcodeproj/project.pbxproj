@@ -34,6 +34,7 @@
 		1F82ED511F744AA50084D9E2 /* AppAuthRequiredTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED501F744AA50084D9E2 /* AppAuthRequiredTests.swift */; };
 		1F82ED561F756D1B0084D9E2 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED551F756D1B0084D9E2 /* DateExtensions.swift */; };
 		1F82ED581F756DDA0084D9E2 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F82ED571F756DDA0084D9E2 /* SwiftyJSON.framework */; };
+		5D4431641FB0868D00EAEA9A /* NullableResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4431631FB0868D00EAEA9A /* NullableResponseHandler.swift */; };
 		5DAFF43C1F783891000690C8 /* ResponseHandleableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFF43B1F783891000690C8 /* ResponseHandleableProtocol.swift */; };
 		5DAFF43F1F783A30000690C8 /* ResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFF43E1F783A30000690C8 /* ResponseHandler.swift */; };
 		5DF5CA071F734C6A00E5C0DE /* NoAuthRequiredTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF5CA061F734C6A00E5C0DE /* NoAuthRequiredTests.swift */; };
@@ -76,6 +77,7 @@
 		1F82ED501F744AA50084D9E2 /* AppAuthRequiredTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuthRequiredTests.swift; sourceTree = "<group>"; };
 		1F82ED551F756D1B0084D9E2 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		1F82ED571F756DDA0084D9E2 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
+		5D4431631FB0868D00EAEA9A /* NullableResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NullableResponseHandler.swift; path = forrest/handler/NullableResponseHandler.swift; sourceTree = SOURCE_ROOT; };
 		5DAFF43B1F783891000690C8 /* ResponseHandleableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseHandleableProtocol.swift; sourceTree = "<group>"; };
 		5DAFF43E1F783A30000690C8 /* ResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseHandler.swift; sourceTree = "<group>"; };
 		5DF5C9F81F734C6A00E5C0DE /* ForREST.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ForREST.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -171,6 +173,7 @@
 			children = (
 				5DAFF43B1F783891000690C8 /* ResponseHandleableProtocol.swift */,
 				5DAFF43E1F783A30000690C8 /* ResponseHandler.swift */,
+				5D4431631FB0868D00EAEA9A /* NullableResponseHandler.swift */,
 			);
 			path = handler;
 			sourceTree = "<group>";
@@ -406,6 +409,7 @@
 				5DF5CA211F73568000E5C0DE /* ClientCredentialsProviderProtocol.swift in Sources */,
 				5DAFF43C1F783891000690C8 /* ResponseHandleableProtocol.swift in Sources */,
 				5DF5CA281F73577100E5C0DE /* UserAuthParserProtocol.swift in Sources */,
+				5D4431641FB0868D00EAEA9A /* NullableResponseHandler.swift in Sources */,
 				5DF5CA1F1F73564C00E5C0DE /* OAuthConfigProviderProtocol.swift in Sources */,
 				5DF5CA1D1F73556200E5C0DE /* OAuthStateProviderProtocol.swift in Sources */,
 				5DF5CA1A1F73544400E5C0DE /* RequestPrototype.swift in Sources */,
