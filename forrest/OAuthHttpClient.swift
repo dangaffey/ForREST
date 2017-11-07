@@ -43,8 +43,7 @@ public class OAuthHttpClient
     
     let AUTH_HEADER = "Authorization"
     
-    private init(config: NetworkConfig
-    ) {
+    private init(config: NetworkConfig) {
         self.oauthStateProvider = config.getStateProvider()!
         self.oauthConfigProvider = config.getConfigProvider()!
         
@@ -69,8 +68,10 @@ public class OAuthHttpClient
     }
     
     
-    public func addRequestToQueue<T: ResponseHandleableProtocol>(request: RequestPrototype<T>)
-    {
+    /**
+        Routes a request to the correct attempt dispatch procedure
+    */
+    public func addRequestToQueue<T: ResponseHandleableProtocol>(request: RequestPrototype<T>) {
         switch request.getType() {
             
         case .UserAuthRequired:
@@ -87,7 +88,7 @@ public class OAuthHttpClient
         }
     }
     
-    
+
     
     /**
      Attempts to execute a request that requires a user-level access
@@ -349,7 +350,7 @@ public class OAuthHttpClient
     /**
         Send the pending queued requests from the refresh process
     */
-    private func sendPendingRequests() {
+    internal func sendPendingRequests() {
         for workItem in refreshQueue {
             DispatchQueue.global(qos: .utility).async(execute: workItem)
         }
@@ -359,7 +360,7 @@ public class OAuthHttpClient
     /**
      Executes requests through the Alamofire stack
      */
-    private func makeRequest<T: ResponseHandleableProtocol>(requestObject: RequestPrototype<T>)
+    internal func makeRequest<T: ResponseHandleableProtocol>(requestObject: RequestPrototype<T>)
     {
         var headers = HTTPHeaders()
         let requestType = requestObject.getType()
@@ -382,7 +383,7 @@ public class OAuthHttpClient
     /**
      Attempts to retrieve the correct authorization header based on the request type
      */
-    private func getAuthorizationHeader(type: RequestType) -> String?
+    internal func getAuthorizationHeader(type: RequestType) -> String?
     {
         switch type {
         case .UserAuthRequired:

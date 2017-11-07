@@ -34,6 +34,11 @@
 		1F82ED511F744AA50084D9E2 /* AppAuthRequiredTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED501F744AA50084D9E2 /* AppAuthRequiredTests.swift */; };
 		1F82ED561F756D1B0084D9E2 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED551F756D1B0084D9E2 /* DateExtensions.swift */; };
 		1F82ED581F756DDA0084D9E2 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F82ED571F756DDA0084D9E2 /* SwiftyJSON.framework */; };
+		1FF780251FB1EA2600630749 /* OAuthHttpClient+Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF780241FB1EA2600630749 /* OAuthHttpClient+Upload.swift */; };
+		1FF780281FB1EDB600630749 /* UploadPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF780271FB1EDB600630749 /* UploadPrototype.swift */; };
+		1FF7802B1FB1EDF200630749 /* HttpUploadableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF7802A1FB1EDF200630749 /* HttpUploadableProtocol.swift */; };
+		1FF7802D1FB1EE0C00630749 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF7802C1FB1EE0C00630749 /* RequestType.swift */; };
+		1FF7802E1FB1FC3700630749 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF7802C1FB1EE0C00630749 /* RequestType.swift */; };
 		5D4431641FB0868D00EAEA9A /* NullableResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4431631FB0868D00EAEA9A /* NullableResponseHandler.swift */; };
 		5DAFF43C1F783891000690C8 /* ResponseHandleableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFF43B1F783891000690C8 /* ResponseHandleableProtocol.swift */; };
 		5DAFF43F1F783A30000690C8 /* ResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFF43E1F783A30000690C8 /* ResponseHandler.swift */; };
@@ -76,6 +81,10 @@
 		1F82ED501F744AA50084D9E2 /* AppAuthRequiredTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuthRequiredTests.swift; sourceTree = "<group>"; };
 		1F82ED551F756D1B0084D9E2 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		1F82ED571F756DDA0084D9E2 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
+		1FF780241FB1EA2600630749 /* OAuthHttpClient+Upload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OAuthHttpClient+Upload.swift"; sourceTree = "<group>"; };
+		1FF780271FB1EDB600630749 /* UploadPrototype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UploadPrototype.swift; path = forrest/prototype/UploadPrototype.swift; sourceTree = SOURCE_ROOT; };
+		1FF7802A1FB1EDF200630749 /* HttpUploadableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HttpUploadableProtocol.swift; path = forrest/protocol/HttpUploadableProtocol.swift; sourceTree = SOURCE_ROOT; };
+		1FF7802C1FB1EE0C00630749 /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RequestType.swift; path = forrest/prototype/RequestType.swift; sourceTree = SOURCE_ROOT; };
 		5D4431631FB0868D00EAEA9A /* NullableResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NullableResponseHandler.swift; path = forrest/handler/NullableResponseHandler.swift; sourceTree = SOURCE_ROOT; };
 		5DAFF43B1F783891000690C8 /* ResponseHandleableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseHandleableProtocol.swift; sourceTree = "<group>"; };
 		5DAFF43E1F783A30000690C8 /* ResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseHandler.swift; sourceTree = "<group>"; };
@@ -159,6 +168,25 @@
 			path = extension;
 			sourceTree = "<group>";
 		};
+		1FF780261FB1ED9D00630749 /* prototype */ = {
+			isa = PBXGroup;
+			children = (
+				1FF7802C1FB1EE0C00630749 /* RequestType.swift */,
+				5DF5CA191F73544400E5C0DE /* RequestPrototype.swift */,
+				1FF780271FB1EDB600630749 /* UploadPrototype.swift */,
+			);
+			path = prototype;
+			sourceTree = "<group>";
+		};
+		1FF780291FB1EDD600630749 /* protocol */ = {
+			isa = PBXGroup;
+			children = (
+				5DF5CA171F7353ED00E5C0DE /* HttpRequestableProtocol.swift */,
+				1FF7802A1FB1EDF200630749 /* HttpUploadableProtocol.swift */,
+			);
+			path = protocol;
+			sourceTree = "<group>";
+		};
 		5DAFF43D1F783A20000690C8 /* handler */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,14 +219,15 @@
 		5DF5C9FA1F734C6A00E5C0DE /* ForREST */ = {
 			isa = PBXGroup;
 			children = (
+				1FF780291FB1EDD600630749 /* protocol */,
+				1FF780261FB1ED9D00630749 /* prototype */,
 				5DAFF43D1F783A20000690C8 /* handler */,
 				5DF5CA221F73570200E5C0DE /* parser */,
 				5DF5CA1B1F73554000E5C0DE /* provider */,
 				5DF5C9FB1F734C6A00E5C0DE /* ForREST.h */,
 				5DF5C9FC1F734C6A00E5C0DE /* Info.plist */,
 				5DF5CA121F734FB300E5C0DE /* OAuthHttpClient.swift */,
-				5DF5CA171F7353ED00E5C0DE /* HttpRequestableProtocol.swift */,
-				5DF5CA191F73544400E5C0DE /* RequestPrototype.swift */,
+				1FF780241FB1EA2600630749 /* OAuthHttpClient+Upload.swift */,
 				5DF5CA291F73582900E5C0DE /* AccessToken.swift */,
 				5DF5CA2B1F735A0900E5C0DE /* NetworkConfig.swift */,
 			);
@@ -377,6 +406,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FF7802B1FB1EDF200630749 /* HttpUploadableProtocol.swift in Sources */,
 				5DF5CA261F73574900E5C0DE /* AppAuthParserProtocol.swift in Sources */,
 				5DF5CA2C1F735A0900E5C0DE /* NetworkConfig.swift in Sources */,
 				5DF5CA241F73571800E5C0DE /* RefreshParserProtocol.swift in Sources */,
@@ -388,9 +418,12 @@
 				5DF5CA1D1F73556200E5C0DE /* OAuthStateProviderProtocol.swift in Sources */,
 				5DF5CA1A1F73544400E5C0DE /* RequestPrototype.swift in Sources */,
 				5DF5CA131F734FB300E5C0DE /* OAuthHttpClient.swift in Sources */,
+				1FF780281FB1EDB600630749 /* UploadPrototype.swift in Sources */,
 				5DF5CA181F7353ED00E5C0DE /* HttpRequestableProtocol.swift in Sources */,
+				1FF780251FB1EA2600630749 /* OAuthHttpClient+Upload.swift in Sources */,
 				5DF5CA2A1F73582900E5C0DE /* AccessToken.swift in Sources */,
 				5DAFF43F1F783A30000690C8 /* ResponseHandler.swift in Sources */,
+				1FF7802D1FB1EE0C00630749 /* RequestType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,6 +439,7 @@
 				1F58845C1F7D805A00C333E0 /* ResponseHandler.swift in Sources */,
 				1F82ED561F756D1B0084D9E2 /* DateExtensions.swift in Sources */,
 				1F82ED491F74188B0084D9E2 /* MockRefreshParser.swift in Sources */,
+				1FF7802E1FB1FC3700630749 /* RequestType.swift in Sources */,
 				1F82ED3D1F740E4C0084D9E2 /* MockConfigProvider.swift in Sources */,
 				1F0457A01F7E999A00ECC686 /* UserAuthRequiredTests.swift in Sources */,
 				1F82ED401F740EA80084D9E2 /* MockClientCredentialsProvider.swift in Sources */,

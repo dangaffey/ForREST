@@ -12,12 +12,6 @@ import Foundation
 import Alamofire
 
 
-public enum RequestType {
-    case UserAuthRequired
-    case AppAuthRequired
-    case NoAuthRequired
-}
-
 protocol HttpRequestableProtocol {
     
     associatedtype EntityHandler
