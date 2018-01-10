@@ -34,9 +34,12 @@
 		1F82ED511F744AA50084D9E2 /* AppAuthRequiredTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED501F744AA50084D9E2 /* AppAuthRequiredTests.swift */; };
 		1F82ED561F756D1B0084D9E2 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED551F756D1B0084D9E2 /* DateExtensions.swift */; };
 		1F82ED581F756DDA0084D9E2 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F82ED571F756DDA0084D9E2 /* SwiftyJSON.framework */; };
-		1FF780251FB1EA2600630749 /* OAuthHttpClient+Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF780241FB1EA2600630749 /* OAuthHttpClient+Upload.swift */; };
-		1FF780281FB1EDB600630749 /* UploadPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF780271FB1EDB600630749 /* UploadPrototype.swift */; };
-		1FF7802B1FB1EDF200630749 /* HttpUploadableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF7802A1FB1EDF200630749 /* HttpUploadableProtocol.swift */; };
+		1FDB316F20064EFA008AEA77 /* HttpDataUploadProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDB316E20064EFA008AEA77 /* HttpDataUploadProtocol.swift */; };
+		1FDB317120064FA7008AEA77 /* DataUploadPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDB317020064FA7008AEA77 /* DataUploadPrototype.swift */; };
+		1FDB317320065022008AEA77 /* OAuthHttpClient+DataUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDB317220065022008AEA77 /* OAuthHttpClient+DataUpload.swift */; };
+		1FF780251FB1EA2600630749 /* OAuthHttpClient+MultipartUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF780241FB1EA2600630749 /* OAuthHttpClient+MultipartUpload.swift */; };
+		1FF780281FB1EDB600630749 /* MultipartUploadPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF780271FB1EDB600630749 /* MultipartUploadPrototype.swift */; };
+		1FF7802B1FB1EDF200630749 /* HttpMultipartUploadProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF7802A1FB1EDF200630749 /* HttpMultipartUploadProtocol.swift */; };
 		1FF7802D1FB1EE0C00630749 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF7802C1FB1EE0C00630749 /* RequestType.swift */; };
 		1FF7802E1FB1FC3700630749 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF7802C1FB1EE0C00630749 /* RequestType.swift */; };
 		5D4431641FB0868D00EAEA9A /* NullableResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4431631FB0868D00EAEA9A /* NullableResponseHandler.swift */; };
@@ -81,9 +84,12 @@
 		1F82ED501F744AA50084D9E2 /* AppAuthRequiredTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuthRequiredTests.swift; sourceTree = "<group>"; };
 		1F82ED551F756D1B0084D9E2 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		1F82ED571F756DDA0084D9E2 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
-		1FF780241FB1EA2600630749 /* OAuthHttpClient+Upload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OAuthHttpClient+Upload.swift"; sourceTree = "<group>"; };
-		1FF780271FB1EDB600630749 /* UploadPrototype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UploadPrototype.swift; path = forrest/prototype/UploadPrototype.swift; sourceTree = SOURCE_ROOT; };
-		1FF7802A1FB1EDF200630749 /* HttpUploadableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HttpUploadableProtocol.swift; path = forrest/protocol/HttpUploadableProtocol.swift; sourceTree = SOURCE_ROOT; };
+		1FDB316E20064EFA008AEA77 /* HttpDataUploadProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpDataUploadProtocol.swift; sourceTree = "<group>"; };
+		1FDB317020064FA7008AEA77 /* DataUploadPrototype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DataUploadPrototype.swift; path = forrest/prototype/DataUploadPrototype.swift; sourceTree = SOURCE_ROOT; };
+		1FDB317220065022008AEA77 /* OAuthHttpClient+DataUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "OAuthHttpClient+DataUpload.swift"; path = "forrest/OAuthHttpClient+DataUpload.swift"; sourceTree = SOURCE_ROOT; };
+		1FF780241FB1EA2600630749 /* OAuthHttpClient+MultipartUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OAuthHttpClient+MultipartUpload.swift"; sourceTree = "<group>"; };
+		1FF780271FB1EDB600630749 /* MultipartUploadPrototype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MultipartUploadPrototype.swift; path = forrest/prototype/MultipartUploadPrototype.swift; sourceTree = SOURCE_ROOT; };
+		1FF7802A1FB1EDF200630749 /* HttpMultipartUploadProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HttpMultipartUploadProtocol.swift; path = forrest/protocol/HttpMultipartUploadProtocol.swift; sourceTree = SOURCE_ROOT; };
 		1FF7802C1FB1EE0C00630749 /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RequestType.swift; path = forrest/prototype/RequestType.swift; sourceTree = SOURCE_ROOT; };
 		5D4431631FB0868D00EAEA9A /* NullableResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NullableResponseHandler.swift; path = forrest/handler/NullableResponseHandler.swift; sourceTree = SOURCE_ROOT; };
 		5DAFF43B1F783891000690C8 /* ResponseHandleableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseHandleableProtocol.swift; sourceTree = "<group>"; };
@@ -173,7 +179,8 @@
 			children = (
 				1FF7802C1FB1EE0C00630749 /* RequestType.swift */,
 				5DF5CA191F73544400E5C0DE /* RequestPrototype.swift */,
-				1FF780271FB1EDB600630749 /* UploadPrototype.swift */,
+				1FF780271FB1EDB600630749 /* MultipartUploadPrototype.swift */,
+				1FDB317020064FA7008AEA77 /* DataUploadPrototype.swift */,
 			);
 			path = prototype;
 			sourceTree = "<group>";
@@ -182,7 +189,8 @@
 			isa = PBXGroup;
 			children = (
 				5DF5CA171F7353ED00E5C0DE /* HttpRequestableProtocol.swift */,
-				1FF7802A1FB1EDF200630749 /* HttpUploadableProtocol.swift */,
+				1FF7802A1FB1EDF200630749 /* HttpMultipartUploadProtocol.swift */,
+				1FDB316E20064EFA008AEA77 /* HttpDataUploadProtocol.swift */,
 			);
 			path = protocol;
 			sourceTree = "<group>";
@@ -227,7 +235,8 @@
 				5DF5C9FB1F734C6A00E5C0DE /* ForREST.h */,
 				5DF5C9FC1F734C6A00E5C0DE /* Info.plist */,
 				5DF5CA121F734FB300E5C0DE /* OAuthHttpClient.swift */,
-				1FF780241FB1EA2600630749 /* OAuthHttpClient+Upload.swift */,
+				1FF780241FB1EA2600630749 /* OAuthHttpClient+MultipartUpload.swift */,
+				1FDB317220065022008AEA77 /* OAuthHttpClient+DataUpload.swift */,
 				5DF5CA291F73582900E5C0DE /* AccessToken.swift */,
 				5DF5CA2B1F735A0900E5C0DE /* NetworkConfig.swift */,
 			);
@@ -406,21 +415,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FF7802B1FB1EDF200630749 /* HttpUploadableProtocol.swift in Sources */,
+				1FF7802B1FB1EDF200630749 /* HttpMultipartUploadProtocol.swift in Sources */,
 				5DF5CA261F73574900E5C0DE /* AppAuthParserProtocol.swift in Sources */,
+				1FDB317320065022008AEA77 /* OAuthHttpClient+DataUpload.swift in Sources */,
+				1FDB316F20064EFA008AEA77 /* HttpDataUploadProtocol.swift in Sources */,
 				5DF5CA2C1F735A0900E5C0DE /* NetworkConfig.swift in Sources */,
 				5DF5CA241F73571800E5C0DE /* RefreshParserProtocol.swift in Sources */,
 				5DF5CA211F73568000E5C0DE /* ClientCredentialsProviderProtocol.swift in Sources */,
 				5DAFF43C1F783891000690C8 /* ResponseHandleableProtocol.swift in Sources */,
 				5DF5CA281F73577100E5C0DE /* UserAuthParserProtocol.swift in Sources */,
 				5D4431641FB0868D00EAEA9A /* NullableResponseHandler.swift in Sources */,
+				1FDB317120064FA7008AEA77 /* DataUploadPrototype.swift in Sources */,
 				5DF5CA1F1F73564C00E5C0DE /* OAuthConfigProviderProtocol.swift in Sources */,
 				5DF5CA1D1F73556200E5C0DE /* OAuthStateProviderProtocol.swift in Sources */,
 				5DF5CA1A1F73544400E5C0DE /* RequestPrototype.swift in Sources */,
 				5DF5CA131F734FB300E5C0DE /* OAuthHttpClient.swift in Sources */,
-				1FF780281FB1EDB600630749 /* UploadPrototype.swift in Sources */,
+				1FF780281FB1EDB600630749 /* MultipartUploadPrototype.swift in Sources */,
 				5DF5CA181F7353ED00E5C0DE /* HttpRequestableProtocol.swift in Sources */,
-				1FF780251FB1EA2600630749 /* OAuthHttpClient+Upload.swift in Sources */,
+				1FF780251FB1EA2600630749 /* OAuthHttpClient+MultipartUpload.swift in Sources */,
 				5DF5CA2A1F73582900E5C0DE /* AccessToken.swift in Sources */,
 				5DAFF43F1F783A30000690C8 /* ResponseHandler.swift in Sources */,
 				1FF7802D1FB1EE0C00630749 /* RequestType.swift in Sources */,

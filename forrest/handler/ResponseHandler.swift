@@ -60,5 +60,5 @@ open class ResponseHandler<T>: ResponseHandleableProtocol
     }
     
     
-    
+
 }

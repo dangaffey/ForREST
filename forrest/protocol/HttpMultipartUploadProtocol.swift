@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 
-protocol HttpUploadableProtocol {
+protocol HttpMultipartUploadProtocol {
     
     associatedtype EntityHandler
     

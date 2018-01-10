@@ -14,7 +14,7 @@ extension OAuthHttpClient {
     /**
      Routes an upload to the correct attempt dispatch procedure
      */
-    public func addUploadToQueue<T: ResponseHandleableProtocol>(upload: UploadPrototype<T>) {
+    public func addUploadToQueue<T: ResponseHandleableProtocol>(upload: MultipartUploadPrototype<T>) {
         switch upload.getType() {
             
         case .UserAuthRequired:
@@ -35,7 +35,7 @@ extension OAuthHttpClient {
     /**
      Attempts to execute an upload that requires a user-level access
      */
-    private func attemptUserAccessUpload<T: ResponseHandleableProtocol>(upload: UploadPrototype<T>) {
+    private func attemptUserAccessUpload<T: ResponseHandleableProtocol>(upload: MultipartUploadPrototype<T>) {
         if (oauthStateProvider.userAccessIntended()) {
             makeUpload(uploadObject: upload)
             return
@@ -54,7 +54,7 @@ extension OAuthHttpClient {
     /**
      Attempts to make a request preferring user-level, but trying application-level if unavailable
      */
-    private func attemptAnyAccessUpload<T: ResponseHandleableProtocol>(upload: UploadPrototype<T>)
+    private func attemptAnyAccessUpload<T: ResponseHandleableProtocol>(upload: MultipartUploadPrototype<T>)
     {
         if (oauthStateProvider.userAccessIntended()) {
             attemptUserAccessUpload(upload: upload)
@@ -68,7 +68,7 @@ extension OAuthHttpClient {
     /**
      Attempts to execute an application level request
      */
-    private func attemptAppAccessUpload<T: ResponseHandleableProtocol>(upload: UploadPrototype<T>)
+    private func attemptAppAccessUpload<T: ResponseHandleableProtocol>(upload: MultipartUploadPrototype<T>)
     {
         if (oauthStateProvider.appAccessTokenValid()) {
             makeUpload(uploadObject: upload)
@@ -83,7 +83,7 @@ extension OAuthHttpClient {
     /**
      Attempts to broker a new application access token under a request
      */
-    private func attemptAppAuthentication<T: ResponseHandleableProtocol>(upload: UploadPrototype<T>)
+    private func attemptAppAuthentication<T: ResponseHandleableProtocol>(upload: MultipartUploadPrototype<T>)
     {
         let parser = oauthConfigProvider.getAppAuthParser()
         let persistSuccessHandler = { [weak self] (token: AccessToken) in
@@ -123,7 +123,7 @@ extension OAuthHttpClient {
     /**
      Attempts to refresh the access token for user-level access
      */
-    private func attemptUserAccessRefresh<T: ResponseHandleableProtocol>(upload: UploadPrototype<T>)
+    private func attemptUserAccessRefresh<T: ResponseHandleableProtocol>(upload: MultipartUploadPrototype<T>)
     {
         refreshQueue.append(DispatchWorkItem { [weak self] in
             guard let `self` = self else {
@@ -199,7 +199,7 @@ extension OAuthHttpClient {
     /**
      Executes requests through the Alamofire stack
      */
-    private func makeUpload<T: ResponseHandleableProtocol>(uploadObject: UploadPrototype<T>)
+    private func makeUpload<T: ResponseHandleableProtocol>(uploadObject: MultipartUploadPrototype<T>)
     {
         var headers = HTTPHeaders()
         let requestType = uploadObject.getType()
