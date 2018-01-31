@@ -48,6 +48,12 @@ public class OAuthHttpClient
         self.oauthConfigProvider = config.getConfigProvider()!
         
         let configuration = URLSessionConfiguration.default
+        
+        if config.useCache {
+            configuration.urlCache = URLCache.shared
+            configuration.requestCachePolicy = .returnCacheDataElseLoad
+        }
+        
         let sessionManager = Alamofire.SessionManager(
             configuration: configuration,
             serverTrustPolicyManager: ServerTrustPolicyManager(policies: config.sslOverridePolicy)
