@@ -51,7 +51,7 @@ public class OAuthHttpClient
         
         if config.useCache {
             configuration.urlCache = URLCache.shared
-            configuration.requestCachePolicy = .returnCacheDataElseLoad
+            configuration.requestCachePolicy = .useProtocolCachePolicy
         }
         
         let sessionManager = Alamofire.SessionManager(
