@@ -49,15 +49,21 @@ public class OAuthHttpClient
         
         let configuration = URLSessionConfiguration.default
         
-        if config.useCache {
-            configuration.urlCache = URLCache.shared
-            configuration.requestCachePolicy = .useProtocolCachePolicy
-        }
-        
         let sessionManager = Alamofire.SessionManager(
             configuration: configuration,
             serverTrustPolicyManager: ServerTrustPolicyManager(policies: config.sslOverridePolicy)
         )
+        
+        if config.useCache {
+            configuration.urlCache = URLCache.shared
+            configuration.requestCachePolicy = .useProtocolCachePolicy
+            sessionManager.delegate.dataTaskWillCacheResponse = { session, task, response in
+                debugPrint("CACHING SESSION: \(session)")
+                debugPrint("CACHING TASK: \(task)")
+                debugPrint("CACHING RESPONSE: \(response)")
+                return response
+            }
+        }
         
         if config.followRedirectsWithAuth {
             let delegate: Alamofire.SessionDelegate = sessionManager.delegate
