@@ -17,7 +17,7 @@ public class NetworkConfig
     private var stateProvider: OAuthStateProviderProtocol?
     public var transportOverrideDomains: [String]?
     public var followRedirectsWithAuth = false
-    public var useCache = false
+    public var stripMustRevalidate = false
     
     /**
          Hide constructor to force static singleton usage

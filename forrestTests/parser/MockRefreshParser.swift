@@ -25,7 +25,7 @@ struct MockRefreshParser: RefreshParserProtocol
     
     func fromJson(jsonData: Data) -> (userToken: AccessToken, refreshToken: AccessToken)?
     {
-        let jsonData = JSON(data: jsonData)
+        let jsonData = try! JSON(data: jsonData)
         guard let accessToken = jsonData["access_token"].string else {
             return nil
         }

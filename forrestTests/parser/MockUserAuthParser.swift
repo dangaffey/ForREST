@@ -31,7 +31,7 @@ struct MockUserAuthParser: UserAuthParserProtocol
         refreshToken: AccessToken,
         additionalData: [String : AnyObject]?)?
     {
-        let jsonData = JSON(data: jsonData)
+        let jsonData = try! JSON(data: jsonData)
         guard let accessToken = jsonData["access_token"].string else {
             return nil
         }

@@ -9,7 +9,6 @@
 import Foundation
 import Alamofire
 
-
 public enum ForrestError: Error {
     case applicationAuthFailed
     case expiredCredentials
@@ -21,6 +20,9 @@ public enum ForrestError: Error {
 
 public class OAuthHttpClient
 {
+    typealias RedirectClosure = ((URLSession, URLSessionTask, HTTPURLResponse, URLRequest) -> URLRequest?)?
+    typealias CachingClosure = ((URLSession, URLSessionDataTask, CachedURLResponse) -> CachedURLResponse?)?
+    
     typealias UserResponse = (
         userToken: AccessToken,
         refreshToken: AccessToken,
@@ -48,35 +50,63 @@ public class OAuthHttpClient
         self.oauthConfigProvider = config.getConfigProvider()!
         
         let configuration = URLSessionConfiguration.default
-        
         let sessionManager = Alamofire.SessionManager(
             configuration: configuration,
             serverTrustPolicyManager: ServerTrustPolicyManager(policies: config.sslOverridePolicy)
         )
         
-        if config.useCache {
-            configuration.urlCache = URLCache.shared
-            configuration.requestCachePolicy = .useProtocolCachePolicy
-            sessionManager.delegate.dataTaskWillCacheResponse = { session, task, response in
-                debugPrint("CACHING SESSION: \(session)")
-                debugPrint("CACHING TASK: \(task)")
-                debugPrint("CACHING RESPONSE: \(response)")
-                return response
-            }
+        if config.stripMustRevalidate {
+            OAuthHttpClient.activateCustomCaching(&sessionManager.delegate.dataTaskWillCacheResponse)
         }
+
         
         if config.followRedirectsWithAuth {
-            let delegate: Alamofire.SessionDelegate = sessionManager.delegate
-            delegate.taskWillPerformHTTPRedirection = { session, task, response, request in
-                var finalRequest = request
-                if let originalRequest = task.originalRequest {
-                    finalRequest.allHTTPHeaderFields = originalRequest.allHTTPHeaderFields
-                }
-                return finalRequest
-            }
+            OAuthHttpClient.activateCopiedHeaderRedirects(&sessionManager.delegate.taskWillPerformHTTPRedirection)
         }
         
         self.alamofire = sessionManager
+    }
+    
+    
+    /**
+        Applies a custom redirect case wherein request redirects keep the headers of the initial request
+    */
+    private static func activateCopiedHeaderRedirects(_ delegateClosure: inout RedirectClosure) {
+        delegateClosure = { session, task, response, request in
+            var finalRequest = request
+            if let originalRequest = task.originalRequest {
+                finalRequest.allHTTPHeaderFields = originalRequest.allHTTPHeaderFields
+            }
+            return finalRequest
+        }
+    }
+    
+    
+    /**
+        Applies a custom caching that strips the problematic 'must-revalidate' entry from the response headers
+    */
+    private static func activateCustomCaching(_ delegateClosure: inout CachingClosure) {
+        delegateClosure = { session, task, cachedResponse in
+            
+            guard let response = cachedResponse.response as? HTTPURLResponse,
+                let cacheSettingsString = response.allHeaderFields["Cache-Control"] as? String,
+                var headers = response.allHeaderFields as? [String : String] else {
+                    return cachedResponse
+            }
+            
+            headers["Cache-Control"] = cacheSettingsString.filterMustRevalidate()
+            guard let updatedCachedResponse = CachedURLResponse(
+                url: response.url,
+                statusCode: response.statusCode,
+                httpVersion: nil,
+                headerFields: headers,
+                data: cachedResponse.data,
+                storagePolicy: cachedResponse.storagePolicy) else {
+                    return cachedResponse
+            }
+            
+            return updatedCachedResponse
+        }
     }
     
     

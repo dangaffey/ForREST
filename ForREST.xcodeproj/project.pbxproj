@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1F0457A01F7E999A00ECC686 /* UserAuthRequiredTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F04579F1F7E999A00ECC686 /* UserAuthRequiredTests.swift */; };
+		1F2BD5DF202218390039DA73 /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BD5DE202218390039DA73 /* CacheService.swift */; };
+		1F2BD5E120221B7D0039DA73 /* CacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BD5E020221B7D0039DA73 /* CacheTests.swift */; };
+		1F3551BC2023790D00C50E87 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BD5E2202373AC0039DA73 /* StringExtensions.swift */; };
+		1F3551BF2023B80700C50E87 /* CachedUrlResponseExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3551BD2023B46A00C50E87 /* CachedUrlResponseExtensions.swift */; };
 		1F58845B1F7D805700C333E0 /* ResponseHandleableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFF43B1F783891000690C8 /* ResponseHandleableProtocol.swift */; };
 		1F58845C1F7D805A00C333E0 /* ResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAFF43E1F783A30000690C8 /* ResponseHandler.swift */; };
 		1F693A141F8E6E2000D01161 /* NetworkConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F693A131F8E6E2000D01161 /* NetworkConfigTests.swift */; };
@@ -72,6 +76,10 @@
 
 /* Begin PBXFileReference section */
 		1F04579F1F7E999A00ECC686 /* UserAuthRequiredTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthRequiredTests.swift; sourceTree = "<group>"; };
+		1F2BD5DE202218390039DA73 /* CacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CacheService.swift; path = forrestTests/service/CacheService.swift; sourceTree = SOURCE_ROOT; };
+		1F2BD5E020221B7D0039DA73 /* CacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CacheTests.swift; path = forrestTests/test/CacheTests.swift; sourceTree = SOURCE_ROOT; };
+		1F2BD5E2202373AC0039DA73 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StringExtensions.swift; path = ForREST/extension/StringExtensions.swift; sourceTree = SOURCE_ROOT; };
+		1F3551BD2023B46A00C50E87 /* CachedUrlResponseExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CachedUrlResponseExtensions.swift; path = ForREST/extension/CachedUrlResponseExtensions.swift; sourceTree = SOURCE_ROOT; };
 		1F693A131F8E6E2000D01161 /* NetworkConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkConfigTests.swift; path = forrestTests/test/NetworkConfigTests.swift; sourceTree = SOURCE_ROOT; };
 		1F82ED301F74007C0084D9E2 /* MockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockService.swift; sourceTree = "<group>"; };
 		1F82ED361F7409C10084D9E2 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
@@ -127,10 +135,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F3551C02023B81A00C50E87 /* extension */ = {
+			isa = PBXGroup;
+			children = (
+				1F3551BD2023B46A00C50E87 /* CachedUrlResponseExtensions.swift */,
+				1F2BD5E2202373AC0039DA73 /* StringExtensions.swift */,
+			);
+			path = extension;
+			sourceTree = "<group>";
+		};
 		1F82ED2F1F73FEFD0084D9E2 /* service */ = {
 			isa = PBXGroup;
 			children = (
 				1F82ED301F74007C0084D9E2 /* MockService.swift */,
+				1F2BD5DE202218390039DA73 /* CacheService.swift */,
 			);
 			path = service;
 			sourceTree = "<group>";
@@ -162,6 +180,7 @@
 				1F82ED501F744AA50084D9E2 /* AppAuthRequiredTests.swift */,
 				1F04579F1F7E999A00ECC686 /* UserAuthRequiredTests.swift */,
 				1F693A131F8E6E2000D01161 /* NetworkConfigTests.swift */,
+				1F2BD5E020221B7D0039DA73 /* CacheTests.swift */,
 			);
 			path = test;
 			sourceTree = "<group>";
@@ -227,6 +246,7 @@
 		5DF5C9FA1F734C6A00E5C0DE /* ForREST */ = {
 			isa = PBXGroup;
 			children = (
+				1F3551C02023B81A00C50E87 /* extension */,
 				1FF780291FB1EDD600630749 /* protocol */,
 				1FF780261FB1ED9D00630749 /* prototype */,
 				5DAFF43D1F783A20000690C8 /* handler */,
@@ -420,7 +440,9 @@
 				1FDB317320065022008AEA77 /* OAuthHttpClient+DataUpload.swift in Sources */,
 				1FDB316F20064EFA008AEA77 /* HttpDataUploadProtocol.swift in Sources */,
 				5DF5CA2C1F735A0900E5C0DE /* NetworkConfig.swift in Sources */,
+				1F3551BF2023B80700C50E87 /* CachedUrlResponseExtensions.swift in Sources */,
 				5DF5CA241F73571800E5C0DE /* RefreshParserProtocol.swift in Sources */,
+				1F3551BC2023790D00C50E87 /* StringExtensions.swift in Sources */,
 				5DF5CA211F73568000E5C0DE /* ClientCredentialsProviderProtocol.swift in Sources */,
 				5DAFF43C1F783891000690C8 /* ResponseHandleableProtocol.swift in Sources */,
 				5DF5CA281F73577100E5C0DE /* UserAuthParserProtocol.swift in Sources */,
@@ -468,7 +490,9 @@
 				1F82ED371F7409C10084D9E2 /* Endpoints.swift in Sources */,
 				1F82ED331F7400FC0084D9E2 /* NetworkConfig.swift in Sources */,
 				1F82ED311F74007C0084D9E2 /* MockService.swift in Sources */,
+				1F2BD5E120221B7D0039DA73 /* CacheTests.swift in Sources */,
 				1F82ED411F740EAC0084D9E2 /* ClientCredentialsProviderProtocol.swift in Sources */,
+				1F2BD5DF202218390039DA73 /* CacheService.swift in Sources */,
 				1F82ED341F7407C70084D9E2 /* RequestPrototype.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

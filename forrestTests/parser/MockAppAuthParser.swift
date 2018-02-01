@@ -24,7 +24,7 @@ struct MockAppAuthParser: AppAuthParserProtocol
     
     func fromJson(jsonData: Data) -> AccessToken?
     {
-        let jsonData = JSON(data: jsonData)
+        let jsonData = try! JSON(data: jsonData)
         guard let accessToken = jsonData["access_token"].string else {
             return nil
         }
