@@ -26,5 +26,7 @@ protocol HttpRequestableProtocol {
     
     func getEncoding() -> ParameterEncoding
     
+    func getContentType() -> String?
+    
     func getResponseHandler() -> EntityHandler
 }

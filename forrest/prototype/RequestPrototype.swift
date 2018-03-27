@@ -16,6 +16,7 @@ public class RequestPrototype<T>: HttpRequestableProtocol
     var type: RequestType = RequestType.NoAuthRequired
     var method: HTTPMethod = .get
     var url: URLConvertible = ""
+    var contentType: String?
     var params: Parameters?
     var parameterEncoding: ParameterEncoding = JSONEncoding.default
     var responseHandler: EntityHandler
@@ -36,6 +37,25 @@ public class RequestPrototype<T>: HttpRequestableProtocol
         self.responseHandler = responseHandler
     }
     
+    public init(
+        type: RequestType,
+        method: HTTPMethod,
+        url: URLConvertible,
+        contentType: String?,
+        params: Parameters?,
+        parameterEncoding: ParameterEncoding,
+        responseHandler: EntityHandler)
+    {
+        self.type = type
+        self.method = method
+        self.url = url
+        self.contentType = contentType
+        self.params = params
+        self.parameterEncoding = parameterEncoding
+        self.responseHandler = responseHandler
+    }
+    
+    
     public func getType() -> RequestType
     {
         return type
@@ -49,6 +69,10 @@ public class RequestPrototype<T>: HttpRequestableProtocol
     public func getUrl() -> URLConvertible
     {
         return url
+    }
+    
+    public func getContentType() -> String? {
+        return contentType
     }
     
     public func getParams() -> Parameters?

@@ -407,6 +407,10 @@ public class OAuthHttpClient
         var headers = HTTPHeaders()
         let requestType = requestObject.getType()
         
+        if let contentType = requestObject.getContentType() {
+            headers["Content-Type"] = contentType
+        }
+
         if let authorizationHeader = getAuthorizationHeader(type: requestType) {
             headers["Authorization"] = String(format: "Bearer %@", authorizationHeader)
         }
