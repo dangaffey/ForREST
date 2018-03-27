@@ -15,22 +15,29 @@ public class MultipartUploadPrototype<T>: HttpMultipartUploadProtocol
     
     private var type: RequestType = RequestType.NoAuthRequired
     private var url: URLConvertible = ""
+    private var method: HTTPMethod
     private var data: (MultipartFormData) -> ()
     private var responseHandler: EntityHandler
     
     public init(
         type: RequestType,
         url: URLConvertible,
+        method: HTTPMethod,
         data: @escaping (MultipartFormData) -> (),
         responseHandler: EntityHandler) {
         self.type = type
         self.url = url
+        self.method = method
         self.data = data
         self.responseHandler = responseHandler
     }
     
     public func getType() -> RequestType {
         return type
+    }
+    
+    public func getMethod() -> HTTPMethod {
+        return method
     }
     
     public func getUrl() -> URLConvertible {

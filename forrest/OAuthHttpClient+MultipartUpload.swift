@@ -211,6 +211,7 @@ extension OAuthHttpClient {
         alamofire.upload(
             multipartFormData: uploadObject.getData(),
             to: uploadObject.getUrl(),
+            method: uploadObject.getMethod(),
             headers: headers,
             encodingCompletion: { encodingResult in
                 switch encodingResult {
