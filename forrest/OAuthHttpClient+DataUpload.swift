@@ -213,6 +213,7 @@ extension OAuthHttpClient {
         alamofire.upload(
             uploadObject.getData(),
             to: uploadObject.getUrl(),
+            method: uploadObject.getMethod(),
             headers: headers)
             .responseData(completionHandler: uploadObject.getResponseHandler().handleResponse)
     }

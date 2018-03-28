@@ -15,18 +15,21 @@ public class DataUploadPrototype<T>: HttpDataUploadProtocol
     
     private var type: RequestType = RequestType.NoAuthRequired
     private var url: URLConvertible = ""
+    private var method: HTTPMethod
     private var data: Data
     private var contentType: String
     private var responseHandler: EntityHandler
-    
+
     public init(
         type: RequestType,
         url: URLConvertible,
+        method: HTTPMethod,
         data: Data,
         contentType: String,
         responseHandler: EntityHandler) {
         self.type = type
         self.url = url
+        self.method = method
         self.data = data
         self.contentType = contentType
         self.responseHandler = responseHandler
@@ -38,6 +41,10 @@ public class DataUploadPrototype<T>: HttpDataUploadProtocol
     
     public func getUrl() -> URLConvertible {
         return url
+    }
+    
+    public func getMethod() -> HTTPMethod {
+        return method
     }
     
     public func getData() -> Data {

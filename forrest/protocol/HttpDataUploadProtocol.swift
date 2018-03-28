@@ -16,6 +16,8 @@ protocol HttpDataUploadProtocol {
     
     func getType() -> RequestType
     
+    func getMethod() -> HTTPMethod
+    
     func getUrl() -> URLConvertible
     
     func getData() -> Data
