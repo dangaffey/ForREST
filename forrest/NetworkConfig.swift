@@ -15,9 +15,12 @@ public class NetworkConfig
     
     private var configProvider: OAuthConfigProviderProtocol?
     private var stateProvider: OAuthStateProviderProtocol?
+    private var metricsTracker: RequestMetricsProtocol?
+    
     public var transportOverrideDomains: [String]?
     public var followRedirectsWithAuth = false
     public var stripMustRevalidate = false
+    
     
     /**
          Hide constructor to force static singleton usage
@@ -72,6 +75,22 @@ public class NetworkConfig
     public func getStateProvider() -> OAuthStateProviderProtocol?
     {
         return self.stateProvider
+    }
+    
+    /**
+     Sets the metrics tracker object
+     */
+    public func setMetricsTracker(metricsTracker: RequestMetricsProtocol)
+    {
+        self.metricsTracker = metricsTracker
+    }
+    
+    /**
+     Provides the metrics tracker for requests
+     */
+    public func getMetricsTracker() -> RequestMetricsProtocol?
+    {
+        return self.metricsTracker
     }
 }
 
