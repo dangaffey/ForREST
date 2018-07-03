@@ -50,11 +50,11 @@ open class ResponseHandler<T>: ResponseHandleableProtocol
     }
     
     
-    public func getSuccessCallback() -> (EntityType) -> () {
+    open func getSuccessCallback() -> (EntityType) -> () {
         return successCallback
     }
     
-    public func getFailureCallback() -> (Error, DataResponse<Data>?) -> () {
+    open func getFailureCallback() -> (Error, DataResponse<Data>?) -> () {
         return failureCallback
     }
     
