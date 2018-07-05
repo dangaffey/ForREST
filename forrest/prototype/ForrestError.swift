@@ -21,9 +21,9 @@ public enum ForrestErrorType: String {
 
 
 public struct ForrestError {
-    var type: ForrestErrorType
-    var error: Error?
-    var response: DataResponse<Data>?
+    public var type: ForrestErrorType
+    public var error: Error?
+    public var response: DataResponse<Data>?
     
     public init(_ type: ForrestErrorType, error: Error?, response: DataResponse<Data>?) {
         self.type = type
