@@ -9,14 +9,6 @@
 import Foundation
 import Alamofire
 
-public enum ForrestError: Error {
-    case applicationAuthFailed
-    case expiredCredentials
-    case refreshFailed
-    case parseError
-    case persistError
-}
-
 
 public class OAuthHttpClient
 {
@@ -148,7 +140,7 @@ public class OAuthHttpClient
             return
         }
         
-        request.getResponseHandler().getFailureCallback()(ForrestError.expiredCredentials, nil)
+        request.getResponseHandler().getFailureCallback()(ForrestError(.expiredUserToken, error: nil, responseData: nil))
     }
     
     
@@ -173,7 +165,7 @@ public class OAuthHttpClient
      */
     public func attemptAppAuthentication(
         successHandler: @escaping () -> (),
-        failureHandler: @escaping (Error, DataResponse<Data>?) -> ()
+        failureHandler: @escaping (ForrestError) -> ()
     ) {
         let parser = oauthConfigProvider.getAppAuthParser()
         let persistSuccessHandler = { [weak self] (token: AccessToken) in
@@ -183,7 +175,7 @@ public class OAuthHttpClient
                     expiration: token.getExpiration())
                 successHandler()
             } catch (let error) {
-                failureHandler(error, nil)
+                failureHandler(ForrestError(.appAuthFailed, error: error, responseData: nil))
             }
         }
         
@@ -238,7 +230,7 @@ public class OAuthHttpClient
                 self?.makeRequest(requestObject: request)
                 
             } catch (let error) {
-                request.getResponseHandler().getFailureCallback()(error, nil)
+                request.getResponseHandler().getFailureCallback()(ForrestError(.persistError, error: error, responseData: nil))
             }
         }
         
@@ -271,7 +263,7 @@ public class OAuthHttpClient
         username: String,
         password: String,
         successHandler: @escaping ([String: AnyObject]?) -> (),
-        failureHandler: @escaping (Error, DataResponse<Data>?) -> ()
+        failureHandler: @escaping (ForrestError) -> ()
     ) {
         
         
@@ -290,7 +282,7 @@ public class OAuthHttpClient
                 successHandler(response.additionalData)
                 
             } catch (let error) {
-                failureHandler(error, nil)
+                failureHandler(ForrestError(.persistError, error: error, responseData: nil))
             }
         }
         
@@ -321,7 +313,7 @@ public class OAuthHttpClient
     {
         refreshQueue.append(DispatchWorkItem { [weak self] in
             guard let `self` = self else {
-                request.getResponseHandler().getFailureCallback()(ForrestError.refreshFailed, nil)
+                request.getResponseHandler().getFailureCallback()(ForrestError(.refreshFailed, error: nil, responseData: nil))
                 return
             }
             self.makeRequest(requestObject: request)
@@ -337,7 +329,7 @@ public class OAuthHttpClient
         let refreshSuccessHandler = { [weak self] (response: RefreshResponse) in
             
             guard let `self` = self else {
-                request.getResponseHandler().getFailureCallback()(ForrestError.refreshFailed, nil)
+                request.getResponseHandler().getFailureCallback()(ForrestError(.refreshFailed, error: nil, responseData: nil))
                 return
             }
             
@@ -351,7 +343,7 @@ public class OAuthHttpClient
                     expiration: response.refreshToken.expiration)
                 
             } catch (let error) {
-                request.getResponseHandler().getFailureCallback()(error, nil)
+                request.getResponseHandler().getFailureCallback()(ForrestError(.refreshFailed, error: error, responseData: nil))
                 self.refreshQueue.removeAll()
             }
             
@@ -359,14 +351,14 @@ public class OAuthHttpClient
             self.sendPendingRequests()
         }
         
-        let refreshFailureHandler = { [weak self] (error: Error, response: DataResponse<Data>?) in
+        let refreshFailureHandler = { [weak self] (error: ForrestError) in
             
             guard let `self` = self else {
-                request.getResponseHandler().getFailureCallback()(ForrestError.refreshFailed, nil)
+                request.getResponseHandler().getFailureCallback()(error)
                 return
             }
             
-            request.getResponseHandler().getFailureCallback()(error, nil)
+            request.getResponseHandler().getFailureCallback()(error)
             self.refreshQueue.removeAll()
         }
             

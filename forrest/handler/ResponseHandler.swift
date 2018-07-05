@@ -15,7 +15,7 @@ open class ResponseHandler<T>: ResponseHandleableProtocol
     
     public var parserClosure: (Data) -> (EntityType?)
     public var successCallback: (EntityType) -> ()
-    public var failureCallback: (Error, DataResponse<Data>?) -> ()
+    public var failureCallback: (ForrestError) -> ()
     
     private lazy var metricsTracker: RequestMetricsProtocol? = {
         return NetworkConfig.sharedInstance.getMetricsTracker()
@@ -24,7 +24,7 @@ open class ResponseHandler<T>: ResponseHandleableProtocol
     public init(
         parserClosure: @escaping (Data) -> (EntityType?),
         successCallback: @escaping (EntityType) -> (),
-        failureCallback: @escaping (Error, DataResponse<Data>?) -> ()) {
+        failureCallback: @escaping (ForrestError) -> ()) {
         self.parserClosure = parserClosure
         self.successCallback = successCallback
         self.failureCallback = failureCallback
@@ -35,14 +35,14 @@ open class ResponseHandler<T>: ResponseHandleableProtocol
         switch response.result {
             case .success(let data):
                 guard let contentObject = parserClosure(data) else {
-                    getFailureCallback()(ForrestError.parseError, response)
+                    getFailureCallback()(ForrestError(.parseError, error: nil, responseData: data))
                     return
                 }
                 getSuccessCallback()(contentObject)
                 break
                 
             case .failure(let error):
-                getFailureCallback()(error, response)
+                getFailureCallback()(ForrestError(.apiError, error: error, responseData: response.data))
                 trackAPIError(response)
                 break
         }
@@ -54,7 +54,7 @@ open class ResponseHandler<T>: ResponseHandleableProtocol
         return successCallback
     }
     
-    open func getFailureCallback() -> (Error, DataResponse<Data>?) -> () {
+    open func getFailureCallback() -> (ForrestError) -> () {
         return failureCallback
     }
     
