@@ -17,6 +17,7 @@ public enum ForrestErrorType: String {
     case expiredAppToken = "App Token Expired"
     case expiredUserToken = "User Token Expired"
     
+    case persistError = "Storage Error"
     case referenceError = "Memory Reference Error"
     case parseError = "Parse Error"
     case apiError = "Api Error"
