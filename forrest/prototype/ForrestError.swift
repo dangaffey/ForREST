@@ -25,7 +25,7 @@ public struct ForrestError {
     var error: Error?
     var response: DataResponse<Data>?
     
-    init(_ type: ForrestErrorType, error: Error?, response: DataResponse<Data>?) {
+    public init(_ type: ForrestErrorType, error: Error?, response: DataResponse<Data>?) {
         self.type = type
         self.error = error
         self.response = response
