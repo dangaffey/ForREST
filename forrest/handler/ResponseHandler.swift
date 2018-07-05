@@ -35,14 +35,14 @@ open class ResponseHandler<T>: ResponseHandleableProtocol
         switch response.result {
             case .success(let data):
                 guard let contentObject = parserClosure(data) else {
-                    getFailureCallback()(ForrestError(.parseError, error: nil, response: response))
+                    getFailureCallback()(ForrestError(.parseError, response: response))
                     return
                 }
                 getSuccessCallback()(contentObject)
                 break
                 
-            case .failure(let error):
-                getFailureCallback()(ForrestError(.apiError, error: error, response: response))
+            case .failure(let _):
+                getFailureCallback()(ForrestError(.apiError, response: response))
                 trackAPIError(response)
                 break
         }
