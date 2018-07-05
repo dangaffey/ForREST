@@ -47,7 +47,7 @@ extension OAuthHttpClient {
             return
         }
         
-        upload.getResponseHandler().getFailureCallback()(ForrestError(.expiredUserToken, error: nil, responseData: nil))
+        upload.getResponseHandler().getFailureCallback()(ForrestError(.expiredUserToken, error: nil, response: nil))
         //THIS NIL CASE, WHICH INDICATES AN ERROR OUTSIDE OF ACTUAL REQUEST BEING PLACED, SHOULD PROBABLY SHOU
     }
     
@@ -96,7 +96,7 @@ extension OAuthHttpClient {
                 self?.makeUpload(uploadObject: upload)
                 
             } catch (let error) {
-                upload.getResponseHandler().getFailureCallback()(ForrestError(.persistError,  error: error, responseData: nil))
+                upload.getResponseHandler().getFailureCallback()(ForrestError(.persistError,  error: error, response: nil))
             }
         }
         
@@ -128,7 +128,7 @@ extension OAuthHttpClient {
     {
         refreshQueue.append(DispatchWorkItem { [weak self] in
             guard let `self` = self else {
-                upload.getResponseHandler().getFailureCallback()(ForrestError(.refreshFailed, error: nil, responseData: nil))
+                upload.getResponseHandler().getFailureCallback()(ForrestError(.refreshFailed, error: nil, response: nil))
                 //TODO analytics error logging here? Reference gone
                 return
             }
@@ -145,7 +145,7 @@ extension OAuthHttpClient {
         let refreshSuccessHandler = { [weak self] (response: RefreshResponse) in
             
             guard let `self` = self else {
-                upload.getResponseHandler().getFailureCallback()(ForrestError(.refreshFailed, error: nil, responseData: nil))
+                upload.getResponseHandler().getFailureCallback()(ForrestError(.refreshFailed, error: nil, response: nil))
                 return
             }
             
@@ -159,7 +159,7 @@ extension OAuthHttpClient {
                     expiration: response.refreshToken.expiration)
                 
             } catch (let error) {
-                upload.getResponseHandler().getFailureCallback()(ForrestError(.refreshFailed, error: error, responseData: nil))
+                upload.getResponseHandler().getFailureCallback()(ForrestError(.refreshFailed, error: error, response: nil))
                 self.refreshQueue.removeAll()
             }
             

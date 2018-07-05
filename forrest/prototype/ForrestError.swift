@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 public enum ForrestErrorType: String {
     case appAuthFailed = "App Auth Failed"
@@ -20,24 +21,13 @@ public enum ForrestErrorType: String {
 
 
 public struct ForrestError {
-    
     var type: ForrestErrorType
     var error: Error?
-    var response: String?
+    var response: DataResponse<Data>?
     
-    init(_ type: ForrestErrorType, error: Error?, response: String?) {
+    init(_ type: ForrestErrorType, error: Error?, response: DataResponse<Data>?) {
         self.type = type
         self.error = error
         self.response = response
     }
-    
-    init(_ type: ForrestErrorType, error: Error?, responseData: Data?) {
-        self.type = type
-        self.error = error
-        
-        if let data = responseData {
-            self.response = String(data: data, encoding: .utf8)
-        }
-    }
 }
-
