@@ -65,7 +65,7 @@ open class ResponseHandler<T>: ResponseHandleableProtocol
             tracker.trackAPILatency(
                 requestMethod: method,
                 path: path,
-                timeElapsed: String(format: ".3f", response.timeline.requestDuration)
+                timeElapsed: String(format: "%.2f", response.timeline.requestDuration)
             )
         }
     }
