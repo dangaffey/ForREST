@@ -353,6 +353,8 @@ public class OAuthHttpClient
         
         let refreshFailureHandler = { [weak self] (error: ForrestError) in
             
+            error.httpCode = 401 //TODO fix hack all refresh errors to 401's so client can key off one scenario
+            
             guard let `self` = self else {
                 request.getResponseHandler().getFailureCallback()(error)
                 return
