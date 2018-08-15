@@ -27,15 +27,13 @@ open class ResponseHandler<T>: ResponseHandleableProtocol
         self.failureCallback = failureCallback
     }
     
-    //track time using response.timeline object
-    
     open func handleResponse(response: DataResponse<Data>)
     {
         switch response.result {
                 
             case .success(let data):
                 guard let contentObject = parserClosure(data) else {
-                    failureCallback(ForrestError.parseError)
+                    failureCallback(ForRESTError.parseError)
                     return
                 }
     

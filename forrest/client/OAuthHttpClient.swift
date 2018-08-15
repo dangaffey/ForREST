@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-public enum ForrestError: Error {
+public enum ForRESTError: Error {
     case applicationAuthFailed
     case expiredCredentials
     case refreshFailed
@@ -148,7 +148,7 @@ public class OAuthHttpClient
             return
         }
         
-        request.getResponseHandler().getFailureCallback()(ForrestError.expiredCredentials)
+        request.getResponseHandler().getFailureCallback()(ForRESTError.expiredCredentials)
     }
     
     
@@ -321,7 +321,7 @@ public class OAuthHttpClient
     {
         refreshQueue.append(DispatchWorkItem { [weak self] in
             guard let `self` = self else {
-                request.getResponseHandler().getFailureCallback()(ForrestError.refreshFailed)
+                request.getResponseHandler().getFailureCallback()(ForRESTError.refreshFailed)
                 return
             }
             self.makeRequest(requestObject: request)
@@ -337,7 +337,7 @@ public class OAuthHttpClient
         let refreshSuccessHandler = { [weak self] (response: RefreshResponse) in
             
             guard let `self` = self else {
-                request.getResponseHandler().getFailureCallback()(ForrestError.refreshFailed)
+                request.getResponseHandler().getFailureCallback()(ForRESTError.refreshFailed)
                 return
             }
             
@@ -362,7 +362,7 @@ public class OAuthHttpClient
         let refreshFailureHandler = { [weak self] (error: Error) in
             
             guard let `self` = self else {
-                request.getResponseHandler().getFailureCallback()(ForrestError.refreshFailed)
+                request.getResponseHandler().getFailureCallback()(ForRESTError.refreshFailed)
                 return
             }
             
