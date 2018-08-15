@@ -17,5 +17,5 @@ public protocol ResponseHandleableProtocol
     
     func getSuccessCallback() -> (EntityType) -> ()
     
-    func getFailureCallback() -> (Error) -> ()
+    func getFailureCallback() -> (ForrestError) -> ()
 }

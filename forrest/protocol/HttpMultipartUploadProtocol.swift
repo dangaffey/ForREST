@@ -16,6 +16,8 @@ protocol HttpMultipartUploadProtocol {
     
     func getType() -> RequestType
     
+    func getMethod() -> HTTPMethod
+    
     func getUrl() -> URLConvertible
     
     func getData() -> (MultipartFormData) -> ()

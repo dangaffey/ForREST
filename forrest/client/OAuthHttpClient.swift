@@ -173,7 +173,7 @@ public class OAuthHttpClient
      */
     public func attemptAppAuthentication(
         successHandler: @escaping () -> (),
-        failureHandler: @escaping (Error) -> ()
+        failureHandler: @escaping (ForrestError) -> ()
     ) {
         let parser = oauthConfigProvider.getAppAuthParser()
         let persistSuccessHandler = { [weak self] (token: AccessToken) in
@@ -183,7 +183,7 @@ public class OAuthHttpClient
                     expiration: token.getExpiration())
                 successHandler()
             } catch (let error) {
-                failureHandler(error)
+                failureHandler(ForrestError(.appAuthFailed, error: error))
             }
         }
         
@@ -238,7 +238,7 @@ public class OAuthHttpClient
                 self?.makeRequest(requestObject: request)
                 
             } catch (let error) {
-                request.getResponseHandler().getFailureCallback()(error)
+                request.getResponseHandler().getFailureCallback()(ForrestError(.appAuthFailed, error: error))
             }
         }
         
@@ -271,7 +271,7 @@ public class OAuthHttpClient
         username: String,
         password: String,
         successHandler: @escaping ([String: AnyObject]?) -> (),
-        failureHandler: @escaping (Error) -> ()
+        failureHandler: @escaping (ForrestError) -> ()
     ) {
         
         
@@ -290,7 +290,7 @@ public class OAuthHttpClient
                 successHandler(response.additionalData)
                 
             } catch (let error) {
-                failureHandler(error)
+                failureHandler(ForrestError(.userAuthFailed, error: error))
             }
         }
         
@@ -351,7 +351,7 @@ public class OAuthHttpClient
                     expiration: response.refreshToken.expiration)
                 
             } catch (let error) {
-                request.getResponseHandler().getFailureCallback()(error)
+                request.getResponseHandler().getFailureCallback()(ForrestError(.refreshFailed, error: error))
                 self.refreshQueue.removeAll()
             }
             
@@ -359,7 +359,9 @@ public class OAuthHttpClient
             self.sendPendingRequests()
         }
         
-        let refreshFailureHandler = { [weak self] (error: Error) in
+        let refreshFailureHandler = { [weak self] (error: ForrestError) in
+            
+            error.httpCode = 401 //TODO fix hack all refresh errors to 401's so client can key off one scenario
             
             guard let `self` = self else {
                 request.getResponseHandler().getFailureCallback()(ForRESTError.refreshFailed)
@@ -407,6 +409,10 @@ public class OAuthHttpClient
         var headers = HTTPHeaders()
         let requestType = requestObject.getType()
         
+        if let contentType = requestObject.getContentType() {
+            headers["Content-Type"] = contentType
+        }
+
         if let authorizationHeader = getAuthorizationHeader(type: requestType) {
             headers["Authorization"] = String(format: "Bearer %@", authorizationHeader)
         }

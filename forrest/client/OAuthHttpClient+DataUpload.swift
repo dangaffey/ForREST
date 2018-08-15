@@ -95,7 +95,7 @@ extension OAuthHttpClient {
                 self?.makeUpload(uploadObject: upload)
                 
             } catch (let error) {
-                upload.getResponseHandler().getFailureCallback()(error)
+                upload.getResponseHandler().getFailureCallback()(ForrestError(.appAuthFailed,  error: error))
             }
         }
         
@@ -157,7 +157,7 @@ extension OAuthHttpClient {
                     expiration: response.refreshToken.expiration)
                 
             } catch (let error) {
-                upload.getResponseHandler().getFailureCallback()(error)
+                upload.getResponseHandler().getFailureCallback()(ForrestError(.refreshFailed, error: error))
                 self.refreshQueue.removeAll()
             }
             
@@ -165,7 +165,7 @@ extension OAuthHttpClient {
             self.sendPendingRequests()
         }
         
-        let refreshFailureHandler = { [weak self] (error: Error) in
+        let refreshFailureHandler = { [weak self] (error: ForrestError) in
             
             guard let `self` = self else {
                 upload.getResponseHandler().getFailureCallback()(ForRESTError.refreshFailed)
@@ -213,6 +213,7 @@ extension OAuthHttpClient {
         alamofire.upload(
             uploadObject.getData(),
             to: uploadObject.getUrl(),
+            method: uploadObject.getMethod(),
             headers: headers)
             .responseData(completionHandler: uploadObject.getResponseHandler().handleResponse)
     }
