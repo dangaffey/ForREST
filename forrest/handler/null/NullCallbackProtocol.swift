@@ -9,11 +9,8 @@
 import Foundation
 import Alamofire
 
-public protocol NullResponseHandleableProtocol
+public protocol NullCallbackProtocol
 {
-    func handleResponse(response: DataResponse<Data>) -> ()
-    
     func getSuccessCallback() -> () -> ()
     
-    func getFailureCallback() -> (Error) -> ()
 }

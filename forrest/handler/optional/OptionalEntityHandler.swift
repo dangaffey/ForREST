@@ -10,18 +10,18 @@ import Foundation
 import Alamofire
 
 
-open class OptionalResponseHandler<T>: OptionalResponseHandleableProtocol
+open class OptionalEntityHandler<T>: ResponseHandleableProtocol, OptionalEntityCallbackProtocol, ErrorHandleableProtocol
 {
     public typealias EntityType = T
     
     public var parserClosure: (Data) -> (EntityType?)
     public var successCallback: (EntityType?) -> ()
-    public var failureCallback: (Error) -> ()
+    public var failureCallback: (ForRESTError) -> ()
     
     public init(
         parserClosure: @escaping (Data) -> (EntityType?),
         successCallback: @escaping (EntityType?) -> (),
-        failureCallback: @escaping (Error) -> ())
+        failureCallback: @escaping (ForRESTError) -> ())
     {
         self.parserClosure = parserClosure
         self.successCallback = successCallback
@@ -44,9 +44,14 @@ open class OptionalResponseHandler<T>: OptionalResponseHandleableProtocol
             break
             
         case .failure(let error):
-            failureCallback(error)
+            failureCallback(ForRESTError(.apiError, error: error))
             break
         }
+    }
+    
+    
+    public func handleError(_ error: ForRESTError) {
+        getFailureCallback()(error)
     }
     
     
@@ -55,7 +60,7 @@ open class OptionalResponseHandler<T>: OptionalResponseHandleableProtocol
         return successCallback
     }
     
-    public func getFailureCallback() -> (Error) -> ()
+    public func getFailureCallback() -> (ForRESTError) -> ()
     {
         return failureCallback
     }

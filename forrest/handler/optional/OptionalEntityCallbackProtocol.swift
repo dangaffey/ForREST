@@ -9,13 +9,10 @@
 import Foundation
 import Alamofire
 
-public protocol OptionalResponseHandleableProtocol
+public protocol OptionalEntityCallbackProtocol
 {
     associatedtype EntityType
     
-    func handleResponse(response: DataResponse<Data>) -> ()
-    
     func getSuccessCallback() -> (EntityType?) -> ()
     
-    func getFailureCallback() -> (Error) -> ()
 }

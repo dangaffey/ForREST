@@ -9,14 +9,6 @@
 import Foundation
 import Alamofire
 
-public enum ForRESTError: Error {
-    case applicationAuthFailed
-    case expiredCredentials
-    case refreshFailed
-    case parseError
-    case persistError
-}
-
 
 public class OAuthHttpClient
 {
@@ -113,17 +105,17 @@ public class OAuthHttpClient
     /**
         Routes a request to the correct attempt dispatch procedure
     */
-    public func addRequestToQueue<T: ResponseHandleableProtocol>(request: RequestPrototype<T>) {
+    public func addRequestToQueue<T: ResponseHandleableProtocol & ErrorHandleableProtocol>(request: RequestPrototype<T>) {
         switch request.getType() {
-            
+
         case .UserAuthRequired:
             attemptUserAccessRequest(request: request)
             break
-            
+
         case .AppAuthRequired:
-            attemptAnyAccessRequest(request: request)
+            attemptAppAccessRequest(request: request)
             break
-            
+
         case .NoAuthRequired:
             makeRequest(requestObject: request)
             break
@@ -135,35 +127,20 @@ public class OAuthHttpClient
     /**
      Attempts to execute a request that requires a user-level access
      */
-    private func attemptUserAccessRequest<T: ResponseHandleableProtocol>(request: RequestPrototype<T>)
+    private func attemptUserAccessRequest<T: ResponseHandleableProtocol & ErrorHandleableProtocol>(request: RequestPrototype<T>)
     {
-        if (oauthStateProvider.userAccessIntended()) {
+        if (oauthStateProvider.userAccessTokenValid()) {
             makeRequest(requestObject: request)
             return
         }
         
         
-        if (oauthStateProvider.userRefreshPossible()) {
+        if (oauthStateProvider.userRefreshTokenValid()) {
             attemptUserAccessRefresh(request: request)
             return
         }
         
-        request.getResponseHandler().getFailureCallback()(ForRESTError.expiredCredentials)
-    }
-    
-    
-    
-    /**
-     Attempts to make a request preferring user-level, but trying application-level if unavailable
-     */
-    private func attemptAnyAccessRequest<T: ResponseHandleableProtocol>(request: RequestPrototype<T>)
-    {
-        if (oauthStateProvider.userAccessIntended()) {
-            attemptUserAccessRequest(request: request)
-            return
-        }
-        
-        attemptAppAccessRequest(request: request)
+        request.getAggregatedHandler().handleError(ForRESTError(.expiredUserToken))
     }
     
     
@@ -173,7 +150,7 @@ public class OAuthHttpClient
      */
     public func attemptAppAuthentication(
         successHandler: @escaping () -> (),
-        failureHandler: @escaping (ForrestError) -> ()
+        failureHandler: @escaping (ForRESTError) -> ()
     ) {
         let parser = oauthConfigProvider.getAppAuthParser()
         let persistSuccessHandler = { [weak self] (token: AccessToken) in
@@ -183,17 +160,17 @@ public class OAuthHttpClient
                     expiration: token.getExpiration())
                 successHandler()
             } catch (let error) {
-                failureHandler(ForrestError(.appAuthFailed, error: error))
+                failureHandler(ForRESTError(.appAuthFailed, error: error))
             }
         }
         
-        let responseHandler = ResponseHandler<AccessToken>(
+        let entityHandler = EntityHandler<AccessToken>(
             parserClosure: parser.fromJson,
             successCallback: persistSuccessHandler,
             failureCallback: failureHandler
         )
         
-        let authRequest = RequestPrototype<ResponseHandler<AccessToken>>(
+        let authRequest = RequestPrototype<EntityHandler<AccessToken>>(
             type: .NoAuthRequired,
             method: .post,
             url: oauthConfigProvider.getAppAuthEndpoint(),
@@ -201,7 +178,7 @@ public class OAuthHttpClient
                 clientId: oauthConfigProvider.getClientCredentials().getClientId(),
                 clientSecret: oauthConfigProvider.getClientCredentials().getClientSecret()),
             parameterEncoding: JSONEncoding.default,
-            responseHandler: responseHandler
+            aggregatedHandler: entityHandler
         )
         
         makeRequest(requestObject: authRequest)
@@ -211,7 +188,7 @@ public class OAuthHttpClient
     /**
      Attempts to execute an application level request
      */
-    private func attemptAppAccessRequest<T: ResponseHandleableProtocol>(request: RequestPrototype<T>)
+    private func attemptAppAccessRequest<T: ResponseHandleableProtocol & ErrorHandleableProtocol>(request: RequestPrototype<T>)
     {
         if (oauthStateProvider.appAccessTokenValid()) {
             makeRequest(requestObject: request)
@@ -226,7 +203,7 @@ public class OAuthHttpClient
     /**
      Attempts to broker a new application access token under a request
      */
-    private func attemptAppAuthentication<T: ResponseHandleableProtocol>(request: RequestPrototype<T>)
+    private func attemptAppAuthentication<T: ResponseHandleableProtocol & ErrorHandleableProtocol>(request: RequestPrototype<T>)
     {
         let parser = oauthConfigProvider.getAppAuthParser()
         let persistSuccessHandler = { [weak self] (token: AccessToken) in
@@ -238,17 +215,17 @@ public class OAuthHttpClient
                 self?.makeRequest(requestObject: request)
                 
             } catch (let error) {
-                request.getResponseHandler().getFailureCallback()(ForrestError(.appAuthFailed, error: error))
+                request.getAggregatedHandler().handleError(ForRESTError(.appAuthFailed, error: error))
             }
         }
         
-        let responseHandler = ResponseHandler<AccessToken>(
+        let entityHandler = EntityHandler<AccessToken>(
             parserClosure: parser.fromJson,
             successCallback: persistSuccessHandler,
-            failureCallback: request.getResponseHandler().getFailureCallback()
+            failureCallback: request.getAggregatedHandler().handleError
         )
-        
-        let authRequest = RequestPrototype<ResponseHandler<AccessToken>>(
+
+        let authRequest = RequestPrototype<EntityHandler<AccessToken>>(
             type: .NoAuthRequired,
             method: .post,
             url: oauthConfigProvider.getAppAuthEndpoint(),
@@ -256,9 +233,9 @@ public class OAuthHttpClient
                 clientId: oauthConfigProvider.getClientCredentials().getClientId(),
                 clientSecret: oauthConfigProvider.getClientCredentials().getClientSecret()),
             parameterEncoding: JSONEncoding.default,
-            responseHandler: responseHandler
+            aggregatedHandler: entityHandler
         )
-        
+
         makeRequest(requestObject: authRequest)
     }
     
@@ -271,7 +248,7 @@ public class OAuthHttpClient
         username: String,
         password: String,
         successHandler: @escaping ([String: AnyObject]?) -> (),
-        failureHandler: @escaping (ForrestError) -> ()
+        failureHandler: @escaping (ForRESTError) -> ()
     ) {
         
         
@@ -290,23 +267,23 @@ public class OAuthHttpClient
                 successHandler(response.additionalData)
                 
             } catch (let error) {
-                failureHandler(ForrestError(.userAuthFailed, error: error))
+                failureHandler(ForRESTError(.userAuthFailed, error: error))
             }
         }
         
-        let responseHandler = ResponseHandler<UserResponse>(
+        let entityHandler = EntityHandler<UserResponse>(
             parserClosure: parser.fromJson,
             successCallback: persistSuccessHandler,
             failureCallback: failureHandler
         )
         
-        let userRequest = RequestPrototype<ResponseHandler<UserResponse>>(
+        let userRequest = RequestPrototype<EntityHandler<UserResponse>>(
             type: .NoAuthRequired,
             method: .post,
             url: oauthConfigProvider.getUserAuthEndpoint(),
             params: parser.toJson(username: username, password: password),
             parameterEncoding: JSONEncoding.default,
-            responseHandler: responseHandler
+            aggregatedHandler: entityHandler
         )
         
         makeRequest(requestObject: userRequest)
@@ -317,11 +294,11 @@ public class OAuthHttpClient
     /**
      Attempts to refresh the access token for user-level access
      */
-    private func attemptUserAccessRefresh<T: ResponseHandleableProtocol>(request: RequestPrototype<T>)
+    private func attemptUserAccessRefresh<T: ResponseHandleableProtocol & ErrorHandleableProtocol>(request: RequestPrototype<T>)
     {
         refreshQueue.append(DispatchWorkItem { [weak self] in
             guard let `self` = self else {
-                request.getResponseHandler().getFailureCallback()(ForRESTError.refreshFailed)
+                request.getAggregatedHandler().handleError(ForRESTError(.refreshFailed))
                 return
             }
             self.makeRequest(requestObject: request)
@@ -337,7 +314,7 @@ public class OAuthHttpClient
         let refreshSuccessHandler = { [weak self] (response: RefreshResponse) in
             
             guard let `self` = self else {
-                request.getResponseHandler().getFailureCallback()(ForRESTError.refreshFailed)
+                request.getAggregatedHandler().handleError(ForRESTError(.refreshFailed))
                 return
             }
             
@@ -351,7 +328,7 @@ public class OAuthHttpClient
                     expiration: response.refreshToken.expiration)
                 
             } catch (let error) {
-                request.getResponseHandler().getFailureCallback()(ForrestError(.refreshFailed, error: error))
+                request.getAggregatedHandler().handleError(ForRESTError(.refreshFailed, error: error))
                 self.refreshQueue.removeAll()
             }
             
@@ -359,32 +336,32 @@ public class OAuthHttpClient
             self.sendPendingRequests()
         }
         
-        let refreshFailureHandler = { [weak self] (error: ForrestError) in
+        let refreshFailureHandler = { [weak self] (error: ForRESTError) in
             
             error.httpCode = 401 //TODO fix hack all refresh errors to 401's so client can key off one scenario
             
             guard let `self` = self else {
-                request.getResponseHandler().getFailureCallback()(ForRESTError.refreshFailed)
+                request.getAggregatedHandler().handleError(error)
                 return
             }
             
-            request.getResponseHandler().getFailureCallback()(error)
+            request.getAggregatedHandler().handleError(error)
             self.refreshQueue.removeAll()
         }
             
-        let responseHandler = ResponseHandler<RefreshResponse>(
+        let entityHandler = EntityHandler<RefreshResponse>(
             parserClosure: parser.fromJson,
             successCallback: refreshSuccessHandler,
             failureCallback: refreshFailureHandler
         )
         
-        let refreshRequest = RequestPrototype<ResponseHandler<RefreshResponse>>(
+        let refreshRequest = RequestPrototype<EntityHandler<RefreshResponse>>(
             type: .NoAuthRequired,
             method: .post,
             url: self.oauthConfigProvider.getRefreshEndpoint(),
             params: parser.toJson(token: self.oauthStateProvider.getUserRefreshData()?.token ?? ""),
             parameterEncoding: JSONEncoding.default,
-            responseHandler: responseHandler
+            aggregatedHandler: entityHandler
         )
         
         self.makeRequest(requestObject: refreshRequest)
@@ -423,7 +400,7 @@ public class OAuthHttpClient
                           encoding: requestObject.getEncoding(),
                           headers: headers)
             .validate(statusCode: 200..<300)
-            .responseData(completionHandler: requestObject.getResponseHandler().handleResponse)
+            .responseData(completionHandler: requestObject.getAggregatedHandler().handleResponse)
     }
     
     
@@ -442,7 +419,7 @@ public class OAuthHttpClient
             return header
             
         case .AppAuthRequired:
-            guard oauthStateProvider.userAccessIntended() else {
+            guard oauthStateProvider.userAccessTokenValid() else {
                 guard let header = oauthStateProvider.getAppAccessData()?.token else {
                     return nil
                 }

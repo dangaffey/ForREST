@@ -10,14 +10,14 @@ import Foundation
 import Alamofire
 
 
-open class NullResponseHandler: NullResponseHandleableProtocol
+open class NullHandler: ResponseHandleableProtocol
 {
     public var successCallback: () -> ()
-    public var failureCallback: (Error) -> ()
+    public var failureCallback: (ForRESTError) -> ()
     
     public init(
         successCallback: @escaping () -> (),
-        failureCallback: @escaping (Error) -> ())
+        failureCallback: @escaping (ForRESTError) -> ())
     {
         self.successCallback = successCallback
         self.failureCallback = failureCallback
@@ -32,7 +32,7 @@ open class NullResponseHandler: NullResponseHandleableProtocol
             break
             
         case .failure(let error):
-            failureCallback(error)
+            failureCallback(ForRESTError(.apiError, error: error))
             break
         }
     }
@@ -43,7 +43,7 @@ open class NullResponseHandler: NullResponseHandleableProtocol
         return successCallback
     }
     
-    public func getFailureCallback() -> (Error) -> ()
+    public func getFailureCallback() -> (ForRESTError) -> ()
     {
         return failureCallback
     }

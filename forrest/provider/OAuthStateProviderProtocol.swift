@@ -11,9 +11,9 @@ import Foundation
 
 public protocol OAuthStateProviderProtocol
 {
-    func userAccessIntended() -> Bool
+    func userAccessTokenValid() -> Bool
     
-    func userRefreshPossible() -> Bool
+    func userRefreshTokenValid() -> Bool
     
     func appAccessTokenValid() -> Bool
     

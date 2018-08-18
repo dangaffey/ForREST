@@ -9,13 +9,13 @@
 import Foundation
 import Alamofire
 
-open class ResponseHandler<T>: ResponseHandleableProtocol
+open class EntityHandler<T>: ResponseHandleableProtocol
 {
     public typealias EntityType = T
     
     public var parserClosure: (Data) -> (EntityType?)
     public var successCallback: (EntityType) -> ()
-    public var failureCallback: (ForrestError) -> ()
+    public var failureCallback: (ForRESTError) -> ()
     
     private lazy var metricsTracker: RequestMetricsProtocol? = {
         return NetworkConfig.sharedInstance.getMetricsTracker()
@@ -24,7 +24,7 @@ open class ResponseHandler<T>: ResponseHandleableProtocol
     public init(
         parserClosure: @escaping (Data) -> (EntityType?),
         successCallback: @escaping (EntityType) -> (),
-        failureCallback: @escaping (ForrestError) -> ()) {
+        failureCallback: @escaping (ForRESTError) -> ()) {
         self.parserClosure = parserClosure
         self.successCallback = successCallback
         self.failureCallback = failureCallback
@@ -35,14 +35,14 @@ open class ResponseHandler<T>: ResponseHandleableProtocol
         switch response.result {
             case .success(let data):
                 guard let contentObject = parserClosure(data) else {
-                    failureCallback(ForRESTError.parseError)
+                    failureCallback(ForRESTError(.parseError))
                     return
                 }
                 getSuccessCallback()(contentObject)
                 break
                 
-            case .failure(let _):
-                getFailureCallback()(ForrestError(.apiError, response: response))
+            case .failure(_):
+                getFailureCallback()(ForRESTError(.apiError, response: response))
                 trackAPIError(response)
                 break
         }
@@ -54,7 +54,7 @@ open class ResponseHandler<T>: ResponseHandleableProtocol
         return successCallback
     }
     
-    open func getFailureCallback() -> (ForrestError) -> () {
+    open func getFailureCallback() -> (ForRESTError) -> () {
         return failureCallback
     }
     

@@ -12,7 +12,7 @@ import Alamofire
 
 protocol HttpDataUploadProtocol {
     
-    associatedtype EntityHandler
+    associatedtype AggregatedHandler
     
     func getType() -> RequestType
     
@@ -24,5 +24,5 @@ protocol HttpDataUploadProtocol {
     
     func getContentType() -> String
     
-    func getResponseHandler() -> EntityHandler
+    func getAggregatedHandler() -> AggregatedHandler
 }

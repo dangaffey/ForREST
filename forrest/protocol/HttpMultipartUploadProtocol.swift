@@ -12,7 +12,7 @@ import Alamofire
 
 protocol HttpMultipartUploadProtocol {
     
-    associatedtype EntityHandler
+    associatedtype AggregatedHandler
     
     func getType() -> RequestType
     
@@ -22,5 +22,5 @@ protocol HttpMultipartUploadProtocol {
     
     func getData() -> (MultipartFormData) -> ()
     
-    func getResponseHandler() -> EntityHandler
+    func getAggregatedHandler() -> AggregatedHandler
 }

@@ -9,13 +9,8 @@
 import Foundation
 import Alamofire
 
-public protocol ResponseHandleableProtocol
-{
-    associatedtype EntityType
+public protocol ResponseHandleableProtocol {
     
     func handleResponse(response: DataResponse<Data>) -> ()
     
-    func getSuccessCallback() -> (EntityType) -> ()
-    
-    func getFailureCallback() -> (ForrestError) -> ()
 }

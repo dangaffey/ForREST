@@ -11,14 +11,14 @@ import Alamofire
 
 public class DataUploadPrototype<T>: HttpDataUploadProtocol
 {
-    public typealias EntityHandler = T
+    public typealias AggregatedHandler = T
     
     private var type: RequestType = RequestType.NoAuthRequired
     private var url: URLConvertible = ""
     private var method: HTTPMethod
     private var data: Data
     private var contentType: String
-    private var responseHandler: EntityHandler
+    private var aggregatedHandler: AggregatedHandler
 
     public init(
         type: RequestType,
@@ -26,13 +26,13 @@ public class DataUploadPrototype<T>: HttpDataUploadProtocol
         method: HTTPMethod,
         data: Data,
         contentType: String,
-        responseHandler: EntityHandler) {
+        aggregatedHandler: AggregatedHandler) {
         self.type = type
         self.url = url
         self.method = method
         self.data = data
         self.contentType = contentType
-        self.responseHandler = responseHandler
+        self.aggregatedHandler = aggregatedHandler
     }
     
     public func getType() -> RequestType {
@@ -55,8 +55,8 @@ public class DataUploadPrototype<T>: HttpDataUploadProtocol
         return contentType
     }
     
-    public func getResponseHandler() -> EntityHandler {
-        return responseHandler
+    public func getAggregatedHandler() -> AggregatedHandler {
+        return aggregatedHandler
     }
 }
 

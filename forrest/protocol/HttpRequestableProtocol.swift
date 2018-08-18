@@ -14,7 +14,7 @@ import Alamofire
 
 protocol HttpRequestableProtocol {
     
-    associatedtype EntityHandler
+    associatedtype AggregatedHandler
     
     func getType() -> RequestType
     
@@ -28,5 +28,5 @@ protocol HttpRequestableProtocol {
     
     func getContentType() -> String?
     
-    func getResponseHandler() -> EntityHandler
+    func getAggregatedHandler() -> AggregatedHandler
 }

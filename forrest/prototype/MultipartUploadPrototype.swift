@@ -11,25 +11,25 @@ import Alamofire
 
 public class MultipartUploadPrototype<T>: HttpMultipartUploadProtocol
 {
-    public typealias EntityHandler = T
+    public typealias AggregatedHandler = T
     
     private var type: RequestType = RequestType.NoAuthRequired
     private var url: URLConvertible = ""
     private var method: HTTPMethod
     private var data: (MultipartFormData) -> ()
-    private var responseHandler: EntityHandler
+    private var aggregatedHandler: AggregatedHandler
     
     public init(
         type: RequestType,
         url: URLConvertible,
         method: HTTPMethod,
         data: @escaping (MultipartFormData) -> (),
-        responseHandler: EntityHandler) {
+        aggregatedHandler: AggregatedHandler) {
         self.type = type
         self.url = url
         self.method = method
         self.data = data
-        self.responseHandler = responseHandler
+        self.aggregatedHandler = aggregatedHandler
     }
     
     public func getType() -> RequestType {
@@ -48,7 +48,7 @@ public class MultipartUploadPrototype<T>: HttpMultipartUploadProtocol
         return data
     }
     
-    public func getResponseHandler() -> EntityHandler {
-        return responseHandler
+    public func getAggregatedHandler() -> AggregatedHandler {
+        return aggregatedHandler
     }
 }

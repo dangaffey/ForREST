@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-public enum ForrestErrorType: String {
+public enum ForRESTErrorType: String {
     case appAuthFailed = "App Auth Failed"
     case userAuthFailed = "User Auth Failed"
     case refreshFailed = "User Refresh Failed"
@@ -24,18 +24,18 @@ public enum ForrestErrorType: String {
 }
 
 
-public class ForrestError {
-    public var type: ForrestErrorType
+public class ForRESTError {
+    public var type: ForRESTErrorType
     public var httpCode: Int = -1
     public var reason: String?
     
     
-    public init(_ type: ForrestErrorType, error: Error) {
+    public init(_ type: ForRESTErrorType, error: Error) {
         self.type = type
         self.reason = error.localizedDescription
     }
     
-    public init(_ type: ForrestErrorType, response: DataResponse<Data>) {
+    public init(_ type: ForRESTErrorType, response: DataResponse<Data>) {
         self.type = type
         self.httpCode = response.getStatusCode()
         
@@ -44,7 +44,7 @@ public class ForrestError {
         }
     }
   
-    public init(_ type: ForrestErrorType) {
+    public init(_ type: ForRESTErrorType) {
         self.type = type
         self.reason = type.rawValue
     }

@@ -11,7 +11,7 @@ import Alamofire
 
 public class RequestPrototype<T>: HttpRequestableProtocol
 {
-    public typealias EntityHandler = T
+    public typealias AggregatedHandler = T
     
     var type: RequestType = RequestType.NoAuthRequired
     var method: HTTPMethod = .get
@@ -19,7 +19,7 @@ public class RequestPrototype<T>: HttpRequestableProtocol
     var contentType: String?
     var params: Parameters?
     var parameterEncoding: ParameterEncoding = JSONEncoding.default
-    var responseHandler: EntityHandler
+    var aggregatedHandler: AggregatedHandler
     
     public init(
         type: RequestType,
@@ -27,14 +27,14 @@ public class RequestPrototype<T>: HttpRequestableProtocol
         url: URLConvertible,
         params: Parameters?,
         parameterEncoding: ParameterEncoding,
-        responseHandler: EntityHandler)
+        aggregatedHandler: AggregatedHandler)
     {
         self.type = type
         self.method = method
         self.url = url
         self.params = params
         self.parameterEncoding = parameterEncoding
-        self.responseHandler = responseHandler
+        self.aggregatedHandler = aggregatedHandler
     }
     
     public init(
@@ -44,7 +44,7 @@ public class RequestPrototype<T>: HttpRequestableProtocol
         contentType: String?,
         params: Parameters?,
         parameterEncoding: ParameterEncoding,
-        responseHandler: EntityHandler)
+        aggregatedHandler: AggregatedHandler)
     {
         self.type = type
         self.method = method
@@ -52,7 +52,7 @@ public class RequestPrototype<T>: HttpRequestableProtocol
         self.contentType = contentType
         self.params = params
         self.parameterEncoding = parameterEncoding
-        self.responseHandler = responseHandler
+        self.aggregatedHandler = aggregatedHandler
     }
     
     
@@ -85,8 +85,8 @@ public class RequestPrototype<T>: HttpRequestableProtocol
         return parameterEncoding
     }
     
-    public func getResponseHandler() -> EntityHandler
+    public func getAggregatedHandler() -> AggregatedHandler
     {
-        return responseHandler
+        return aggregatedHandler
     }
 }

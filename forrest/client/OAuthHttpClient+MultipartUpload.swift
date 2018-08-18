@@ -14,7 +14,7 @@ extension OAuthHttpClient {
     /**
      Routes an upload to the correct attempt dispatch procedure
      */
-    public func addUploadToQueue<T: ResponseHandleableProtocol>(upload: MultipartUploadPrototype<T>) {
+    public func addUploadToQueue<T: ResponseHandleableProtocol & ErrorHandleableProtocol>(upload: MultipartUploadPrototype<T>) {
         switch upload.getType() {
             
         case .UserAuthRequired:
@@ -22,7 +22,7 @@ extension OAuthHttpClient {
             break
             
         case .AppAuthRequired:
-            attemptAnyAccessUpload(upload: upload)
+            attemptAppAccessUpload(upload: upload)
             break
             
         case .NoAuthRequired:
@@ -35,40 +35,27 @@ extension OAuthHttpClient {
     /**
      Attempts to execute an upload that requires a user-level access
      */
-    private func attemptUserAccessUpload<T: ResponseHandleableProtocol>(upload: MultipartUploadPrototype<T>) {
-        if (oauthStateProvider.userAccessIntended()) {
+    private func attemptUserAccessUpload<T: ResponseHandleableProtocol & ErrorHandleableProtocol>(upload: MultipartUploadPrototype<T>) {
+        if (oauthStateProvider.userAccessTokenValid()) {
             makeUpload(uploadObject: upload)
             return
         }
         
         
-        if (oauthStateProvider.userRefreshPossible()) {
+        if (oauthStateProvider.userRefreshTokenValid()) {
             attemptUserAccessRefresh(upload: upload)
             return
         }
         
-        upload.getResponseHandler().getFailureCallback()(ForRESTError.expiredCredentials)
+        upload.getAggregatedHandler().handleError(ForRESTError(.expiredUserToken))
     }
     
-    
-    /**
-     Attempts to make a request preferring user-level, but trying application-level if unavailable
-     */
-    private func attemptAnyAccessUpload<T: ResponseHandleableProtocol>(upload: MultipartUploadPrototype<T>)
-    {
-        if (oauthStateProvider.userAccessIntended()) {
-            attemptUserAccessUpload(upload: upload)
-            return
-        }
-        
-        attemptAppAccessUpload(upload: upload)
-    }
     
     
     /**
      Attempts to execute an application level request
      */
-    private func attemptAppAccessUpload<T: ResponseHandleableProtocol>(upload: MultipartUploadPrototype<T>)
+    private func attemptAppAccessUpload<T: ResponseHandleableProtocol & ErrorHandleableProtocol>(upload: MultipartUploadPrototype<T>)
     {
         if (oauthStateProvider.appAccessTokenValid()) {
             makeUpload(uploadObject: upload)
@@ -83,7 +70,7 @@ extension OAuthHttpClient {
     /**
      Attempts to broker a new application access token under a request
      */
-    private func attemptAppAuthentication<T: ResponseHandleableProtocol>(upload: MultipartUploadPrototype<T>)
+    private func attemptAppAuthentication<T: ResponseHandleableProtocol & ErrorHandleableProtocol>(upload: MultipartUploadPrototype<T>)
     {
         let parser = oauthConfigProvider.getAppAuthParser()
         let persistSuccessHandler = { [weak self] (token: AccessToken) in
@@ -95,17 +82,17 @@ extension OAuthHttpClient {
                 self?.makeUpload(uploadObject: upload)
                 
             } catch (let error) {
-                upload.getResponseHandler().getFailureCallback()(ForrestError(.appAuthFailed, error: error))
+                upload.getAggregatedHandler().handleError(ForRESTError(.appAuthFailed, error: error))
             }
         }
         
-        let responseHandler = ResponseHandler<AccessToken>(
+        let responseHandler = EntityHandler<AccessToken>(
             parserClosure: parser.fromJson,
             successCallback: persistSuccessHandler,
-            failureCallback: upload.getResponseHandler().getFailureCallback()
+            failureCallback: upload.getAggregatedHandler().handleError
         )
-        
-        let authRequest = RequestPrototype<ResponseHandler<AccessToken>>(
+
+        let authRequest = RequestPrototype<EntityHandler<AccessToken>>(
             type: .NoAuthRequired,
             method: .post,
             url: oauthConfigProvider.getAppAuthEndpoint(),
@@ -113,9 +100,9 @@ extension OAuthHttpClient {
                 clientId: oauthConfigProvider.getClientCredentials().getClientId(),
                 clientSecret: oauthConfigProvider.getClientCredentials().getClientSecret()),
             parameterEncoding: JSONEncoding.default,
-            responseHandler: responseHandler
+            aggregatedHandler: responseHandler
         )
-        
+
         makeRequest(requestObject: authRequest)
     }
     
@@ -123,11 +110,11 @@ extension OAuthHttpClient {
     /**
      Attempts to refresh the access token for user-level access
      */
-    private func attemptUserAccessRefresh<T: ResponseHandleableProtocol>(upload: MultipartUploadPrototype<T>)
+    private func attemptUserAccessRefresh<T: ResponseHandleableProtocol & ErrorHandleableProtocol>(upload: MultipartUploadPrototype<T>)
     {
         refreshQueue.append(DispatchWorkItem { [weak self] in
             guard let `self` = self else {
-                upload.getResponseHandler().getFailureCallback()(ForRESTError.refreshFailed)
+                upload.getAggregatedHandler().handleError(ForRESTError(.refreshFailed))
                 return
             }
             self.makeUpload(uploadObject: upload)
@@ -143,7 +130,7 @@ extension OAuthHttpClient {
         let refreshSuccessHandler = { [weak self] (response: RefreshResponse) in
             
             guard let `self` = self else {
-                upload.getResponseHandler().getFailureCallback()(ForRESTError.refreshFailed)
+                upload.getAggregatedHandler().handleError(ForRESTError(.refreshFailed))
                 return
             }
             
@@ -157,7 +144,7 @@ extension OAuthHttpClient {
                     expiration: response.refreshToken.expiration)
                 
             } catch (let error) {
-                upload.getResponseHandler().getFailureCallback()(ForrestError(.refreshFailed, error: error))
+                upload.getAggregatedHandler().handleError(ForRESTError(.refreshFailed, error: error))
                 self.refreshQueue.removeAll()
             }
             
@@ -165,30 +152,30 @@ extension OAuthHttpClient {
             self.sendPendingRequests()
         }
         
-        let refreshFailureHandler = { [weak self] (error: ForrestError) in
+        let refreshFailureHandler = { [weak self] (error: ForRESTError) in
             
             guard let `self` = self else {
-                upload.getResponseHandler().getFailureCallback()(ForRESTError.refreshFailed)
+                upload.getAggregatedHandler().handleError(error)
                 return
             }
             
-            upload.getResponseHandler().getFailureCallback()(error)
+            upload.getAggregatedHandler().handleError(error)
             self.refreshQueue.removeAll()
         }
         
-        let responseHandler = ResponseHandler<RefreshResponse>(
+        let entityHandler = EntityHandler<RefreshResponse>(
             parserClosure: parser.fromJson,
             successCallback: refreshSuccessHandler,
             failureCallback: refreshFailureHandler
         )
         
-        let refreshRequest = RequestPrototype<ResponseHandler<RefreshResponse>>(
+        let refreshRequest = RequestPrototype<EntityHandler<RefreshResponse>>(
             type: .NoAuthRequired,
             method: .post,
             url: self.oauthConfigProvider.getRefreshEndpoint(),
             params: parser.toJson(token: self.oauthStateProvider.getUserRefreshData()?.token ?? ""),
             parameterEncoding: JSONEncoding.default,
-            responseHandler: responseHandler
+            aggregatedHandler: entityHandler
         )
         
         self.makeRequest(requestObject: refreshRequest)
@@ -199,7 +186,7 @@ extension OAuthHttpClient {
     /**
      Executes requests through the Alamofire stack
      */
-    private func makeUpload<T: ResponseHandleableProtocol>(uploadObject: MultipartUploadPrototype<T>)
+    private func makeUpload<T: ResponseHandleableProtocol & ErrorHandleableProtocol>(uploadObject: MultipartUploadPrototype<T>)
     {
         var headers = HTTPHeaders()
         let requestType = uploadObject.getType()
@@ -217,10 +204,10 @@ extension OAuthHttpClient {
                 switch encodingResult {
                     
                 case .success(let upload, _, _):
-                    upload.responseData(completionHandler: uploadObject.getResponseHandler().handleResponse)
+                    upload.responseData(completionHandler: uploadObject.getAggregatedHandler().handleResponse)
     
                 case .failure(let error):
-                    uploadObject.getResponseHandler().getFailureCallback()(ForrestError(.parseError, error: error))
+                    uploadObject.getAggregatedHandler().handleError(ForRESTError(.parseError, error: error))
                 }
             }
         )
