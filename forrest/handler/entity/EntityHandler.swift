@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-open class EntityHandler<T>: ResponseHandleableProtocol
+open class EntityHandler<T>: ResponseHandleableProtocol, ErrorHandleableProtocol, EntityCallbackProtocol
 {
     public typealias EntityType = T
     
@@ -35,7 +35,7 @@ open class EntityHandler<T>: ResponseHandleableProtocol
         switch response.result {
             case .success(let data):
                 guard let contentObject = parserClosure(data) else {
-                    failureCallback(ForRESTError(.parseError))
+                    failureCallback(ForRESTError(.parseError, response: response))
                     return
                 }
                 getSuccessCallback()(contentObject)
@@ -47,6 +47,14 @@ open class EntityHandler<T>: ResponseHandleableProtocol
                 break
         }
         trackAPILatency(response)
+    }
+    
+    /**
+        Proxy helper function that allows the transmission of an error directly to a callback
+        Useful for when errors need relayed that are not a result of handling a network response
+    */
+    public func handleError(_ error: ForRESTError) {
+        getFailureCallback()(error)
     }
     
     

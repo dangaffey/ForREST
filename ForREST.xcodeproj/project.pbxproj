@@ -11,7 +11,7 @@
 		1F2BD5DF202218390039DA73 /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BD5DE202218390039DA73 /* CacheService.swift */; };
 		1F2BD5E120221B7D0039DA73 /* CacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BD5E020221B7D0039DA73 /* CacheTests.swift */; };
 		1F2DC1FA20EBBF31003147EA /* RequestMetricsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2DC1F920EBBF31003147EA /* RequestMetricsProtocol.swift */; };
-		1F2DC1FE20EE4E15003147EA /* ForrestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2DC1FD20EE4E15003147EA /* ForrestError.swift */; };
+		1F2DC1FE20EE4E15003147EA /* ForRESTError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2DC1FD20EE4E15003147EA /* ForRESTError.swift */; };
 		1F2DC20520EEA831003147EA /* DataResponseExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2DC20420EEA831003147EA /* DataResponseExtensions.swift */; };
 		1F3551BC2023790D00C50E87 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BD5E2202373AC0039DA73 /* StringExtensions.swift */; };
 		1F3551BF2023B80700C50E87 /* CachedUrlResponseExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3551BD2023B46A00C50E87 /* CachedUrlResponseExtensions.swift */; };
@@ -50,6 +50,7 @@
 		1FF7802D1FB1EE0C00630749 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF7802C1FB1EE0C00630749 /* RequestType.swift */; };
 		1FF7802E1FB1FC3700630749 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF7802C1FB1EE0C00630749 /* RequestType.swift */; };
 		5D4431641FB0868D00EAEA9A /* OptionalEntityHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4431631FB0868D00EAEA9A /* OptionalEntityHandler.swift */; };
+		5D4CC5B92129C09F00F122F5 /* ForRESTErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4CC5B82129C09F00F122F5 /* ForRESTErrorType.swift */; };
 		5D4D50E021225CA100803A6A /* OptionalEntityCallbackProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D50DF21225CA100803A6A /* OptionalEntityCallbackProtocol.swift */; };
 		5D4D50E5212261E400803A6A /* NullCallbackProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D50E4212261E400803A6A /* NullCallbackProtocol.swift */; };
 		5D4D50E72122621400803A6A /* NullHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D50E62122621400803A6A /* NullHandler.swift */; };
@@ -90,7 +91,7 @@
 		1F2BD5E020221B7D0039DA73 /* CacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CacheTests.swift; path = forrestTests/test/CacheTests.swift; sourceTree = SOURCE_ROOT; };
 		1F2BD5E2202373AC0039DA73 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StringExtensions.swift; path = ForREST/extension/StringExtensions.swift; sourceTree = SOURCE_ROOT; };
 		1F2DC1F920EBBF31003147EA /* RequestMetricsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RequestMetricsProtocol.swift; path = ForREST/protocol/RequestMetricsProtocol.swift; sourceTree = SOURCE_ROOT; };
-		1F2DC1FD20EE4E15003147EA /* ForrestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ForrestError.swift; path = ForREST/prototype/ForrestError.swift; sourceTree = SOURCE_ROOT; };
+		1F2DC1FD20EE4E15003147EA /* ForRESTError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ForRESTError.swift; path = ForREST/prototype/ForRESTError.swift; sourceTree = SOURCE_ROOT; };
 		1F2DC20420EEA831003147EA /* DataResponseExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DataResponseExtensions.swift; path = forrest/extension/DataResponseExtensions.swift; sourceTree = SOURCE_ROOT; };
 		1F3551BD2023B46A00C50E87 /* CachedUrlResponseExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CachedUrlResponseExtensions.swift; path = ForREST/extension/CachedUrlResponseExtensions.swift; sourceTree = SOURCE_ROOT; };
 		1F693A131F8E6E2000D01161 /* NetworkConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkConfigTests.swift; path = forrestTests/test/NetworkConfigTests.swift; sourceTree = SOURCE_ROOT; };
@@ -113,6 +114,7 @@
 		1FF7802A1FB1EDF200630749 /* HttpMultipartUploadProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HttpMultipartUploadProtocol.swift; path = forrest/protocol/HttpMultipartUploadProtocol.swift; sourceTree = SOURCE_ROOT; };
 		1FF7802C1FB1EE0C00630749 /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RequestType.swift; path = forrest/prototype/RequestType.swift; sourceTree = SOURCE_ROOT; };
 		5D4431631FB0868D00EAEA9A /* OptionalEntityHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OptionalEntityHandler.swift; path = ForREST/handler/optional/OptionalEntityHandler.swift; sourceTree = SOURCE_ROOT; };
+		5D4CC5B82129C09F00F122F5 /* ForRESTErrorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ForRESTErrorType.swift; path = forrest/prototype/ForRESTErrorType.swift; sourceTree = SOURCE_ROOT; };
 		5D4D50DF21225CA100803A6A /* OptionalEntityCallbackProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OptionalEntityCallbackProtocol.swift; path = ForREST/handler/optional/OptionalEntityCallbackProtocol.swift; sourceTree = SOURCE_ROOT; };
 		5D4D50E4212261E400803A6A /* NullCallbackProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NullCallbackProtocol.swift; path = forrest/handler/null/NullCallbackProtocol.swift; sourceTree = SOURCE_ROOT; };
 		5D4D50E62122621400803A6A /* NullHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NullHandler.swift; sourceTree = "<group>"; };
@@ -220,7 +222,8 @@
 				5DF5CA191F73544400E5C0DE /* RequestPrototype.swift */,
 				1FF780271FB1EDB600630749 /* MultipartUploadPrototype.swift */,
 				1FDB317020064FA7008AEA77 /* DataUploadPrototype.swift */,
-				1F2DC1FD20EE4E15003147EA /* ForrestError.swift */,
+				1F2DC1FD20EE4E15003147EA /* ForRESTError.swift */,
+				5D4CC5B82129C09F00F122F5 /* ForRESTErrorType.swift */,
 			);
 			path = prototype;
 			sourceTree = "<group>";
@@ -503,6 +506,7 @@
 			files = (
 				1FF7802B1FB1EDF200630749 /* HttpMultipartUploadProtocol.swift in Sources */,
 				5DF5CA261F73574900E5C0DE /* AppAuthParserProtocol.swift in Sources */,
+				5D4CC5B92129C09F00F122F5 /* ForRESTErrorType.swift in Sources */,
 				1FDB317320065022008AEA77 /* OAuthHttpClient+DataUpload.swift in Sources */,
 				1FDB316F20064EFA008AEA77 /* HttpDataUploadProtocol.swift in Sources */,
 				5D4D50E72122621400803A6A /* NullHandler.swift in Sources */,
@@ -528,7 +532,7 @@
 				1FF780281FB1EDB600630749 /* MultipartUploadPrototype.swift in Sources */,
 				5DF5CA181F7353ED00E5C0DE /* HttpRequestableProtocol.swift in Sources */,
 				1FF780251FB1EA2600630749 /* OAuthHttpClient+MultipartUpload.swift in Sources */,
-				1F2DC1FE20EE4E15003147EA /* ForrestError.swift in Sources */,
+				1F2DC1FE20EE4E15003147EA /* ForRESTError.swift in Sources */,
 				5DF5CA2A1F73582900E5C0DE /* AccessToken.swift in Sources */,
 				5DAFF43F1F783A30000690C8 /* EntityHandler.swift in Sources */,
 				1FF7802D1FB1EE0C00630749 /* RequestType.swift in Sources */,

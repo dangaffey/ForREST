@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 
-open class OptionalEntityHandler<T>: ResponseHandleableProtocol, OptionalEntityCallbackProtocol, ErrorHandleableProtocol
+open class OptionalEntityHandler<T>: ResponseHandleableProtocol, ErrorHandleableProtocol, OptionalEntityCallbackProtocol
 {
     public typealias EntityType = T
     
@@ -49,7 +49,10 @@ open class OptionalEntityHandler<T>: ResponseHandleableProtocol, OptionalEntityC
         }
     }
     
-    
+    /**
+     Proxy helper function that allows the transmission of an error directly to a callback
+     Useful for when errors need relayed that are not a result of handling a network response
+     */
     public func handleError(_ error: ForRESTError) {
         getFailureCallback()(error)
     }

@@ -62,7 +62,7 @@ class UserAuthRequiredTests: XCTestCase
         
         self.waitForExpectations(timeout: 10) { (error) in
             XCTAssert(error == nil)
-            XCTAssert(self.mockStateProvider!.userAccessIntended())
+            XCTAssert(self.mockStateProvider!.userAccessTokenValid())
         }
     }
     
@@ -85,11 +85,11 @@ class UserAuthRequiredTests: XCTestCase
         
         self.waitForExpectations(timeout: 10) { (error) in
             XCTAssert(error == nil)
-            XCTAssert(self.mockStateProvider!.userAccessIntended() == true)
+            XCTAssert(self.mockStateProvider!.userAccessTokenValid() == true)
         }
         
         try! self.mockStateProvider!.setUserAccessData(token: "", expiration: "")
-        XCTAssert(self.mockStateProvider!.userAccessIntended() == false)
+        XCTAssert(self.mockStateProvider!.userAccessTokenValid() == false)
         
         
         let refreshExpectation = expectation(description: "implicitRefresh")

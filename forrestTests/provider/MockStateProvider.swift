@@ -22,7 +22,7 @@ class MockStateProvider: OAuthStateProviderProtocol
         
     }
     
-    func userAccessIntended() -> Bool
+    func userAccessTokenValid() -> Bool
     {
         guard let token = userToken,
             token.getId() != "",
@@ -33,7 +33,7 @@ class MockStateProvider: OAuthStateProviderProtocol
         return true
     }
     
-    func userRefreshPossible() -> Bool
+    func userRefreshTokenValid() -> Bool
     {
         guard let _ = refreshToken else {
             return false

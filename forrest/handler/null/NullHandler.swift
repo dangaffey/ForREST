@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 
-open class NullHandler: ResponseHandleableProtocol
+open class NullHandler: ResponseHandleableProtocol, ErrorHandleableProtocol, NullCallbackProtocol
 {
     public var successCallback: () -> ()
     public var failureCallback: (ForRESTError) -> ()
@@ -35,6 +35,14 @@ open class NullHandler: ResponseHandleableProtocol
             failureCallback(ForRESTError(.apiError, error: error))
             break
         }
+    }
+    
+    /**
+     Proxy helper function that allows the transmission of an error directly to a callback
+     Useful for when errors need relayed that are not a result of handling a network response
+     */
+    public func handleError(_ error: ForRESTError) {
+        getFailureCallback()(error)
     }
     
     
