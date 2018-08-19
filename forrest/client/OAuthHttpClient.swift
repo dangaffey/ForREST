@@ -336,19 +336,17 @@ public class OAuthHttpClient
             self.sendPendingRequests()
         }
         
+        
         let refreshFailureHandler = { [weak self] (error: ForRESTError) in
-            
-            error.httpCode = 401 //TODO fix hack all refresh errors to 401's so client can key off one scenario
-            
+            error.httpCode = 401 //Set all refresh errors to 401's so client can key off one scenario
             guard let `self` = self else {
                 request.getAggregatedHandler().handleError(error)
                 return
             }
-            
             request.getAggregatedHandler().handleError(error)
             self.refreshQueue.removeAll()
         }
-            
+        
         let entityHandler = EntityHandler<RefreshResponse>(
             parserClosure: parser.fromJson,
             successCallback: refreshSuccessHandler,

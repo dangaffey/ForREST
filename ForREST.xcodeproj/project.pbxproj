@@ -49,6 +49,10 @@
 		1FF7802B1FB1EDF200630749 /* HttpMultipartUploadProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF7802A1FB1EDF200630749 /* HttpMultipartUploadProtocol.swift */; };
 		1FF7802D1FB1EE0C00630749 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF7802C1FB1EE0C00630749 /* RequestType.swift */; };
 		1FF7802E1FB1FC3700630749 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF7802C1FB1EE0C00630749 /* RequestType.swift */; };
+		5D17AB47212A2C280014FAD8 /* UserAuthenticatedEntityHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D17AB46212A2C280014FAD8 /* UserAuthenticatedEntityHandler.swift */; };
+		5D17AB49212A2D240014FAD8 /* NSNotificationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D17AB48212A2D240014FAD8 /* NSNotificationExtensions.swift */; };
+		5D17AB4B212A31960014FAD8 /* UserAuthenticatedNullHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D17AB4A212A31960014FAD8 /* UserAuthenticatedNullHandler.swift */; };
+		5D17AB4D212A31F30014FAD8 /* UserAuthenticatedOptionalEntityHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D17AB4C212A31F30014FAD8 /* UserAuthenticatedOptionalEntityHandler.swift */; };
 		5D4431641FB0868D00EAEA9A /* OptionalEntityHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4431631FB0868D00EAEA9A /* OptionalEntityHandler.swift */; };
 		5D4CC5B92129C09F00F122F5 /* ForRESTErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4CC5B82129C09F00F122F5 /* ForRESTErrorType.swift */; };
 		5D4D50E021225CA100803A6A /* OptionalEntityCallbackProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D50DF21225CA100803A6A /* OptionalEntityCallbackProtocol.swift */; };
@@ -113,6 +117,10 @@
 		1FF780271FB1EDB600630749 /* MultipartUploadPrototype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MultipartUploadPrototype.swift; path = forrest/prototype/MultipartUploadPrototype.swift; sourceTree = SOURCE_ROOT; };
 		1FF7802A1FB1EDF200630749 /* HttpMultipartUploadProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HttpMultipartUploadProtocol.swift; path = forrest/protocol/HttpMultipartUploadProtocol.swift; sourceTree = SOURCE_ROOT; };
 		1FF7802C1FB1EE0C00630749 /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RequestType.swift; path = forrest/prototype/RequestType.swift; sourceTree = SOURCE_ROOT; };
+		5D17AB46212A2C280014FAD8 /* UserAuthenticatedEntityHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthenticatedEntityHandler.swift; sourceTree = "<group>"; };
+		5D17AB48212A2D240014FAD8 /* NSNotificationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NSNotificationExtensions.swift; path = forrest/extension/NSNotificationExtensions.swift; sourceTree = SOURCE_ROOT; };
+		5D17AB4A212A31960014FAD8 /* UserAuthenticatedNullHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserAuthenticatedNullHandler.swift; path = forrest/handler/null/UserAuthenticatedNullHandler.swift; sourceTree = SOURCE_ROOT; };
+		5D17AB4C212A31F30014FAD8 /* UserAuthenticatedOptionalEntityHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserAuthenticatedOptionalEntityHandler.swift; path = forrest/handler/optional/UserAuthenticatedOptionalEntityHandler.swift; sourceTree = SOURCE_ROOT; };
 		5D4431631FB0868D00EAEA9A /* OptionalEntityHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OptionalEntityHandler.swift; path = ForREST/handler/optional/OptionalEntityHandler.swift; sourceTree = SOURCE_ROOT; };
 		5D4CC5B82129C09F00F122F5 /* ForRESTErrorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ForRESTErrorType.swift; path = forrest/prototype/ForRESTErrorType.swift; sourceTree = SOURCE_ROOT; };
 		5D4D50DF21225CA100803A6A /* OptionalEntityCallbackProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OptionalEntityCallbackProtocol.swift; path = ForREST/handler/optional/OptionalEntityCallbackProtocol.swift; sourceTree = SOURCE_ROOT; };
@@ -161,6 +169,7 @@
 				1F3551BD2023B46A00C50E87 /* CachedUrlResponseExtensions.swift */,
 				1F2BD5E2202373AC0039DA73 /* StringExtensions.swift */,
 				1F2DC20420EEA831003147EA /* DataResponseExtensions.swift */,
+				5D17AB48212A2D240014FAD8 /* NSNotificationExtensions.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -246,6 +255,7 @@
 			children = (
 				5D85A6B42127A5000078C2D5 /* EntityCallbackProtocol.swift */,
 				5DAFF43E1F783A30000690C8 /* EntityHandler.swift */,
+				5D17AB46212A2C280014FAD8 /* UserAuthenticatedEntityHandler.swift */,
 			);
 			path = entity;
 			sourceTree = "<group>";
@@ -255,6 +265,7 @@
 			children = (
 				5D4D50DF21225CA100803A6A /* OptionalEntityCallbackProtocol.swift */,
 				5D4431631FB0868D00EAEA9A /* OptionalEntityHandler.swift */,
+				5D17AB4C212A31F30014FAD8 /* UserAuthenticatedOptionalEntityHandler.swift */,
 			);
 			path = optional;
 			sourceTree = "<group>";
@@ -264,6 +275,7 @@
 			children = (
 				5D4D50E4212261E400803A6A /* NullCallbackProtocol.swift */,
 				5D4D50E62122621400803A6A /* NullHandler.swift */,
+				5D17AB4A212A31960014FAD8 /* UserAuthenticatedNullHandler.swift */,
 			);
 			path = null;
 			sourceTree = "<group>";
@@ -519,6 +531,8 @@
 				5D55B68B21266E9E00358644 /* ErrorHandableProtocol.swift in Sources */,
 				5DF5CA211F73568000E5C0DE /* ClientCredentialsProviderProtocol.swift in Sources */,
 				5DAFF43C1F783891000690C8 /* ResponseHandleableProtocol.swift in Sources */,
+				5D17AB47212A2C280014FAD8 /* UserAuthenticatedEntityHandler.swift in Sources */,
+				5D17AB4B212A31960014FAD8 /* UserAuthenticatedNullHandler.swift in Sources */,
 				5D4D50E021225CA100803A6A /* OptionalEntityCallbackProtocol.swift in Sources */,
 				5DF5CA281F73577100E5C0DE /* UserAuthParserProtocol.swift in Sources */,
 				5D4431641FB0868D00EAEA9A /* OptionalEntityHandler.swift in Sources */,
@@ -530,7 +544,9 @@
 				5DF5CA1A1F73544400E5C0DE /* RequestPrototype.swift in Sources */,
 				5DF5CA131F734FB300E5C0DE /* OAuthHttpClient.swift in Sources */,
 				1FF780281FB1EDB600630749 /* MultipartUploadPrototype.swift in Sources */,
+				5D17AB49212A2D240014FAD8 /* NSNotificationExtensions.swift in Sources */,
 				5DF5CA181F7353ED00E5C0DE /* HttpRequestableProtocol.swift in Sources */,
+				5D17AB4D212A31F30014FAD8 /* UserAuthenticatedOptionalEntityHandler.swift in Sources */,
 				1FF780251FB1EA2600630749 /* OAuthHttpClient+MultipartUpload.swift in Sources */,
 				1F2DC1FE20EE4E15003147EA /* ForRESTError.swift in Sources */,
 				5DF5CA2A1F73582900E5C0DE /* AccessToken.swift in Sources */,
