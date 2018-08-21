@@ -1,15 +1,16 @@
 //
-//  NSNotificationExtensions.swift
+//  Notifications.swift
 //  ForREST
 //
-//  Created by Daniel Gaffey on 8/19/18.
+//  Created by Daniel Gaffey on 8/20/18.
 //  Copyright © 2018 UnchartedRealms. All rights reserved.
 //
 
 import Foundation
 
-extension NSNotification.Name {
+
+public struct Notifications {
     
     public static let logout = Notification.Name("ForREST_logout")
-
+    
 }

@@ -50,9 +50,9 @@
 		1FF7802D1FB1EE0C00630749 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF7802C1FB1EE0C00630749 /* RequestType.swift */; };
 		1FF7802E1FB1FC3700630749 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF7802C1FB1EE0C00630749 /* RequestType.swift */; };
 		5D17AB47212A2C280014FAD8 /* UserAuthenticatedEntityHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D17AB46212A2C280014FAD8 /* UserAuthenticatedEntityHandler.swift */; };
-		5D17AB49212A2D240014FAD8 /* NSNotificationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D17AB48212A2D240014FAD8 /* NSNotificationExtensions.swift */; };
 		5D17AB4B212A31960014FAD8 /* UserAuthenticatedNullHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D17AB4A212A31960014FAD8 /* UserAuthenticatedNullHandler.swift */; };
 		5D17AB4D212A31F30014FAD8 /* UserAuthenticatedOptionalEntityHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D17AB4C212A31F30014FAD8 /* UserAuthenticatedOptionalEntityHandler.swift */; };
+		5D17AB4F212BA9010014FAD8 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D17AB4E212BA9010014FAD8 /* Notifications.swift */; };
 		5D4431641FB0868D00EAEA9A /* OptionalEntityHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4431631FB0868D00EAEA9A /* OptionalEntityHandler.swift */; };
 		5D4CC5B92129C09F00F122F5 /* ForRESTErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4CC5B82129C09F00F122F5 /* ForRESTErrorType.swift */; };
 		5D4D50E021225CA100803A6A /* OptionalEntityCallbackProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D50DF21225CA100803A6A /* OptionalEntityCallbackProtocol.swift */; };
@@ -118,9 +118,9 @@
 		1FF7802A1FB1EDF200630749 /* HttpMultipartUploadProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HttpMultipartUploadProtocol.swift; path = forrest/protocol/HttpMultipartUploadProtocol.swift; sourceTree = SOURCE_ROOT; };
 		1FF7802C1FB1EE0C00630749 /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RequestType.swift; path = forrest/prototype/RequestType.swift; sourceTree = SOURCE_ROOT; };
 		5D17AB46212A2C280014FAD8 /* UserAuthenticatedEntityHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthenticatedEntityHandler.swift; sourceTree = "<group>"; };
-		5D17AB48212A2D240014FAD8 /* NSNotificationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NSNotificationExtensions.swift; path = forrest/extension/NSNotificationExtensions.swift; sourceTree = SOURCE_ROOT; };
 		5D17AB4A212A31960014FAD8 /* UserAuthenticatedNullHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserAuthenticatedNullHandler.swift; path = forrest/handler/null/UserAuthenticatedNullHandler.swift; sourceTree = SOURCE_ROOT; };
 		5D17AB4C212A31F30014FAD8 /* UserAuthenticatedOptionalEntityHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserAuthenticatedOptionalEntityHandler.swift; path = forrest/handler/optional/UserAuthenticatedOptionalEntityHandler.swift; sourceTree = SOURCE_ROOT; };
+		5D17AB4E212BA9010014FAD8 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Notifications.swift; path = forrest/config/Notifications.swift; sourceTree = SOURCE_ROOT; };
 		5D4431631FB0868D00EAEA9A /* OptionalEntityHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OptionalEntityHandler.swift; path = ForREST/handler/optional/OptionalEntityHandler.swift; sourceTree = SOURCE_ROOT; };
 		5D4CC5B82129C09F00F122F5 /* ForRESTErrorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ForRESTErrorType.swift; path = forrest/prototype/ForRESTErrorType.swift; sourceTree = SOURCE_ROOT; };
 		5D4D50DF21225CA100803A6A /* OptionalEntityCallbackProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OptionalEntityCallbackProtocol.swift; path = ForREST/handler/optional/OptionalEntityCallbackProtocol.swift; sourceTree = SOURCE_ROOT; };
@@ -169,7 +169,6 @@
 				1F3551BD2023B46A00C50E87 /* CachedUrlResponseExtensions.swift */,
 				1F2BD5E2202373AC0039DA73 /* StringExtensions.swift */,
 				1F2DC20420EEA831003147EA /* DataResponseExtensions.swift */,
-				5D17AB48212A2D240014FAD8 /* NSNotificationExtensions.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -294,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				5DF5CA2B1F735A0900E5C0DE /* NetworkConfig.swift */,
+				5D17AB4E212BA9010014FAD8 /* Notifications.swift */,
 			);
 			path = config;
 			sourceTree = "<group>";
@@ -521,6 +521,7 @@
 				5D4CC5B92129C09F00F122F5 /* ForRESTErrorType.swift in Sources */,
 				1FDB317320065022008AEA77 /* OAuthHttpClient+DataUpload.swift in Sources */,
 				1FDB316F20064EFA008AEA77 /* HttpDataUploadProtocol.swift in Sources */,
+				5D17AB4F212BA9010014FAD8 /* Notifications.swift in Sources */,
 				5D4D50E72122621400803A6A /* NullHandler.swift in Sources */,
 				5DF5CA2C1F735A0900E5C0DE /* NetworkConfig.swift in Sources */,
 				5D4D50E5212261E400803A6A /* NullCallbackProtocol.swift in Sources */,
@@ -544,7 +545,6 @@
 				5DF5CA1A1F73544400E5C0DE /* RequestPrototype.swift in Sources */,
 				5DF5CA131F734FB300E5C0DE /* OAuthHttpClient.swift in Sources */,
 				1FF780281FB1EDB600630749 /* MultipartUploadPrototype.swift in Sources */,
-				5D17AB49212A2D240014FAD8 /* NSNotificationExtensions.swift in Sources */,
 				5DF5CA181F7353ED00E5C0DE /* HttpRequestableProtocol.swift in Sources */,
 				5D17AB4D212A31F30014FAD8 /* UserAuthenticatedOptionalEntityHandler.swift in Sources */,
 				1FF780251FB1EA2600630749 /* OAuthHttpClient+MultipartUpload.swift in Sources */,

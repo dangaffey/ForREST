@@ -17,14 +17,14 @@ open class UserAuthenticatedOptionalEntityHandler<T>: OptionalEntityHandler<T> {
             
             if error.httpCode == 401 {
                 self.failureCallback(error)
-                NotificationCenter.default.post(name: .logout, object: nil)
+                NotificationCenter.default.post(name: Notifications.logout, object: nil)
                 return
             }
             
             
             switch error.type {
             case .expiredUserToken, .refreshFailed:
-                NotificationCenter.default.post(name: .logout, object: nil)
+                NotificationCenter.default.post(name: Notifications.logout, object: nil)
                 
             default:
                 break
