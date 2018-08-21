@@ -13,7 +13,7 @@ public class MultipartUploadPrototype<T>: HttpMultipartUploadProtocol
 {
     public typealias AggregatedHandler = T
     
-    private var type: RequestType = RequestType.NoAuthRequired
+    private var type: RequestType = RequestType.noAuthRequired
     private var url: URLConvertible = ""
     private var method: HTTPMethod
     private var data: (MultipartFormData) -> ()

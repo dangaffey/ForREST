@@ -17,15 +17,15 @@ extension OAuthHttpClient {
     public func addUploadToQueue<T: ResponseHandleableProtocol & ErrorHandleableProtocol>(upload: DataUploadPrototype<T>) {
         switch upload.getType() {
 
-        case .UserAuthRequired:
+        case .userAuthRequired:
             attemptUserAccessUpload(upload: upload)
             break
 
-        case .AppAuthRequired:
+        case .appAuthRequired:
             attemptAppAccessUpload(upload: upload)
             break
 
-        case .NoAuthRequired:
+        case .noAuthRequired:
             makeUpload(uploadObject: upload)
             break
         }
@@ -93,7 +93,7 @@ extension OAuthHttpClient {
         )
 
         let authRequest = RequestPrototype<EntityHandler<AccessToken>>(
-            type: .NoAuthRequired,
+            type: .noAuthRequired,
             method: .post,
             url: oauthConfigProvider.getAppAuthEndpoint(),
             params: parser.toJson(
@@ -170,7 +170,7 @@ extension OAuthHttpClient {
         )
         
         let refreshRequest = RequestPrototype<EntityHandler<RefreshResponse>>(
-            type: .NoAuthRequired,
+            type: .noAuthRequired,
             method: .post,
             url: self.oauthConfigProvider.getRefreshEndpoint(),
             params: parser.toJson(token: self.oauthStateProvider.getUserRefreshData()?.token ?? ""),

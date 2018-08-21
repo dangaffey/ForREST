@@ -13,7 +13,7 @@ public class DataUploadPrototype<T>: HttpDataUploadProtocol
 {
     public typealias AggregatedHandler = T
     
-    private var type: RequestType = RequestType.NoAuthRequired
+    private var type: RequestType = RequestType.noAuthRequired
     private var url: URLConvertible = ""
     private var method: HTTPMethod
     private var data: Data

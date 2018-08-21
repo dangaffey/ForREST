@@ -9,9 +9,9 @@
 import Foundation
 
 
-class UserAuthenticatedNullHandler: NullHandler {
+open class UserAuthenticatedNullHandler: NullHandler {
     
-    override func getFailureCallback() -> (ForRESTError) -> () {
+    override open func getFailureCallback() -> (ForRESTError) -> () {
         
         return { (error: ForRESTError) in
             

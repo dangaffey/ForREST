@@ -10,7 +10,7 @@ import Foundation
 
 
 public enum RequestType {
-    case UserAuthRequired
-    case AppAuthRequired
-    case NoAuthRequired
+    case userAuthRequired
+    case appAuthRequired
+    case noAuthRequired
 }

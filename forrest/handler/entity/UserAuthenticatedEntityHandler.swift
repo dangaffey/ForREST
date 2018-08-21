@@ -9,9 +9,9 @@
 import Foundation
 
 
-class UserAuthenticatedEntityHandler<T>: EntityHandler<T> {
+open class UserAuthenticatedEntityHandler<T>: EntityHandler<T> {
     
-    override func getFailureCallback() -> (ForRESTError) -> () {
+    override open func getFailureCallback() -> (ForRESTError) -> () {
         
         return { (error: ForRESTError) in
             

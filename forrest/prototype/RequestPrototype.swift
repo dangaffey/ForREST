@@ -13,7 +13,7 @@ public class RequestPrototype<T>: HttpRequestableProtocol
 {
     public typealias AggregatedHandler = T
     
-    var type: RequestType = RequestType.NoAuthRequired
+    var type: RequestType = RequestType.noAuthRequired
     var method: HTTPMethod = .get
     var url: URLConvertible = ""
     var contentType: String?

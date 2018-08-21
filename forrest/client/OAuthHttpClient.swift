@@ -108,15 +108,15 @@ public class OAuthHttpClient
     public func addRequestToQueue<T: ResponseHandleableProtocol & ErrorHandleableProtocol>(request: RequestPrototype<T>) {
         switch request.getType() {
 
-        case .UserAuthRequired:
+        case .userAuthRequired:
             attemptUserAccessRequest(request: request)
             break
 
-        case .AppAuthRequired:
+        case .appAuthRequired:
             attemptAppAccessRequest(request: request)
             break
 
-        case .NoAuthRequired:
+        case .noAuthRequired:
             makeRequest(requestObject: request)
             break
         }
@@ -171,7 +171,7 @@ public class OAuthHttpClient
         )
         
         let authRequest = RequestPrototype<EntityHandler<AccessToken>>(
-            type: .NoAuthRequired,
+            type: .noAuthRequired,
             method: .post,
             url: oauthConfigProvider.getAppAuthEndpoint(),
             params: parser.toJson(
@@ -226,7 +226,7 @@ public class OAuthHttpClient
         )
 
         let authRequest = RequestPrototype<EntityHandler<AccessToken>>(
-            type: .NoAuthRequired,
+            type: .noAuthRequired,
             method: .post,
             url: oauthConfigProvider.getAppAuthEndpoint(),
             params: parser.toJson(
@@ -278,7 +278,7 @@ public class OAuthHttpClient
         )
         
         let userRequest = RequestPrototype<EntityHandler<UserResponse>>(
-            type: .NoAuthRequired,
+            type: .noAuthRequired,
             method: .post,
             url: oauthConfigProvider.getUserAuthEndpoint(),
             params: parser.toJson(username: username, password: password),
@@ -354,7 +354,7 @@ public class OAuthHttpClient
         )
         
         let refreshRequest = RequestPrototype<EntityHandler<RefreshResponse>>(
-            type: .NoAuthRequired,
+            type: .noAuthRequired,
             method: .post,
             url: self.oauthConfigProvider.getRefreshEndpoint(),
             params: parser.toJson(token: self.oauthStateProvider.getUserRefreshData()?.token ?? ""),
@@ -409,14 +409,14 @@ public class OAuthHttpClient
     internal func getAuthorizationHeader(type: RequestType) -> String?
     {
         switch type {
-        case .UserAuthRequired:
+        case .userAuthRequired:
             guard let header = oauthStateProvider.getUserAccessData()?.token else {
                 return nil
             }
             
             return header
             
-        case .AppAuthRequired:
+        case .appAuthRequired:
             guard oauthStateProvider.userAccessTokenValid() else {
                 guard let header = oauthStateProvider.getAppAccessData()?.token else {
                     return nil
@@ -431,7 +431,7 @@ public class OAuthHttpClient
             
             return header
             
-        case .NoAuthRequired:
+        case .noAuthRequired:
             return nil
         }
     }
