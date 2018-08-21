@@ -10,6 +10,6 @@ import Foundation
 
 extension NSNotification.Name {
     
-    static let logout = Notification.Name("ForREST_logout")
+    public static let logout = Notification.Name("ForREST_logout")
 
 }
