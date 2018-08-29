@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-public class ForRESTError {
+open class ForRESTError {
     public var type: ForRESTErrorType
     public var httpCode: Int = -1
     public var reason: String?
