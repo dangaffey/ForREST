@@ -18,7 +18,7 @@ open class ForRESTError {
     public init(_ type: ForRESTErrorType, response: DataResponse<Data>? = nil, error: Error? = nil) {
         self.type = type
         
-        self.httpCode = response?.getStatusCode()
+        self.httpCode = response?.getStatusCode() ?? -1
         if let apiData = response?.data {
             self.reason = String(data: apiData, encoding: .utf8)
         }
