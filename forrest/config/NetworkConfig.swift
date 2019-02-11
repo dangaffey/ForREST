@@ -30,7 +30,7 @@ public class NetworkConfig
         watchdogRunning = true
     }
     
-    var watchdogRunning: Bool {
+    public var watchdogRunning: Bool {
         willSet(running) {
             if running {
                 refreshTimer?.invalidate()   // just in case you had existing `Timer`, `invalidate` it before we lose our reference to it
