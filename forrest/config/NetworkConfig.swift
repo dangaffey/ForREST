@@ -16,7 +16,6 @@ public class NetworkConfig
     private var configProvider: OAuthConfigProviderProtocol?
     private var stateProvider: OAuthStateProviderProtocol?
     private var metricsTracker: RequestMetricsProtocol?
-    private var refreshTimer: Timer?
     
     public var transportOverrideDomains: [String]?
     public var followRedirectsWithAuth = false
@@ -26,27 +25,8 @@ public class NetworkConfig
     /**
          Hide constructor to force static singleton usage
      */
-    private init() {
-        watchdogRunning = true
-    }
-    
-    public var watchdogRunning: Bool {
-        willSet(running) {
-            if running {
-                refreshTimer?.invalidate()   // just in case you had existing `Timer`, `invalidate` it before we lose our reference to it
-                refreshTimer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { [weak self] _ in
-                    debugPrint("WATCHDOG ON ALERT")
-//                    if OAuthHttpClient.sharedInstance.isRefreshing && OAuthHttpClient.sharedInstance.refreshTimestamp {
-//
-//                    }
-                }
-            } else {
-                refreshTimer?.invalidate()
-                refreshTimer = nil
-            }
-        }
-    }
-    
+    private init() {}
+
     
     /**
          Provides an optional policy to trust domains, for

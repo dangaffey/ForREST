@@ -90,8 +90,7 @@ class UserAuthRequiredTests: XCTestCase
         
         try! self.mockStateProvider!.setUserAccessData(token: "", expiration: "")
         XCTAssert(self.mockStateProvider!.userAccessTokenValid() == false)
-        
-        
+
         let refreshExpectation = expectation(description: "implicitRefresh")
         
         self.mockService!.getUserSecuredData(

@@ -37,6 +37,11 @@
                BlueprintName = "ForRESTTests"
                ReferencedContainer = "container:ForREST.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "UserAuthRequiredTests/testUserRefreshBadToken()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>

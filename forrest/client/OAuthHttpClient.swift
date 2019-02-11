@@ -33,19 +33,11 @@ public class OAuthHttpClient
     let alamofire: Alamofire.SessionManager
     
     var refreshQueue = [DispatchWorkItem]()
-    var isRefreshing: Bool {
-        didSet(refreshing) {
-            if refreshing {
-                refreshTimestamp = Date()
-            }
-        }
-    }
-    var refreshTimestamp: Date?
+    var isRefreshing = false
     
     let AUTH_HEADER = "Authorization"
     
     private init(config: NetworkConfig) {
-        self.isRefreshing = false
         self.oauthStateProvider = config.getStateProvider()!
         self.oauthConfigProvider = config.getConfigProvider()!
         
