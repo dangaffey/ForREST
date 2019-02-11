@@ -28,7 +28,9 @@ class CacheService
         successHandler: @escaping (Any) -> (),
         failureHandler: @escaping (Any) -> ()
         ) {
-        let responseHandler = ResponseHandler<Any>(
+        
+        
+        let responseHandler = EntityHandler<Any>(
             parserClosure: { (data: Data) -> (Any?) in
                 debugPrint(data)
                 return Int()
@@ -36,18 +38,18 @@ class CacheService
             successCallback: { (object: Any) in
                 successHandler(object)
         },
-            failureCallback: { (error: Error) in
+            failureCallback: { (error: ForRESTError) in
                 failureHandler(error)
         }
         )
         
-        let request = RequestPrototype<ResponseHandler<Any>>(
-            type: RequestType.NoAuthRequired,
+        let request = RequestPrototype<EntityHandler<Any>>(
+            type: RequestType.noAuthRequired,
             method: .get,
             url: Endpoints.GET_PUBLIC_CACHE,
             params: nil,
             parameterEncoding: URLEncoding.default,
-            responseHandler: responseHandler
+            aggregatedHandler: responseHandler
         )
         
         httpClient.addRequestToQueue(request: request)
@@ -58,7 +60,7 @@ class CacheService
         successHandler: @escaping (Any) -> (),
         failureHandler: @escaping (Any) -> ()
         ) {
-        let responseHandler = ResponseHandler<Any>(
+        let responseHandler = EntityHandler<Any>(
             parserClosure: { (data: Data) -> (Any?) in
                 debugPrint(data)
                 return Int()
@@ -66,18 +68,18 @@ class CacheService
             successCallback: { (object: Any) in
                 successHandler(object)
         },
-            failureCallback: { (error: Error) in
+            failureCallback: { (error: ForRESTError) in
                 failureHandler(error)
         }
         )
         
-        let request = RequestPrototype<ResponseHandler<Any>>(
-            type: RequestType.NoAuthRequired,
+        let request = RequestPrototype<EntityHandler<Any>>(
+            type: RequestType.noAuthRequired,
             method: .get,
             url: Endpoints.GET_PRIVATE_CACHE,
             params: nil,
             parameterEncoding: URLEncoding.default,
-            responseHandler: responseHandler
+            aggregatedHandler: responseHandler
         )
         
         

@@ -47,7 +47,7 @@ class AppAuthRequiredTests: XCTestCase
             successHandler: { () in
                 asyncExpectation.fulfill()
             },
-            failureHandler: { (error: Error) in
+            failureHandler: { (error: ForRESTError) in
                 asyncExpectation.fulfill()
             }
         )

@@ -11,7 +11,7 @@ import Alamofire
 
 extension DataResponse {
     
-    func getStatusCode() -> Int {
+    public func getStatusCode() -> Int {
         guard let code = response?.statusCode else {
             return -1
         }

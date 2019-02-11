@@ -55,7 +55,7 @@ class UserAuthRequiredTests: XCTestCase
             successHandler: { ([String: AnyObject]?) in
                 asyncExpectation.fulfill()
             },
-            failureHandler: { (error: Error) in
+            failureHandler: { (error: ForRESTError) in
                 asyncExpectation.fulfill()
             }
         )
@@ -78,7 +78,7 @@ class UserAuthRequiredTests: XCTestCase
             successHandler: { ([String: AnyObject]?) in
                 asyncExpectation.fulfill()
             },
-            failureHandler: { (error: Error) in
+            failureHandler: { (error: ForRESTError) in
                 asyncExpectation.fulfill()
             }
         )
