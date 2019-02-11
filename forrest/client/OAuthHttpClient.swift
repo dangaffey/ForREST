@@ -33,11 +33,19 @@ public class OAuthHttpClient
     let alamofire: Alamofire.SessionManager
     
     var refreshQueue = [DispatchWorkItem]()
-    var isRefreshing = false
+    var isRefreshing: Bool {
+        didSet(refreshing) {
+            if refreshing {
+                refreshTimestamp = Date()
+            }
+        }
+    }
+    var refreshTimestamp: Date?
     
     let AUTH_HEADER = "Authorization"
     
     private init(config: NetworkConfig) {
+        self.isRefreshing = false
         self.oauthStateProvider = config.getStateProvider()!
         self.oauthConfigProvider = config.getConfigProvider()!
         
@@ -312,39 +320,29 @@ public class OAuthHttpClient
         let parser = self.oauthConfigProvider.getRefreshParser()
         
         let refreshSuccessHandler = { [weak self] (response: RefreshResponse) in
-            
-            guard let `self` = self else {
-                request.getAggregatedHandler().handleError(ForRESTError(.refreshFailed))
-                return
-            }
-            
             do {
-                try self.oauthStateProvider.setUserAccessData(
+                try self?.oauthStateProvider.setUserAccessData(
                     token: response.userToken.id,
                     expiration: response.userToken.expiration)
                 
-                try self.oauthStateProvider.setUserRefreshData(
+                try self?.oauthStateProvider.setUserRefreshData(
                     token: response.refreshToken.id,
                     expiration: response.refreshToken.expiration)
                 
             } catch (let error) {
                 request.getAggregatedHandler().handleError(ForRESTError(.refreshFailed, error: error))
-                self.refreshQueue.removeAll()
+                self?.refreshQueue.removeAll()
             }
             
-            self.isRefreshing = false
-            self.sendPendingRequests()
+            self?.isRefreshing = false
+            self?.sendPendingRequests()
         }
-        
         
         let refreshFailureHandler = { [weak self] (error: ForRESTError) in
             error.httpCode = 401 //Set all refresh errors to 401's so client can key off one scenario
-            guard let `self` = self else {
-                request.getAggregatedHandler().handleError(error)
-                return
-            }
             request.getAggregatedHandler().handleError(error)
-            self.refreshQueue.removeAll()
+            self?.isRefreshing = false
+            self?.refreshQueue.removeAll()
         }
         
         let entityHandler = EntityHandler<RefreshResponse>(
