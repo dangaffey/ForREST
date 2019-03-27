@@ -12,5 +12,6 @@ import Foundation
 public struct Notifications {
     
     public static let logout = Notification.Name("ForREST_logout")
+    public static let clearAppToken = Notification.Name("ForREST_clear_app_token")
     
 }

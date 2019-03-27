@@ -41,6 +41,7 @@
 		1F82ED511F744AA50084D9E2 /* AppAuthRequiredTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED501F744AA50084D9E2 /* AppAuthRequiredTests.swift */; };
 		1F82ED561F756D1B0084D9E2 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82ED551F756D1B0084D9E2 /* DateExtensions.swift */; };
 		1F82ED581F756DDA0084D9E2 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F82ED571F756DDA0084D9E2 /* SwiftyJSON.framework */; };
+		1FB93359224C1AF600DA674C /* AppAuthenticatedEntityHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB93358224C1AF600DA674C /* AppAuthenticatedEntityHandler.swift */; };
 		1FDB316F20064EFA008AEA77 /* HttpDataUploadProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDB316E20064EFA008AEA77 /* HttpDataUploadProtocol.swift */; };
 		1FDB317120064FA7008AEA77 /* DataUploadPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDB317020064FA7008AEA77 /* DataUploadPrototype.swift */; };
 		1FDB317320065022008AEA77 /* OAuthHttpClient+DataUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDB317220065022008AEA77 /* OAuthHttpClient+DataUpload.swift */; };
@@ -119,6 +120,7 @@
 		1F82ED501F744AA50084D9E2 /* AppAuthRequiredTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuthRequiredTests.swift; sourceTree = "<group>"; };
 		1F82ED551F756D1B0084D9E2 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		1F82ED571F756DDA0084D9E2 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
+		1FB93358224C1AF600DA674C /* AppAuthenticatedEntityHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppAuthenticatedEntityHandler.swift; path = forrest/handler/entity/AppAuthenticatedEntityHandler.swift; sourceTree = SOURCE_ROOT; };
 		1FDB316E20064EFA008AEA77 /* HttpDataUploadProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpDataUploadProtocol.swift; sourceTree = "<group>"; };
 		1FDB317020064FA7008AEA77 /* DataUploadPrototype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DataUploadPrototype.swift; path = forrest/prototype/DataUploadPrototype.swift; sourceTree = SOURCE_ROOT; };
 		1FDB317220065022008AEA77 /* OAuthHttpClient+DataUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "OAuthHttpClient+DataUpload.swift"; path = "ForREST/client/OAuthHttpClient+DataUpload.swift"; sourceTree = SOURCE_ROOT; };
@@ -264,6 +266,7 @@
 				5D85A6B42127A5000078C2D5 /* EntityCallbackProtocol.swift */,
 				5DAFF43E1F783A30000690C8 /* EntityHandler.swift */,
 				5D17AB46212A2C280014FAD8 /* UserAuthenticatedEntityHandler.swift */,
+				1FB93358224C1AF600DA674C /* AppAuthenticatedEntityHandler.swift */,
 			);
 			path = entity;
 			sourceTree = "<group>";
@@ -553,6 +556,7 @@
 				5DF5CA1D1F73556200E5C0DE /* OAuthStateProviderProtocol.swift in Sources */,
 				5DF5CA1A1F73544400E5C0DE /* RequestPrototype.swift in Sources */,
 				5DF5CA131F734FB300E5C0DE /* OAuthHttpClient.swift in Sources */,
+				1FB93359224C1AF600DA674C /* AppAuthenticatedEntityHandler.swift in Sources */,
 				1FF780281FB1EDB600630749 /* MultipartUploadPrototype.swift in Sources */,
 				5DF5CA181F7353ED00E5C0DE /* HttpRequestableProtocol.swift in Sources */,
 				5D17AB4D212A31F30014FAD8 /* UserAuthenticatedOptionalEntityHandler.swift in Sources */,
