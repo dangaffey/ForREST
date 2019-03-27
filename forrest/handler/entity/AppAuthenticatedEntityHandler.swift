@@ -9,7 +9,7 @@
 import Foundation
 
 
-open class AppAuthenicatedEntityHandler<T>: EntityHandler<T> {
+open class AppAuthenticatedEntityHandler<T>: EntityHandler<T> {
     
     override open func getFailureCallback() -> (ForRESTError) -> () {
         
@@ -20,7 +20,7 @@ open class AppAuthenicatedEntityHandler<T>: EntityHandler<T> {
                 NotificationCenter.default.post(name: Notifications.clearAppToken, object: nil)
                 return
             }
-            
+
             
             switch error.type {
             case .appAuthFailed:
