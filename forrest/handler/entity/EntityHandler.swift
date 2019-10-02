@@ -84,7 +84,7 @@ open class EntityHandler<T>: ResponseHandleableProtocol, ErrorHandleableProtocol
             let path = response.request?.url?.path,
             let data = response.data,
             let errorString = String(data: data, encoding: .utf8) {
-            tracker.trackAPIError(requestMethod: method, path: path, error: errorString)
+            tracker.trackAPIError(requestMethod: method, path: path, error: errorString, errorCode: response.getStatusCode())
         }
     }
     

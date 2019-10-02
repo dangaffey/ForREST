@@ -18,6 +18,10 @@ open class OptionalEntityHandler<T>: ResponseHandleableProtocol, ErrorHandleable
     public var successCallback: (EntityType?) -> ()
     public var failureCallback: (ForRESTError) -> ()
     
+    private lazy var metricsTracker: RequestMetricsProtocol? = {
+        return NetworkConfig.sharedInstance.getMetricsTracker()
+    }()
+    
     public init(
         parserClosure: @escaping (Data) -> (EntityType?),
         successCallback: @escaping (EntityType?) -> (),
@@ -45,8 +49,10 @@ open class OptionalEntityHandler<T>: ResponseHandleableProtocol, ErrorHandleable
             
         case .failure(let error):
             failureCallback(ForRESTError(.apiError, error: error))
+            trackAPIError(response)
             break
         }
+        trackAPILatency(response)
     }
     
     /**
@@ -68,6 +74,26 @@ open class OptionalEntityHandler<T>: ResponseHandleableProtocol, ErrorHandleable
         return failureCallback
     }
     
+    public func trackAPILatency(_ response: DataResponse<Data>) {
+        if let tracker = metricsTracker,
+            let method = response.request?.httpMethod,
+            let path = response.request?.url?.path {
+            tracker.trackAPILatency(
+                requestMethod: method,
+                path: path,
+                timeElapsed: String(format: "%.2f", response.timeline.requestDuration)
+            )
+        }
+    }
     
+    public func trackAPIError(_ response: DataResponse<Data>) {
+        if let tracker = metricsTracker,
+            let method = response.request?.httpMethod,
+            let path = response.request?.url?.path,
+            let data = response.data,
+            let errorString = String(data: data, encoding: .utf8) {
+            tracker.trackAPIError(requestMethod: method, path: path, error: errorString, errorCode: response.getStatusCode())
+        }
+    }
     
 }

@@ -12,5 +12,5 @@ public protocol RequestMetricsProtocol
 {
     func trackAPILatency(requestMethod: String, path: String, timeElapsed: String) -> ()
     
-    func trackAPIError(requestMethod: String, path: String, error: String) -> ()
+    func trackAPIError(requestMethod: String, path: String, error: String, errorCode: Int) -> ()
 }

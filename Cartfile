@@ -1,2 +1,2 @@
-github "Alamofire/Alamofire" ~> 4.7
-github "SwiftyJSON/SwiftyJSON" ~> 4.0
+github "Alamofire/Alamofire" ~> 4.9
+github "SwiftyJSON/SwiftyJSON" ~> 5.0
