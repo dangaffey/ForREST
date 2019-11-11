@@ -12,6 +12,7 @@ struct Endpoints
 {
     static let GET_NO_AUTH_DATA = "https://jsonplaceholder.typicode.com/posts/1"
     static let GET_TOKEN = "http://localhost:8000/oauth/v2/token"
+    static let GET_REFRESH_401 = "http://localhost:8000/refresh/bad"
     static let GET_USER_DATA = "http://localhost:8000/secure"
     static let GET_PUBLIC_CACHE = "http://localhost:8000/public-cache"
     static let GET_PRIVATE_CACHE = "http://localhost:8000/private-cache"

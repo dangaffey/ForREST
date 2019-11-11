@@ -63,7 +63,7 @@ struct MockService
         successHandler: @escaping (Any) -> (),
         failureHandler: @escaping (Any) -> ()) {
         
-        let responseHandler = EntityHandler<Any>(
+        let responseHandler = UserAuthenticatedEntityHandler<Any>(
             parserClosure: { (data: Data) -> (Any?) in
                 debugPrint(data)
                 return data
@@ -76,7 +76,7 @@ struct MockService
             }
         )
         
-        let request = RequestPrototype<EntityHandler<Any>>(
+        let request = RequestPrototype<UserAuthenticatedEntityHandler<Any>>(
             type: RequestType.userAuthRequired,
             method: .get,
             url: Endpoints.GET_USER_DATA,
