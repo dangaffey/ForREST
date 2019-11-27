@@ -9,6 +9,9 @@
 import Foundation
 import Alamofire
 
+public protocol OAuthHttpClientDelegate: class {
+    func requestExecuted(requestURL: URL)
+}
 
 public class OAuthHttpClient
 {
@@ -34,10 +37,11 @@ public class OAuthHttpClient
     
     var refreshQueue = [DispatchWorkItem]()
     var isRefreshing = false
+    private weak var delegate: OAuthHttpClientDelegate?
     
     let AUTH_HEADER = "Authorization"
     
-    private init(config: NetworkConfig) {
+    private init(config: NetworkConfig, delegate: OAuthHttpClientDelegate? = nil) {
         self.oauthStateProvider = config.getStateProvider()!
         self.oauthConfigProvider = config.getConfigProvider()!
         
@@ -57,6 +61,7 @@ public class OAuthHttpClient
         }
         
         self.alamofire = sessionManager
+        self.delegate = delegate
     }
     
     
@@ -389,6 +394,8 @@ public class OAuthHttpClient
                           headers: headers)
             .validate(statusCode: 200..<300)
             .responseData(completionHandler: requestObject.getAggregatedHandler().handleResponse)
+        
+        delegate?.requestExecuted(requestURL: requestObject.getUrl().asURL())
     }
     
     
