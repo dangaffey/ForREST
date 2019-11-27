@@ -9,7 +9,6 @@
 import Foundation
 import Alamofire
 
-
 public class OAuthHttpClient
 {
     typealias RedirectClosure = ((URLSession, URLSessionTask, HTTPURLResponse, URLRequest) -> URLRequest?)?
@@ -34,12 +33,14 @@ public class OAuthHttpClient
     
     var refreshQueue = [DispatchWorkItem]()
     var isRefreshing = false
+    private var requestLoggerProvider: RequestLoggingProtocol?
     
     let AUTH_HEADER = "Authorization"
     
     private init(config: NetworkConfig) {
         self.oauthStateProvider = config.getStateProvider()!
         self.oauthConfigProvider = config.getConfigProvider()!
+        self.requestLoggerProvider = config.getRequestLogger()
         
         let configuration = URLSessionConfiguration.default
         let sessionManager = Alamofire.SessionManager(
@@ -389,6 +390,8 @@ public class OAuthHttpClient
                           headers: headers)
             .validate(statusCode: 200..<300)
             .responseData(completionHandler: requestObject.getAggregatedHandler().handleResponse)
+        
+        requestLoggerProvider?.requestExecuted(requestURL: requestObject.getUrl())
     }
     
     
