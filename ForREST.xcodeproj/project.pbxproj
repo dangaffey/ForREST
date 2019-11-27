@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09FE7FBC238ED474000986D8 /* RequestLoggingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FE7FBB238ED474000986D8 /* RequestLoggingProtocol.swift */; };
 		1F0457A01F7E999A00ECC686 /* UserAuthRequiredTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F04579F1F7E999A00ECC686 /* UserAuthRequiredTests.swift */; };
 		1F2BD5DF202218390039DA73 /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BD5DE202218390039DA73 /* CacheService.swift */; };
 		1F2BD5E120221B7D0039DA73 /* CacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BD5E020221B7D0039DA73 /* CacheTests.swift */; };
@@ -106,6 +107,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		09FE7FBB238ED474000986D8 /* RequestLoggingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RequestLoggingProtocol.swift; path = forrest/protocol/RequestLoggingProtocol.swift; sourceTree = SOURCE_ROOT; };
 		1F04579F1F7E999A00ECC686 /* UserAuthRequiredTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthRequiredTests.swift; sourceTree = "<group>"; };
 		1F2BD5DE202218390039DA73 /* CacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CacheService.swift; path = forrestTests/service/CacheService.swift; sourceTree = SOURCE_ROOT; };
 		1F2BD5E020221B7D0039DA73 /* CacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CacheTests.swift; path = forrestTests/test/CacheTests.swift; sourceTree = SOURCE_ROOT; };
@@ -268,6 +270,7 @@
 				1FF7802A1FB1EDF200630749 /* HttpMultipartUploadProtocol.swift */,
 				1FDB316E20064EFA008AEA77 /* HttpDataUploadProtocol.swift */,
 				1F2DC1F920EBBF31003147EA /* RequestMetricsProtocol.swift */,
+				09FE7FBB238ED474000986D8 /* RequestLoggingProtocol.swift */,
 			);
 			path = protocol;
 			sourceTree = "<group>";
@@ -552,6 +555,7 @@
 				5D4D50E72122621400803A6A /* NullHandler.swift in Sources */,
 				5DF5CA2C1F735A0900E5C0DE /* NetworkConfig.swift in Sources */,
 				5D4D50E5212261E400803A6A /* NullCallbackProtocol.swift in Sources */,
+				09FE7FBC238ED474000986D8 /* RequestLoggingProtocol.swift in Sources */,
 				1F3551BF2023B80700C50E87 /* CachedUrlResponseExtensions.swift in Sources */,
 				1F2DC20520EEA831003147EA /* DataResponseExtensions.swift in Sources */,
 				5DF5CA241F73571800E5C0DE /* RefreshParserProtocol.swift in Sources */,

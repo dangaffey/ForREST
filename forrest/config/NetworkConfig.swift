@@ -16,6 +16,7 @@ public class NetworkConfig
     private var configProvider: OAuthConfigProviderProtocol?
     private var stateProvider: OAuthStateProviderProtocol?
     private var metricsTracker: RequestMetricsProtocol?
+    private var requestLogger: RequestLoggingProtocol?
     
     public var transportOverrideDomains: [String]?
     public var followRedirectsWithAuth = false
@@ -91,6 +92,22 @@ public class NetworkConfig
     public func getMetricsTracker() -> RequestMetricsProtocol?
     {
         return self.metricsTracker
+    }
+    
+    /**
+     Sets the request logger object
+     */
+    public func setRequestLogger(requestLogger: RequestLoggingProtocol)
+    {
+        self.requestLogger = requestLogger
+    }
+    
+    /**
+     Provides the request logger for requests
+     */
+    public func getRequestLogger() -> RequestLoggingProtocol?
+    {
+        return self.requestLogger
     }
 }
 

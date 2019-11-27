@@ -9,10 +9,6 @@
 import Foundation
 import Alamofire
 
-public protocol OAuthHttpClientDelegate: class {
-    func requestExecuted(requestURL: URL)
-}
-
 public class OAuthHttpClient
 {
     typealias RedirectClosure = ((URLSession, URLSessionTask, HTTPURLResponse, URLRequest) -> URLRequest?)?
@@ -37,13 +33,14 @@ public class OAuthHttpClient
     
     var refreshQueue = [DispatchWorkItem]()
     var isRefreshing = false
-    private weak var delegate: OAuthHttpClientDelegate?
+    private var requestLoggerProvider: RequestLoggingProtocol?
     
     let AUTH_HEADER = "Authorization"
     
-    private init(config: NetworkConfig, delegate: OAuthHttpClientDelegate? = nil) {
+    private init(config: NetworkConfig) {
         self.oauthStateProvider = config.getStateProvider()!
         self.oauthConfigProvider = config.getConfigProvider()!
+        self.requestLoggerProvider = config.getRequestLogger()
         
         let configuration = URLSessionConfiguration.default
         let sessionManager = Alamofire.SessionManager(
@@ -61,7 +58,6 @@ public class OAuthHttpClient
         }
         
         self.alamofire = sessionManager
-        self.delegate = delegate
     }
     
     
@@ -395,7 +391,7 @@ public class OAuthHttpClient
             .validate(statusCode: 200..<300)
             .responseData(completionHandler: requestObject.getAggregatedHandler().handleResponse)
         
-        delegate?.requestExecuted(requestURL: requestObject.getUrl().asURL())
+        requestLoggerProvider?.requestExecuted(requestURL: requestObject.getUrl())
     }
     
     
