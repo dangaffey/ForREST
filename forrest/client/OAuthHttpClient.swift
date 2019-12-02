@@ -27,20 +27,20 @@ public class OAuthHttpClient
     
     public static let sharedInstance = OAuthHttpClient(config: NetworkConfig.sharedInstance)
     
+    let config: NetworkConfig
     let oauthStateProvider: OAuthStateProviderProtocol
     let oauthConfigProvider: OAuthConfigProviderProtocol
     let alamofire: Alamofire.SessionManager
     
     var refreshQueue = [DispatchWorkItem]()
     var isRefreshing = false
-    private var requestLoggerProvider: RequestLoggingProtocol?
     
     let AUTH_HEADER = "Authorization"
     
     private init(config: NetworkConfig) {
+        self.config = config
         self.oauthStateProvider = config.getStateProvider()!
         self.oauthConfigProvider = config.getConfigProvider()!
-        self.requestLoggerProvider = config.getRequestLogger()
         
         let configuration = URLSessionConfiguration.default
         let sessionManager = Alamofire.SessionManager(
@@ -391,7 +391,7 @@ public class OAuthHttpClient
             .validate(statusCode: 200..<300)
             .responseData(completionHandler: requestObject.getAggregatedHandler().handleResponse)
         
-        requestLoggerProvider?.requestExecuted(requestURL: requestObject.getUrl())
+        config.getRequestLogger()?.requestExecuted(requestURL: requestObject.getUrl())
     }
     
     
