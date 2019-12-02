@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09A68B9923955741009A38A0 /* RequestLoggingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FE7FBB238ED474000986D8 /* RequestLoggingProtocol.swift */; };
 		09FE7FBC238ED474000986D8 /* RequestLoggingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FE7FBB238ED474000986D8 /* RequestLoggingProtocol.swift */; };
 		1F0457A01F7E999A00ECC686 /* UserAuthRequiredTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F04579F1F7E999A00ECC686 /* UserAuthRequiredTests.swift */; };
 		1F2BD5DF202218390039DA73 /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2BD5DE202218390039DA73 /* CacheService.swift */; };
@@ -602,6 +603,7 @@
 				1FEAA6962379FD5E008D80B8 /* MockBadRefreshConfigProvider.swift in Sources */,
 				1F58845C1F7D805A00C333E0 /* EntityHandler.swift in Sources */,
 				1F82ED561F756D1B0084D9E2 /* DateExtensions.swift in Sources */,
+				09A68B9923955741009A38A0 /* RequestLoggingProtocol.swift in Sources */,
 				1F82ED491F74188B0084D9E2 /* MockRefreshParser.swift in Sources */,
 				5D4D50EE21226B8B00803A6A /* OAuthHttpClient+DataUpload.swift in Sources */,
 				1FF7802E1FB1FC3700630749 /* RequestType.swift in Sources */,

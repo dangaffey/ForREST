@@ -29,18 +29,18 @@ public class OAuthHttpClient
     
     let oauthStateProvider: OAuthStateProviderProtocol
     let oauthConfigProvider: OAuthConfigProviderProtocol
+    let requestLoggerProvider: RequestLoggingProtocol
     let alamofire: Alamofire.SessionManager
     
     var refreshQueue = [DispatchWorkItem]()
     var isRefreshing = false
-    private var requestLoggerProvider: RequestLoggingProtocol?
     
     let AUTH_HEADER = "Authorization"
     
     private init(config: NetworkConfig) {
         self.oauthStateProvider = config.getStateProvider()!
         self.oauthConfigProvider = config.getConfigProvider()!
-        self.requestLoggerProvider = config.getRequestLogger()
+        self.requestLoggerProvider = config.getRequestLogger()!
         
         let configuration = URLSessionConfiguration.default
         let sessionManager = Alamofire.SessionManager(
