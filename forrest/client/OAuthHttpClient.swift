@@ -248,6 +248,7 @@ public class OAuthHttpClient
     public func attemptUserAuthentication(
         username: String,
         password: String,
+        meta: [String: Any]? = nil,
         successHandler: @escaping ([String: AnyObject]?) -> (),
         failureHandler: @escaping (ForRESTError) -> ()
     ) {
@@ -282,7 +283,7 @@ public class OAuthHttpClient
             type: .noAuthRequired,
             method: .post,
             url: oauthConfigProvider.getUserAuthEndpoint(),
-            params: parser.toJson(username: username, password: password),
+            params: parser.toJson(username: username, password: password, meta: meta),
             parameterEncoding: JSONEncoding.default,
             aggregatedHandler: entityHandler
         )

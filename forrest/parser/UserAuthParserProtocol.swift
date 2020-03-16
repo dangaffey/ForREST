@@ -11,7 +11,7 @@ import Alamofire
 
 public protocol UserAuthParserProtocol
 {
-    func toJson(username: String, password: String) -> Parameters
+    func toJson(username: String, password: String, meta: [String : Any]?) -> Parameters
     
     func fromJson(jsonData: Data) -> (
         userToken: AccessToken,
