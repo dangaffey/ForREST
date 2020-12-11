@@ -18,6 +18,7 @@ public class NetworkConfig
     private var metricsTracker: RequestMetricsProtocol?
     private var requestLogger: RequestLoggingProtocol?
     
+    public var httpAdditionalHeaders: [AnyHashable : Any]?
     public var transportOverrideDomains: [String]?
     public var followRedirectsWithAuth = false
     public var stripMustRevalidate = false
@@ -108,6 +109,19 @@ public class NetworkConfig
     public func getRequestLogger() -> RequestLoggingProtocol?
     {
         return self.requestLogger
+    }
+    
+    public func setHttpAdditionalHeaders(_ headers: [AnyHashable : Any])
+    {
+        self.httpAdditionalHeaders = headers
+    }
+    
+    /**
+     Provides the additional headers to add onto all requests
+     */
+    public func getHttpAdditionalHeaders() -> [AnyHashable : Any]?
+    {
+        return self.httpAdditionalHeaders
     }
 }
 

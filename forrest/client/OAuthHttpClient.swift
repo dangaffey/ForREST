@@ -43,6 +43,11 @@ public class OAuthHttpClient
         self.oauthConfigProvider = config.getConfigProvider()!
         
         let configuration = URLSessionConfiguration.default
+        
+        if let headers = config.getHttpAdditionalHeaders() {
+            configuration.httpAdditionalHeaders = headers
+        }
+        
         let sessionManager = Alamofire.SessionManager(
             configuration: configuration,
             serverTrustPolicyManager: ServerTrustPolicyManager(policies: config.sslOverridePolicy)
